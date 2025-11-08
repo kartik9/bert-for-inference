@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Trust & Safety Analysis Platform</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>🛡️ URL Trust & Safety Analysis</h1>
+                <p class="subtitle">AI-Powered Investigation Platform for Safety Researchers</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Input Section -->
+            <section class="input-section" id="inputSection">
+                <div class="card">
+                    <h2>Start Investigation</h2>
+                    <p class="description">
+                        Enter a URL to analyze for trust and safety concerns including phishing,
+                        malware, scams, fraud, and other threats.
+                    </p>
+
+                    <div class="input-group">
+                        <input
+                            type="text"
+                            id="urlInput"
+                            class="url-input"
+                            placeholder="https://example.com"
+                            autocomplete="off"
+                        />
+                        <button id="analyzeBtn" class="btn-primary">
+                            Analyze URL
+                        </button>
+                    </div>
+
+                    <div class="options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="deepAnalysis" checked>
+                            <span>Enable Deep Analysis</span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Progress Section -->
+            <section class="progress-section hidden" id="progressSection">
+                <div class="card">
+                    <div class="progress-header">
+                        <h3 id="currentPhase">Initializing...</h3>
+                        <span class="progress-percent" id="progressPercent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p class="progress-message" id="progressMessage"></p>
+                </div>
+            </section>
+
+            <!-- Investigation Plan -->
+            <section class="plan-section hidden" id="planSection">
+                <div class="card">
+                    <h3>📋 Investigation Plan</h3>
+                    <div id="planContent" class="plan-content"></div>
+                </div>
+            </section>
+
+            <!-- Live Analysis Feed -->
+            <section class="analysis-section hidden" id="analysisSection">
+                <div class="card">
+                    <h3>🔍 Live Analysis & Reasoning</h3>
+                    <div id="analysisContent" class="analysis-content"></div>
+                </div>
+            </section>
+
+            <!-- Technical Details -->
+            <section class="technical-section hidden" id="technicalSection">
+                <div class="card">
+                    <h3>🔧 Technical Analysis</h3>
+                    <div id="technicalContent" class="technical-content"></div>
+                </div>
+            </section>
+
+            <!-- Final Report -->
+            <section class="report-section hidden" id="reportSection">
+                <div class="card">
+                    <h3>📊 Final Report</h3>
+                    <div id="reportContent" class="report-content"></div>
+                </div>
+            </section>
+
+            <!-- Follow-up Questions -->
+            <section class="followup-section hidden" id="followupSection">
+                <div class="card">
+                    <h3>💬 Ask Follow-up Questions</h3>
+                    <div id="followupHistory" class="followup-history"></div>
+                    <div class="input-group">
+                        <input
+                            type="text"
+                            id="followupInput"
+                            class="url-input"
+                            placeholder="Ask a follow-up question about this URL..."
+                        />
+                        <button id="followupBtn" class="btn-secondary">
+                            Ask Question
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Trust & Safety Analysis Platform | Powered by Advanced AI</p>
+        </footer>
+    </div>
+
+    <script src="static/app.js"></script>
+</body>
+</html>
