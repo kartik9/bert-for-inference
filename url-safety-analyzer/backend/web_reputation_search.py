@@ -1,6 +1,7 @@
 """
 Web Reputation Search Module
-Searches the web for reputation information, scam complaints, and reviews about URLs
+AI-driven search for reputation information, scam complaints, and reviews about URLs
+Uses GPT-4o for intelligent query planning and GPT-4o-mini for result analysis
 """
 
 import os
@@ -8,17 +9,19 @@ import logging
 from typing import Dict, Any, List, Optional
 from urllib.parse import urlparse
 import re
+import json
 
 import httpx
 from bs4 import BeautifulSoup
+from openai import AsyncOpenAI
 
 logger = logging.getLogger(__name__)
 
 
 class WebReputationSearcher:
     """
-    Searches the web for reputation information about URLs
-    Supports multiple search backends
+    AI-powered web reputation searcher
+    Uses GPT-4o for query planning and GPT-4o-mini for result analysis
     """
 
     def __init__(self):
@@ -33,6 +36,14 @@ class WebReputationSearcher:
         self.google_cse_key = os.getenv('GOOGLE_CSE_API_KEY')
         self.google_cse_id = os.getenv('GOOGLE_CSE_ID')
 
+        # Initialize OpenAI client for AI-driven analysis
+        self.openai_api_key = os.getenv('OPENAI_API_KEY')
+        if self.openai_api_key:
+            self.openai_client = AsyncOpenAI(api_key=self.openai_api_key)
+        else:
+            self.openai_client = None
+            logger.warning("OpenAI API key not configured - AI query planning disabled")
+
     def is_configured(self) -> bool:
         """Check if at least one search backend is configured"""
         return any([self.brave_api_key, self.serpapi_key,
@@ -45,17 +56,17 @@ class WebReputationSearcher:
         context: Optional[Dict[str, Any]] = None
     ) -> Dict[str, Any]:
         """
-        Search for reputation information about a URL/domain
-        Uses context from preliminary analysis for intelligent query generation
+        AI-driven search for reputation information about a URL/domain
+        Uses GPT-4o to plan queries and GPT-4o-mini to analyze results
 
         Args:
             url: Full URL to analyze
             domain: Extracted domain name
             context: Analysis context including url_structure, content_analysis, ssl_info
 
-        Returns aggregated findings from multiple search queries
+        Returns aggregated findings from AI analysis of search results
         """
-        logger.info(f"Starting context-aware reputation search for: {domain}")
+        logger.info(f"Starting AI-driven reputation search for: {domain}")
 
         results = {
             "search_performed": True,
@@ -63,268 +74,272 @@ class WebReputationSearcher:
             "scam_indicators": [],
             "reputation_findings": [],
             "user_complaints": [],
-            "review_summary": {},
-            "news_mentions": [],
+            "ai_analysis": {},
             "search_backend": self._get_backend_name(),
             "total_results_analyzed": 0,
-            "query_strategy": "dynamic" if context else "static"
+            "query_strategy": "ai_driven" if self.openai_client else "fallback"
         }
 
-        # Generate search queries (dynamic based on context)
-        queries = self._generate_search_queries(url, domain, context)
+        # Use AI to generate search queries based on context
+        if self.openai_client and context:
+            queries = await self._ai_generate_queries(url, domain, context)
+            logger.info(f"GPT-4o generated {len(queries)} intelligent queries")
+        else:
+            # Fallback to basic queries if no AI
+            queries = await self._fallback_queries(domain)
+            logger.info(f"Using {len(queries)} fallback queries (no AI configured)")
+
         results["queries_used"] = queries
 
-        if context:
-            logger.info(f"Generated {len(queries)} context-aware queries")
-
-        # Execute searches
+        # Execute searches and collect all results
+        all_search_results = []
         for query in queries:
             try:
                 search_results = await self._execute_search(query)
                 if search_results:
-                    parsed = self._parse_search_results(query, search_results, domain)
-                    self._merge_findings(results, parsed)
+                    all_search_results.append({
+                        "query": query,
+                        "results": search_results
+                    })
                     results["total_results_analyzed"] += len(search_results)
             except Exception as e:
                 logger.error(f"Search error for query '{query}': {str(e)}")
                 continue
 
-        # Analyze and score findings
-        results["reputation_score"] = self._calculate_reputation_score(results)
-        results["risk_level"] = self._assess_risk_level(results)
+        # Use AI to analyze all search results
+        if self.openai_client and all_search_results:
+            logger.info(f"Using GPT-4o-mini to analyze {len(all_search_results)} query results")
+            ai_analysis = await self._ai_analyze_search_results(
+                url, domain, all_search_results, context
+            )
+            results["ai_analysis"] = ai_analysis
+            results["scam_indicators"] = ai_analysis.get("scam_indicators", [])
+            results["user_complaints"] = ai_analysis.get("user_complaints", [])
+            results["reputation_score"] = ai_analysis.get("reputation_score", 70)
+            results["risk_level"] = ai_analysis.get("risk_level", "UNKNOWN")
+        else:
+            # Fallback to basic analysis
+            logger.info("Using fallback analysis (no AI configured)")
+            results.update(self._fallback_analysis(all_search_results))
 
         return results
 
-    def _generate_search_queries(
+    async def _ai_generate_queries(
         self,
         url: str,
         domain: str,
-        context: Optional[Dict[str, Any]] = None
+        context: Dict[str, Any]
     ) -> List[str]:
         """
-        Generate dynamic, context-aware search queries
-
-        Uses preliminary analysis to intelligently select and prioritize queries
+        Use GPT-4o to intelligently generate search queries based on technical analysis
         """
-        if not context:
-            # Fall back to static queries if no context
-            return self._generate_static_queries(domain)
+        try:
+            prompt = f"""You are a trust & safety expert analyzing a URL for potential threats.
 
-        queries = []
-        query_scores = []  # Track priority scores for each query
+URL: {url}
+Domain: {domain}
 
-        # Extract context data
-        url_structure = context.get("url_structure", {})
-        content_analysis = context.get("content_analysis", {})
-        ssl_info = context.get("ssl_info", {})
-        suspicious_patterns = url_structure.get("suspicious_patterns", [])
+TECHNICAL ANALYSIS CONTEXT:
+{json.dumps(context, indent=2)}
 
-        # Detect threat type and brand impersonation
-        threat_type = self._detect_threat_type(url_structure, content_analysis, ssl_info)
-        detected_brands = self._detect_brand_keywords(url, url_structure, content_analysis)
+Based on this technical analysis, generate 8-15 highly targeted web search queries to investigate this URL's reputation.
 
-        logger.info(f"Detected threat type: {threat_type}, brands: {detected_brands}")
+Consider:
+1. What specific threats are indicated by the technical data?
+2. Are there brand impersonation indicators?
+3. What type of scam/fraud patterns are present?
+4. What would real victims search for or complain about?
+5. Which reputation sites would have relevant information?
 
-        # === BRAND IMPERSONATION QUERIES (Highest Priority) ===
-        if detected_brands:
-            for brand in detected_brands:
-                queries.append((f'"{domain}" {brand} phishing', 100))
-                queries.append((f'"{domain}" {brand} fake', 95))
-                queries.append((f'"{domain}" impersonating {brand}', 90))
-                queries.append((f'{brand} phishing "{domain}"', 85))
+Generate queries that will find:
+- Scam reports and warnings
+- User complaints and victim testimonials
+- Brand impersonation mentions
+- Security warnings
+- Review site discussions (Reddit, Trustpilot, BBB)
 
-        # === THREAT-SPECIFIC QUERIES (High Priority) ===
-        if threat_type == "phishing":
-            queries.append((f'"{domain}" phishing', 90))
-            queries.append((f'"{domain}" credential theft', 85))
-            queries.append((f'"{domain}" password stolen', 80))
-            queries.append((f'"{domain}" fake login', 75))
+Return ONLY a JSON array of search query strings. Each query should be specific and targeted.
 
-        elif threat_type == "malware":
-            queries.append((f'"{domain}" malware', 90))
-            queries.append((f'"{domain}" virus', 85))
-            queries.append((f'"{domain}" trojan', 80))
-            queries.append((f'"{domain}" infected', 75))
+Example response:
+["domain.com paypal phishing", "domain.com credential theft", "site:reddit.com domain.com scam"]
 
-        elif threat_type == "scam":
-            queries.append((f'"{domain}" scam', 90))
-            queries.append((f'"{domain}" fraud', 85))
-            queries.append((f'"{domain}" "lost money"', 80))
-            queries.append((f'"{domain}" "did not receive"', 75))
+Your response (JSON array only):"""
 
-        elif threat_type == "ecommerce_scam":
-            queries.append((f'"{domain}" scam', 85))
-            queries.append((f'"{domain}" "never received"', 80))
-            queries.append((f'"{domain}" "no refund"', 75))
-            queries.append((f'"{domain}" "fake products"', 70))
+            response = await self.openai_client.chat.completions.create(
+                model="gpt-4o",  # Using GPT-4o for intelligent planning
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You are a trust & safety expert who generates targeted web search queries. Respond with JSON only."
+                    },
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.7,
+                max_tokens=500,
+                response_format={"type": "json_object"}
+            )
 
-        # === SUSPICIOUS PATTERN QUERIES (Medium-High Priority) ===
-        if "suspicious_tld" in str(suspicious_patterns):
-            queries.append((f'"{domain}" scam', 75))
-            queries.append((f'"{domain}" fraud', 70))
+            response_text = response.choices[0].message.content.strip()
+            queries_data = json.loads(response_text)
 
-        if "url_shortener" in str(suspicious_patterns):
-            queries.append((f'"{domain}" redirect scam', 70))
+            # Handle different possible JSON structures
+            if isinstance(queries_data, list):
+                queries = queries_data
+            elif isinstance(queries_data, dict):
+                queries = queries_data.get("queries", queries_data.get("search_queries", []))
+            else:
+                queries = []
 
-        if url_structure.get("has_ip"):
-            queries.append((f'"{domain}" phishing IP', 75))
+            logger.info(f"GPT-4o generated {len(queries)} queries")
+            return queries[:15]  # Limit to 15
 
-        # === SECURITY ISSUE QUERIES (Medium Priority) ===
-        if not ssl_info.get("has_ssl"):
-            queries.append((f'"{domain}" no ssl unsafe', 60))
-            queries.append((f'"{domain}" security risk', 55))
+        except Exception as e:
+            logger.error(f"AI query generation error: {str(e)}")
+            return await self._fallback_queries(domain)
 
-        # === GENERAL REPUTATION QUERIES (Standard Priority) ===
-        # Always include some general queries
-        queries.append((f'"{domain}" scam', 50))
-        queries.append((f'"{domain}" fraud', 48))
-        queries.append((f'"{domain}" complaint', 45))
-        queries.append((f'"{domain}" review', 40))
+    async def _ai_analyze_search_results(
+        self,
+        url: str,
+        domain: str,
+        search_results: List[Dict[str, Any]],
+        context: Optional[Dict[str, Any]]
+    ) -> Dict[str, Any]:
+        """
+        Use GPT-4o-mini to analyze search results and extract threat intelligence
+        """
+        try:
+            # Prepare search results summary for AI
+            results_summary = []
+            for item in search_results:
+                query = item["query"]
+                for result in item["results"][:5]:  # Top 5 results per query
+                    results_summary.append({
+                        "query": query,
+                        "title": result.get("title", ""),
+                        "snippet": result.get("snippet", "")[:300],
+                        "url": result.get("url", "")
+                    })
 
-        # === VICTIM REPORT QUERIES (Medium Priority) ===
-        queries.append((f'"{domain}" "lost money"', 55))
-        queries.append((f'"{domain}" "did not receive"', 50))
+            prompt = f"""You are a trust & safety analyst examining web search results about a URL.
 
-        # === REPUTATION SITE QUERIES (Lower Priority unless high risk) ===
-        priority = 60 if threat_type in ["phishing", "scam"] else 35
-        queries.append((f'site:reddit.com "{domain}"', priority))
-        queries.append((f'site:trustpilot.com "{domain}"', priority - 5))
-        queries.append((f'site:bbb.org "{domain}"', priority - 10))
+TARGET URL: {url}
+DOMAIN: {domain}
 
-        # === POSITIVE QUERIES (Only for low-risk URLs) ===
-        if threat_type == "unknown" and len(suspicious_patterns) == 0:
-            queries.append((f'"{domain}" legitimate', 30))
-            queries.append((f'"{domain}" trustworthy', 25))
-            queries.append((f'"{domain}" safe', 20))
+TECHNICAL CONTEXT:
+{json.dumps(context, indent=2) if context else "No technical context"}
 
-        # Sort by priority (highest first) and deduplicate
-        queries = sorted(set(queries), key=lambda x: x[1], reverse=True)
+SEARCH RESULTS ({len(results_summary)} results across multiple queries):
+{json.dumps(results_summary, indent=2)}
 
-        # Determine query limit based on threat level
-        if threat_type in ["phishing", "malware", "scam"] or detected_brands:
-            query_limit = 15  # High-risk: more thorough search
-        elif len(suspicious_patterns) > 0:
-            query_limit = 12  # Medium-risk: standard search
-        else:
-            query_limit = 8  # Low-risk: basic search
+Analyze these search results and provide a comprehensive assessment:
 
-        # Extract just the query strings (remove scores)
-        final_queries = [q[0] for q in queries[:query_limit]]
+1. SCAM INDICATORS: List any evidence of scams, fraud, phishing with:
+   - Description of the scam indicator
+   - Source/citation
+   - Severity (high/medium/low)
 
-        logger.info(f"Query strategy: {query_limit} queries for threat_type={threat_type}")
+2. USER COMPLAINTS: List victim reports or complaints with:
+   - Type of complaint
+   - What happened
+   - Source
 
-        return final_queries
+3. REPUTATION SCORE: Calculate 0-100 (100=excellent, 0=terrible) based on:
+   - Number and severity of scam reports
+   - User complaint volume
+   - Positive vs negative mentions
 
-    def _generate_static_queries(self, domain: str) -> List[str]:
-        """Generate static queries when no context is available (fallback)"""
+4. RISK LEVEL: Classify as LOW/MEDIUM/HIGH/CRITICAL
+
+5. KEY FINDINGS: 2-3 most important discoveries
+
+6. THREAT ASSESSMENT: What type of threat is this? (phishing/malware/scam/legitimate/unknown)
+
+Return your analysis as JSON with this structure:
+{{
+  "scam_indicators": [
+    {{
+      "description": "...",
+      "source": "...",
+      "severity": "high|medium|low",
+      "evidence": "specific quote or detail"
+    }}
+  ],
+  "user_complaints": [
+    {{
+      "type": "...",
+      "description": "...",
+      "source": "..."
+    }}
+  ],
+  "reputation_score": 0-100,
+  "risk_level": "LOW|MEDIUM|HIGH|CRITICAL",
+  "key_findings": ["finding 1", "finding 2", "finding 3"],
+  "threat_type": "phishing|malware|scam|ecommerce_fraud|legitimate|unknown",
+  "confidence": 0-100,
+  "summary": "2-3 sentence overall assessment"
+}}
+
+Your JSON analysis:"""
+
+            response = await self.openai_client.chat.completions.create(
+                model="gpt-4o-mini",  # Using 4o-mini for analysis (cost-effective)
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You are a trust & safety analyst. Analyze search results and respond with JSON only."
+                    },
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.5,
+                max_tokens=2000,
+                response_format={"type": "json_object"}
+            )
+
+            analysis = json.loads(response.choices[0].message.content)
+            logger.info(f"GPT-4o-mini analysis complete: {analysis.get('threat_type')} / {analysis.get('risk_level')}")
+            return analysis
+
+        except Exception as e:
+            logger.error(f"AI analysis error: {str(e)}")
+            return {
+                "scam_indicators": [],
+                "user_complaints": [],
+                "reputation_score": 50,
+                "risk_level": "UNKNOWN",
+                "key_findings": ["AI analysis unavailable"],
+                "threat_type": "unknown",
+                "confidence": 0,
+                "summary": f"AI analysis failed: {str(e)}"
+            }
+
+    async def _fallback_queries(self, domain: str) -> List[str]:
+        """Basic fallback queries when AI is not available"""
         return [
             f'"{domain}" scam',
             f'"{domain}" fraud',
             f'"{domain}" phishing',
             f'"{domain}" complaint',
             f'"{domain}" review',
-            f'"{domain}" "lost money"',
             f'site:reddit.com "{domain}"',
-            f'site:trustpilot.com "{domain}"',
-        ][:8]  # Conservative limit without context
+        ][:6]
 
-    def _detect_threat_type(
-        self,
-        url_structure: Dict[str, Any],
-        content_analysis: Dict[str, Any],
-        ssl_info: Dict[str, Any]
-    ) -> str:
-        """
-        Detect likely threat type based on technical indicators
+    def _fallback_analysis(self, search_results: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """Basic fallback analysis when AI is not available"""
+        scam_keywords = ['scam', 'fraud', 'phishing', 'fake', 'steal', 'stolen']
+        scam_count = 0
 
-        Returns: "phishing", "malware", "scam", "ecommerce_scam", or "unknown"
-        """
-        suspicious_patterns = url_structure.get("suspicious_patterns", [])
-        forms_count = content_analysis.get("forms_count", 0)
-        iframes = content_analysis.get("iframes_count", 0)
-        title = content_analysis.get("title", "").lower()
+        for item in search_results:
+            for result in item.get("results", []):
+                text = f"{result.get('title', '')} {result.get('snippet', '')}".lower()
+                if any(kw in text for kw in scam_keywords):
+                    scam_count += 1
 
-        # Check for phishing indicators
-        phishing_score = 0
-        if "suspicious_keywords" in str(suspicious_patterns):
-            phishing_score += 2
-        if forms_count > 0 and ("login" in title or "signin" in title or "verify" in title):
-            phishing_score += 3
-        if not ssl_info.get("has_ssl") and forms_count > 0:
-            phishing_score += 2
-        if "external_form_submission" in content_analysis.get("suspicious_content", []):
-            phishing_score += 3
-
-        if phishing_score >= 4:
-            return "phishing"
-
-        # Check for malware indicators
-        if iframes > 2:
-            return "malware"
-        if content_analysis.get("external_scripts_count", 0) > 10:
-            return "malware"
-
-        # Check for e-commerce scam indicators
-        ecommerce_keywords = ["shop", "store", "buy", "cheap", "deal", "sale"]
-        if any(kw in title for kw in ecommerce_keywords):
-            if "suspicious_tld" in str(suspicious_patterns):
-                return "ecommerce_scam"
-
-        # Check for general scam indicators
-        if "suspicious_tld" in str(suspicious_patterns):
-            return "scam"
-        if len(suspicious_patterns) >= 3:
-            return "scam"
-
-        return "unknown"
-
-    def _detect_brand_keywords(
-        self,
-        url: str,
-        url_structure: Dict[str, Any],
-        content_analysis: Dict[str, Any]
-    ) -> List[str]:
-        """
-        Detect brand names that might be impersonated
-
-        Returns list of detected brand names
-        """
-        detected_brands = []
-        url_lower = url.lower()
-        title = content_analysis.get("title", "").lower()
-
-        # Major brands to check for
-        brand_list = {
-            "paypal": ["paypal", "pypal", "paypai", "paypa1"],
-            "amazon": ["amazon", "amaz0n", "amazom"],
-            "apple": ["apple", "appl", "icloud"],
-            "microsoft": ["microsoft", "windows", "outlook", "office365"],
-            "google": ["google", "gmail", "googl"],
-            "facebook": ["facebook", "fb", "meta"],
-            "instagram": ["instagram", "insta"],
-            "netflix": ["netflix", "netflx"],
-            "bank": ["bank", "banking", "wellsfargo", "chase", "bofa", "citibank"],
-            "ebay": ["ebay"],
-            "usps": ["usps", "ups", "fedex", "dhl"],
-            "irs": ["irs", "tax"],
+        return {
+            "reputation_score": max(0, 70 - (scam_count * 10)),
+            "risk_level": "HIGH" if scam_count >= 3 else "MEDIUM" if scam_count >= 1 else "LOW",
+            "scam_indicators": [],
+            "user_complaints": []
         }
-
-        for brand, variants in brand_list.items():
-            for variant in variants:
-                # Check URL
-                if variant in url_lower:
-                    # Check if it's the actual brand domain
-                    domain = url_structure.get("domain", "").lower()
-                    if domain != brand:  # Not the real brand
-                        detected_brands.append(brand)
-                        break
-
-                # Check page title
-                elif variant in title and brand not in title:
-                    detected_brands.append(brand)
-                    break
-
-        return list(set(detected_brands))  # Deduplicate
 
     async def _execute_search(self, query: str) -> List[Dict[str, Any]]:
         """Execute search using configured backend"""
@@ -492,164 +507,6 @@ class WebReputationSearcher:
         except Exception as e:
             logger.error(f"DuckDuckGo fallback error: {str(e)}")
             return []
-
-    def _parse_search_results(
-        self, query: str, search_results: List[Dict[str, Any]], domain: str
-    ) -> Dict[str, Any]:
-        """Parse search results to extract reputation signals"""
-
-        parsed = {
-            'query': query,
-            'scam_indicators': [],
-            'positive_signals': [],
-            'negative_signals': [],
-            'neutral_mentions': []
-        }
-
-        # Keywords indicating problems
-        scam_keywords = [
-            'scam', 'fraud', 'fake', 'phishing', 'malware', 'virus',
-            'steal', 'stolen', 'hack', 'malicious', 'dangerous', 'warning',
-            'avoid', 'beware', 'suspicious', 'reported', 'complaint'
-        ]
-
-        # Keywords indicating legitimacy
-        positive_keywords = [
-            'legitimate', 'trustworthy', 'safe', 'secure', 'reliable',
-            'verified', 'authentic', 'official', 'reputable', 'trusted'
-        ]
-
-        # Loss/damage keywords
-        victim_keywords = [
-            'lost money', 'stolen', 'charged', 'unauthorized', 'fraud',
-            'did not receive', 'never arrived', 'ripped off', 'scammed'
-        ]
-
-        for result in search_results:
-            title = result.get('title', '').lower()
-            snippet = result.get('snippet', '').lower()
-            text = f"{title} {snippet}"
-            result_url = result.get('url', '')
-
-            # Check for scam indicators
-            found_scam_terms = [kw for kw in scam_keywords if kw in text]
-            if found_scam_terms:
-                parsed['scam_indicators'].append({
-                    'source': result_url,
-                    'title': result.get('title', ''),
-                    'snippet': snippet[:200],
-                    'keywords': found_scam_terms,
-                    'severity': 'high' if any(kw in text for kw in ['scam', 'fraud', 'phishing']) else 'medium'
-                })
-
-            # Check for victim reports
-            found_victim_terms = [kw for kw in victim_keywords if kw in text]
-            if found_victim_terms:
-                parsed['negative_signals'].append({
-                    'type': 'victim_report',
-                    'source': result_url,
-                    'snippet': snippet[:200],
-                    'indicators': found_victim_terms
-                })
-
-            # Check for positive signals
-            found_positive = [kw for kw in positive_keywords if kw in text]
-            if found_positive:
-                parsed['positive_signals'].append({
-                    'source': result_url,
-                    'keywords': found_positive,
-                    'snippet': snippet[:200]
-                })
-
-            # Check for review sites
-            if any(site in result_url for site in ['trustpilot', 'bbb.org', 'sitejabber', 'reddit']):
-                parsed['neutral_mentions'].append({
-                    'type': 'review_site',
-                    'source': result_url,
-                    'title': result.get('title', ''),
-                    'snippet': snippet[:200]
-                })
-
-        return parsed
-
-    def _merge_findings(self, results: Dict[str, Any], parsed: Dict[str, Any]):
-        """Merge parsed results into overall findings"""
-
-        # Add scam indicators
-        for indicator in parsed['scam_indicators']:
-            # Avoid duplicates
-            if not any(i['source'] == indicator['source'] for i in results['scam_indicators']):
-                results['scam_indicators'].append(indicator)
-
-        # Add complaints
-        for signal in parsed['negative_signals']:
-            if not any(c['source'] == signal['source'] for c in results['user_complaints']):
-                results['user_complaints'].append(signal)
-
-        # Track reputation findings
-        if parsed['scam_indicators'] or parsed['negative_signals']:
-            results['reputation_findings'].append({
-                'query': parsed['query'],
-                'finding_type': 'negative',
-                'count': len(parsed['scam_indicators']) + len(parsed['negative_signals'])
-            })
-        elif parsed['positive_signals']:
-            results['reputation_findings'].append({
-                'query': parsed['query'],
-                'finding_type': 'positive',
-                'count': len(parsed['positive_signals'])
-            })
-
-    def _calculate_reputation_score(self, results: Dict[str, Any]) -> int:
-        """
-        Calculate reputation score (0-100, higher is better)
-        0-30: Very poor reputation
-        31-50: Poor reputation
-        51-70: Mixed reputation
-        71-85: Good reputation
-        86-100: Excellent reputation
-        """
-
-        scam_count = len(results['scam_indicators'])
-        complaint_count = len(results['user_complaints'])
-
-        # Start with neutral score
-        score = 70
-
-        # Penalties for negative findings
-        high_severity_scams = sum(1 for s in results['scam_indicators'] if s.get('severity') == 'high')
-
-        # Heavy penalty for scam reports
-        score -= (high_severity_scams * 15)
-        score -= ((scam_count - high_severity_scams) * 10)
-
-        # Penalty for user complaints
-        score -= (complaint_count * 5)
-
-        # Cap between 0 and 100
-        score = max(0, min(100, score))
-
-        return score
-
-    def _assess_risk_level(self, results: Dict[str, Any]) -> str:
-        """Assess overall risk level based on findings"""
-
-        scam_count = len(results['scam_indicators'])
-        complaint_count = len(results['user_complaints'])
-        reputation_score = results['reputation_score']
-
-        high_severity_scams = sum(1 for s in results['scam_indicators'] if s.get('severity') == 'high')
-
-        if high_severity_scams >= 3 or scam_count >= 5:
-            return "CRITICAL"
-        elif high_severity_scams >= 1 or scam_count >= 3 or complaint_count >= 5:
-            return "HIGH"
-        elif scam_count >= 1 or complaint_count >= 2 or reputation_score < 50:
-            return "MEDIUM"
-        elif reputation_score >= 70:
-            return "LOW"
-        else:
-            return "UNKNOWN"
 
     def _get_backend_name(self) -> str:
         """Get the name of the configured search backend"""

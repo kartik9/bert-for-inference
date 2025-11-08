@@ -27,8 +27,8 @@ class SafetyAnalysisAgent:
         # Try OpenAI first
         if os.getenv("OPENAI_API_KEY"):
             self.openai_client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-            self.model = "gpt-4-turbo-preview"  # or gpt-4, gpt-4-turbo
-            logger.info("Initialized with OpenAI")
+            self.model = "gpt-4o"  # Latest GPT-4o model (use gpt-5 when available)
+            logger.info("Initialized with OpenAI GPT-4o")
 
         # Fall back to Anthropic
         elif os.getenv("ANTHROPIC_API_KEY"):
