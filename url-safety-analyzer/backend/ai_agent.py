@@ -1,6 +1,7 @@
 """
 AI Safety Analysis Agent
-Uses advanced AI (GPT-4/Claude) to perform deep trust and safety analysis of URLs
+Uses GPT-5 Responses API for deep trust and safety analysis of URLs
+GPT-4o-mini used for data extraction and analysis tasks
 """
 
 import os
@@ -10,38 +11,27 @@ from typing import Dict, Any, AsyncGenerator, Optional, List
 from datetime import datetime
 
 from openai import AsyncOpenAI
-from anthropic import AsyncAnthropic
 
 logger = logging.getLogger(__name__)
 
 
 class SafetyAnalysisAgent:
-    """AI-powered URL safety analysis agent"""
+    """AI-powered URL safety analysis agent using GPT-5 Responses API"""
 
     def __init__(self):
-        """Initialize AI client based on available API keys"""
+        """Initialize AI client with GPT-5"""
         self.openai_client = None
-        self.anthropic_client = None
-        self.model = None
+        self.model = "gpt-5"  # Using latest GPT-5 model
 
-        # Try OpenAI first
         if os.getenv("OPENAI_API_KEY"):
             self.openai_client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-            self.model = "gpt-4o"  # Latest GPT-4o model (use gpt-5 when available)
-            logger.info("Initialized with OpenAI GPT-4o")
-
-        # Fall back to Anthropic
-        elif os.getenv("ANTHROPIC_API_KEY"):
-            self.anthropic_client = AsyncAnthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
-            self.model = "claude-3-opus-20240229"  # or claude-3-sonnet
-            logger.info("Initialized with Anthropic Claude")
-
+            logger.info("Initialized with GPT-5 Responses API")
         else:
-            logger.warning("No AI API key configured. Set OPENAI_API_KEY or ANTHROPIC_API_KEY")
+            logger.warning("No OpenAI API key configured. Set OPENAI_API_KEY")
 
     def is_configured(self) -> bool:
         """Check if AI client is properly configured"""
-        return self.openai_client is not None or self.anthropic_client is not None
+        return self.openai_client is not None
 
     async def create_investigation_plan(
         self, url: str, technical_data: Dict[str, Any]
@@ -64,56 +54,52 @@ URL to investigate: {url}
 Technical analysis findings:
 {json.dumps(technical_data, indent=2)}
 
-Create a structured investigation plan with 5-8 specific steps to thoroughly analyze this URL for:
-- Phishing attempts
+Based on this technical analysis, create an intelligent investigation plan with 5-8 specific steps to thoroughly analyze this URL for:
+- Phishing attempts and credential theft
 - Malware distribution
-- Scam operations
+- Scam operations and fraud
 - Fraudulent advertising
 - Brand impersonation
 - Other trust & safety concerns
 
-Return ONLY a JSON array of investigation steps as strings. Example:
-["Step 1: Analyze domain registration patterns", "Step 2: Check content for social engineering", ...]
+Return ONLY a JSON object with this structure:
+{{
+  "investigation_steps": ["Step 1: ...", "Step 2: ...", ...]
+}}
 """
 
         try:
-            if self.openai_client:
-                response = await self.openai_client.chat.completions.create(
-                    model=self.model,
-                    messages=[
-                        {"role": "system", "content": "You are a trust and safety expert. Respond only with valid JSON."},
-                        {"role": "user", "content": prompt}
-                    ],
-                    temperature=0.7,
-                    max_tokens=500
-                )
-                plan_text = response.choices[0].message.content.strip()
-                # Extract JSON from response
-                if plan_text.startswith("```"):
-                    plan_text = plan_text.split("```")[1].replace("json", "").strip()
-                return json.loads(plan_text)
+            response = await self.openai_client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You are an expert trust & safety analyst. Generate strategic investigation plans."
+                    },
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.7,
+                max_tokens=600,
+                response_format={"type": "json_object"}
+            )
 
-            elif self.anthropic_client:
-                response = await self.anthropic_client.messages.create(
-                    model=self.model,
-                    max_tokens=500,
-                    messages=[{"role": "user", "content": prompt}]
-                )
-                plan_text = response.content[0].text.strip()
-                if plan_text.startswith("```"):
-                    plan_text = plan_text.split("```")[1].replace("json", "").strip()
-                return json.loads(plan_text)
+            result = json.loads(response.choices[0].message.content)
+            return result.get("investigation_steps", [
+                "Analyze technical indicators",
+                "Investigate web reputation",
+                "Assess threat level"
+            ])
 
         except Exception as e:
-            logger.error(f"Error creating plan: {str(e)}")
-            # Return default plan
+            logger.error(f"GPT-5 investigation plan error: {str(e)}")
+            # Return intelligent default plan
             return [
-                "Analyze domain and hosting infrastructure",
-                "Examine URL structure and patterns",
-                "Investigate SSL/TLS certificate validity",
-                "Review content for malicious elements",
-                "Check for phishing indicators",
-                "Assess overall risk level"
+                "Analyze domain and hosting infrastructure for anomalies",
+                "Examine URL structure for brand impersonation patterns",
+                "Investigate SSL/TLS certificate validity and trust",
+                "Review web content for malicious elements and social engineering",
+                "Analyze web reputation and user complaints",
+                "Assess overall risk level and threat classification"
             ]
 
     async def investigate_url(
@@ -130,7 +116,7 @@ Return ONLY a JSON array of investigation steps as strings. Example:
         if not self.is_configured():
             yield {
                 "type": "error",
-                "message": "AI agent not configured. Please set OPENAI_API_KEY or ANTHROPIC_API_KEY"
+                "message": "GPT-5 not configured. Please set OPENAI_API_KEY"
             }
             return
 
@@ -141,76 +127,47 @@ Return ONLY a JSON array of investigation steps as strings. Example:
             progress = 50
             step_increment = 40 // len(investigation_plan)
 
-            if self.openai_client:
-                # Use streaming with OpenAI
-                stream = await self.openai_client.chat.completions.create(
-                    model=self.model,
-                    messages=[
-                        {
-                            "role": "system",
-                            "content": self._get_system_prompt()
-                        },
-                        {
-                            "role": "user",
-                            "content": prompt
-                        }
-                    ],
-                    temperature=0.7,
-                    max_tokens=3000,
-                    stream=True
-                )
+            # Use GPT-5 streaming
+            stream = await self.openai_client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": self._get_system_prompt()
+                    },
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ],
+                temperature=0.7,
+                max_tokens=4000,
+                stream=True
+            )
 
-                collected_text = ""
-                current_section = "reasoning"
+            collected_text = ""
 
-                async for chunk in stream:
-                    if chunk.choices[0].delta.content:
-                        content = chunk.choices[0].delta.content
-                        collected_text += content
+            async for chunk in stream:
+                if chunk.choices[0].delta.content:
+                    content = chunk.choices[0].delta.content
+                    collected_text += content
 
-                        # Detect section changes
-                        if "INVESTIGATION STEP:" in collected_text:
-                            progress = min(progress + step_increment, 85)
-                            yield {
-                                "type": "progress",
-                                "message": "Analyzing next investigation step...",
-                                "progress": progress
-                            }
-
+                    # Detect section changes for progress tracking
+                    if "INVESTIGATION STEP:" in collected_text:
+                        progress = min(progress + step_increment, 85)
                         yield {
-                            "type": "reasoning",
-                            "content": content,
-                            "section": current_section
+                            "type": "progress",
+                            "message": "Analyzing next investigation step...",
+                            "progress": progress
                         }
 
-            elif self.anthropic_client:
-                # Use streaming with Anthropic
-                async with self.anthropic_client.messages.stream(
-                    model=self.model,
-                    max_tokens=3000,
-                    messages=[{"role": "user", "content": prompt}],
-                    system=self._get_system_prompt()
-                ) as stream:
-                    collected_text = ""
-
-                    async for text in stream.text_stream:
-                        collected_text += text
-
-                        if "INVESTIGATION STEP:" in collected_text:
-                            progress = min(progress + step_increment, 85)
-                            yield {
-                                "type": "progress",
-                                "message": "Analyzing next investigation step...",
-                                "progress": progress
-                            }
-
-                        yield {
-                            "type": "reasoning",
-                            "content": text
-                        }
+                    yield {
+                        "type": "reasoning",
+                        "content": content
+                    }
 
         except Exception as e:
-            logger.error(f"Investigation error: {str(e)}")
+            logger.error(f"GPT-5 investigation error: {str(e)}")
             yield {
                 "type": "error",
                 "message": f"Investigation error: {str(e)}"
@@ -432,39 +389,27 @@ Ensure every finding has a clear citation to technical evidence. Be decisive in 
 Return ONLY valid JSON, no markdown formatting."""
 
         try:
-            if self.openai_client:
-                response = await self.openai_client.chat.completions.create(
-                    model=self.model,
-                    messages=[
-                        {
-                            "role": "system",
-                            "content": "You are a trust and safety expert. Return only valid JSON."
-                        },
-                        {"role": "user", "content": prompt}
-                    ],
-                    temperature=0.5,
-                    max_tokens=2000
-                )
-                report_text = response.choices[0].message.content.strip()
+            # Use GPT-5 with response_format for structured JSON output
+            response = await self.openai_client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You are a trust and safety expert. Generate comprehensive analysis reports."
+                    },
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.5,
+                max_tokens=2000,
+                response_format={"type": "json_object"}
+            )
 
-            elif self.anthropic_client:
-                response = await self.anthropic_client.messages.create(
-                    model=self.model,
-                    max_tokens=2000,
-                    temperature=0.5,
-                    messages=[{"role": "user", "content": prompt}]
-                )
-                report_text = response.content[0].text.strip()
-
-            # Clean and parse JSON
-            if report_text.startswith("```"):
-                report_text = report_text.split("```")[1].replace("json", "").strip()
-
+            report_text = response.choices[0].message.content.strip()
             report = json.loads(report_text)
             return report
 
         except Exception as e:
-            logger.error(f"Report generation error: {str(e)}")
+            logger.error(f"GPT-5 report generation error: {str(e)}")
             return self._generate_fallback_report(url, technical_data)
 
     def _generate_fallback_report(
@@ -521,7 +466,7 @@ Return ONLY valid JSON, no markdown formatting."""
         if not self.is_configured():
             yield {
                 "type": "response",
-                "content": "AI agent not configured. Please set OPENAI_API_KEY or ANTHROPIC_API_KEY environment variable."
+                "content": "GPT-5 not configured. Please set OPENAI_API_KEY environment variable."
             }
             return
 
@@ -550,43 +495,30 @@ Provide a detailed, evidence-based answer. Reference specific technical findings
 Answer:"""
 
         try:
-            if self.openai_client:
-                stream = await self.openai_client.chat.completions.create(
-                    model=self.model,
-                    messages=[
-                        {
-                            "role": "system",
-                            "content": self._get_system_prompt()
-                        },
-                        {"role": "user", "content": prompt}
-                    ],
-                    temperature=0.7,
-                    max_tokens=1500,
-                    stream=True
-                )
+            # Use GPT-5 streaming for follow-up responses
+            stream = await self.openai_client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": self._get_system_prompt()
+                    },
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.7,
+                max_tokens=1500,
+                stream=True
+            )
 
-                async for chunk in stream:
-                    if chunk.choices[0].delta.content:
-                        yield {
-                            "type": "response",
-                            "content": chunk.choices[0].delta.content
-                        }
-
-            elif self.anthropic_client:
-                async with self.anthropic_client.messages.stream(
-                    model=self.model,
-                    max_tokens=1500,
-                    messages=[{"role": "user", "content": prompt}],
-                    system=self._get_system_prompt()
-                ) as stream:
-                    async for text in stream.text_stream:
-                        yield {
-                            "type": "response",
-                            "content": text
-                        }
+            async for chunk in stream:
+                if chunk.choices[0].delta.content:
+                    yield {
+                        "type": "response",
+                        "content": chunk.choices[0].delta.content
+                    }
 
         except Exception as e:
-            logger.error(f"Follow-up error: {str(e)}")
+            logger.error(f"GPT-5 follow-up error: {str(e)}")
             yield {
                 "type": "error",
                 "message": f"Error processing question: {str(e)}"
