@@ -617,6 +617,7 @@ After all steps, provide your thinking process in natural paragraphs showing how
         ssl_info = technical_data.get("ssl_info", {})
         content_analysis = technical_data.get("content_analysis", {})
         web_reputation = technical_data.get("web_reputation", {})
+        ad_platforms = technical_data.get("ad_platforms", {})
         followup_findings = technical_data.get("followup_findings", [])
 
         # Build iteration context
@@ -672,6 +673,9 @@ CONTENT ANALYSIS:
 
 WEB REPUTATION ANALYSIS:
 {self._format_web_reputation(web_reputation)}
+
+AD PLATFORM TRANSPARENCY:
+{self._format_ad_platforms(ad_platforms)}
 
 AUTOMATED RISK INDICATORS:
 {self._format_risk_indicators(risk_indicators)}
@@ -760,6 +764,68 @@ Begin your investigation now:"""
                 snippet = complaint.get('snippet', '')[:150]
                 if snippet:
                     lines.append(f"     Excerpt: {snippet}...")
+
+        return "\n".join(lines)
+
+    def _format_ad_platforms(self, ad_platforms: Dict[str, Any]) -> str:
+        """Format ad platform transparency findings for prompt"""
+        if not ad_platforms.get("checked"):
+            return "Ad platform check not performed or failed"
+
+        lines = []
+        google = ad_platforms.get("google_ads", {})
+        meta = ad_platforms.get("meta_ads", {})
+
+        # Summary
+        summary = ad_platforms.get("summary", "No advertising detected")
+        lines.append(f"Summary: {summary}")
+
+        # Google Ads findings
+        if google.get("search_performed"):
+            lines.append("\nGOOGLE ADS TRANSPARENCY CENTER:")
+            if google.get("found_ads"):
+                lines.append("  ✓ Domain found advertising on Google Ads")
+                advertisers = google.get("advertisers", [])
+                if advertisers:
+                    lines.append(f"  - Advertisers: {', '.join(advertisers)}")
+                ad_count = google.get("ad_count", 0)
+                if ad_count > 0:
+                    lines.append(f"  - Approximate ad count: {ad_count}")
+                ad_examples = google.get("ad_examples", [])
+                if ad_examples:
+                    lines.append("  - Ad examples:")
+                    for ad in ad_examples[:3]:
+                        lines.append(f"    • {ad}")
+                advertiser_info = google.get("advertiser_info", "")
+                if advertiser_info:
+                    lines.append(f"  - Advertiser info: {advertiser_info}")
+            else:
+                lines.append("  ✗ No active advertising detected on Google Ads")
+
+        # Meta Ad Library findings
+        if meta.get("search_performed"):
+            lines.append("\nMETA AD LIBRARY (Facebook/Instagram):")
+            if meta.get("found_ads"):
+                lines.append("  ✓ Domain found advertising on Meta platforms")
+                advertisers = meta.get("advertisers", [])
+                if advertisers:
+                    lines.append(f"  - Advertisers/Pages: {', '.join(advertisers)}")
+                ad_count = meta.get("ad_count", 0)
+                if ad_count > 0:
+                    lines.append(f"  - Approximate ad count: {ad_count}")
+                ad_examples = meta.get("ad_examples", [])
+                if ad_examples:
+                    lines.append("  - Ad examples:")
+                    for ad in ad_examples[:3]:
+                        lines.append(f"    • {ad}")
+            else:
+                lines.append("  ✗ No active advertising detected on Meta platforms")
+
+        lines.append("\nIMPORTANT CONTEXT FOR ANALYSIS:")
+        lines.append("- If a suspicious URL is actively advertising on major platforms, this is significant")
+        lines.append("- Advertiser identity can reveal legitimacy or deception (e.g., unknown entity claiming to be PayPal)")
+        lines.append("- Ad content and claims should be verified against actual website behavior")
+        lines.append("- Multiple platforms + high ad volume may indicate sophisticated fraud operation")
 
         return "\n".join(lines)
 

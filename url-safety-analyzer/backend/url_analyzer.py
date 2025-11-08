@@ -23,6 +23,7 @@ import tldextract
 import validators
 
 from web_reputation_search import WebReputationSearcher
+from ad_platform_checker import AdPlatformChecker
 
 logger = logging.getLogger(__name__)
 
@@ -36,6 +37,7 @@ class URLAnalyzer:
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
         }
         self.reputation_searcher = WebReputationSearcher()
+        self.ad_platform_checker = AdPlatformChecker()
 
     async def analyze(self, url: str) -> Dict[str, Any]:
         """
@@ -60,6 +62,7 @@ class URLAnalyzer:
             "http_response": await self._analyze_http_response(url),
             "content_analysis": {},
             "web_reputation": {},
+            "ad_platforms": {},
             "risk_indicators": []
         }
 
@@ -96,6 +99,19 @@ class URLAnalyzer:
             analysis["web_reputation"] = {
                 "search_performed": False,
                 "error": "No search API configured. Set BRAVE_SEARCH_API_KEY, SERPAPI_KEY, or GOOGLE_CSE_API_KEY"
+            }
+
+        # Check ad platforms (Google Ads, Meta Ad Library)
+        try:
+            logger.info("Checking ad platforms for advertising activity...")
+            analysis["ad_platforms"] = await self.ad_platform_checker.check_ad_platforms(
+                url, extracted.fqdn
+            )
+        except Exception as e:
+            logger.error(f"Ad platform check error: {str(e)}")
+            analysis["ad_platforms"] = {
+                "checked": False,
+                "error": str(e)
             }
 
         # Detect risk indicators
