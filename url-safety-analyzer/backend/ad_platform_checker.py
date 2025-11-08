@@ -68,6 +68,7 @@ class AdPlatformChecker:
     async def _check_google_ads_transparency(self, domain: str) -> Dict[str, Any]:
         """
         Check Google Ads Transparency Center for domain
+        Direct access to transparency center with search query
         """
         logger.info(f"Checking Google Ads Transparency Center for: {domain}")
 
@@ -81,35 +82,38 @@ class AdPlatformChecker:
         }
 
         try:
-            # Google Ads Transparency Center URL
-            # Note: This uses web search approach since direct API may require auth
+            # Google Ads Transparency Center direct search URL
+            # Format: https://adstransparency.google.com/
+            # Note: The public interface uses JavaScript, so we'll try the search endpoint
             search_url = f"https://adstransparency.google.com/"
 
-            # Use web search to find if domain is advertised
-            search_query = f"site:adstransparency.google.com {domain}"
+            async with httpx.AsyncClient(timeout=self.timeout, headers=self.headers, follow_redirects=True) as client:
+                # Try direct access to the transparency center
+                # The actual search uses POST requests to their API, but we can try fetching the page
+                # and use AI to extract if domain is mentioned
 
-            async with httpx.AsyncClient(timeout=self.timeout, headers=self.headers) as client:
-                # Try to search for the domain in Google Ads Transparency
-                # This is a simplified approach - in production you'd use the actual API
+                # First, try a general search URL pattern
+                # Some transparency centers use query params like ?q= or ?search=
                 search_response = await client.get(
-                    f"https://www.google.com/search?q={search_query}",
-                    follow_redirects=True
+                    search_url,
+                    params={"q": domain}
                 )
 
                 if search_response.status_code == 200:
-                    # Check if results mention the domain
-                    content = search_response.text.lower()
-                    if domain.lower() in content and "advertiser" in content:
-                        result["found_ads"] = True
-                        result["detection_method"] = "search_detection"
+                    content = search_response.text
 
-                        # Extract basic info if available
+                    # Check if domain appears in the transparency center page
+                    if domain.lower() in content.lower():
+                        result["found_ads"] = True
+                        result["detection_method"] = "direct_access"
+
+                        # Extract info using AI if available
                         if self.openai_client:
-                            extracted = await self._extract_google_ads_info(
-                                search_response.text,
-                                domain
-                            )
+                            extracted = await self._extract_google_ads_info(content, domain)
                             result.update(extracted)
+                    else:
+                        result["found_ads"] = False
+                        result["detection_method"] = "direct_access_no_match"
 
         except Exception as e:
             logger.error(f"Error checking Google Ads Transparency: {str(e)}")
@@ -120,7 +124,8 @@ class AdPlatformChecker:
 
     async def _check_meta_ad_library(self, domain: str) -> Dict[str, Any]:
         """
-        Check Meta Ad Library for domain
+        Check Meta Ad Library for domain using direct URL access
+        Meta Ad Library URL: https://www.facebook.com/ads/library/
         """
         logger.info(f"Checking Meta Ad Library for: {domain}")
 
@@ -134,30 +139,45 @@ class AdPlatformChecker:
         }
 
         try:
-            # Meta Ad Library URL (publicly accessible)
-            # Search for domain in ad library
-            search_query = f"site:facebook.com/ads/library {domain}"
+            # Meta Ad Library direct search URL with query parameters
+            # Format: https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&q=DOMAIN
+            ad_library_url = "https://www.facebook.com/ads/library/"
 
-            async with httpx.AsyncClient(timeout=self.timeout, headers=self.headers) as client:
-                # Search approach to find domain in Meta Ad Library
-                search_response = await client.get(
-                    f"https://www.google.com/search?q={search_query}",
-                    follow_redirects=True
-                )
+            params = {
+                "active_status": "all",
+                "ad_type": "all",
+                "country": "ALL",  # Search all countries
+                "q": domain,  # Search query
+                "search_type": "keyword_unordered"
+            }
 
-                if search_response.status_code == 200:
-                    content = search_response.text.lower()
-                    if domain.lower() in content and ("ad" in content or "advertiser" in content):
-                        result["found_ads"] = True
-                        result["detection_method"] = "search_detection"
+            async with httpx.AsyncClient(timeout=self.timeout, headers=self.headers, follow_redirects=True) as client:
+                response = await client.get(ad_library_url, params=params)
 
-                        # Extract info if available
-                        if self.openai_client:
-                            extracted = await self._extract_meta_ads_info(
-                                search_response.text,
-                                domain
-                            )
-                            result.update(extracted)
+                if response.status_code == 200:
+                    content = response.text
+
+                    # Meta Ad Library returns HTML with results
+                    # Check for indicators that ads were found
+                    if domain.lower() in content.lower():
+                        # Look for common indicators of ad results
+                        if any(indicator in content.lower() for indicator in [
+                            "ad details", "advertiser", "started running",
+                            "ad creative", "see ad details"
+                        ]):
+                            result["found_ads"] = True
+                            result["detection_method"] = "direct_url_access"
+
+                            # Extract info using AI
+                            if self.openai_client:
+                                extracted = await self._extract_meta_ads_info(content, domain)
+                                result.update(extracted)
+                        else:
+                            result["found_ads"] = False
+                            result["detection_method"] = "domain_mentioned_no_ads"
+                    else:
+                        result["found_ads"] = False
+                        result["detection_method"] = "no_results"
 
         except Exception as e:
             logger.error(f"Error checking Meta Ad Library: {str(e)}")
