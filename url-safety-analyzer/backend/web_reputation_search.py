@@ -38,12 +38,24 @@ class WebReputationSearcher:
         return any([self.brave_api_key, self.serpapi_key,
                     (self.google_cse_key and self.google_cse_id)])
 
-    async def search_reputation(self, url: str, domain: str) -> Dict[str, Any]:
+    async def search_reputation(
+        self,
+        url: str,
+        domain: str,
+        context: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
         """
         Search for reputation information about a URL/domain
+        Uses context from preliminary analysis for intelligent query generation
+
+        Args:
+            url: Full URL to analyze
+            domain: Extracted domain name
+            context: Analysis context including url_structure, content_analysis, ssl_info
+
         Returns aggregated findings from multiple search queries
         """
-        logger.info(f"Starting reputation search for: {domain}")
+        logger.info(f"Starting context-aware reputation search for: {domain}")
 
         results = {
             "search_performed": True,
@@ -54,12 +66,16 @@ class WebReputationSearcher:
             "review_summary": {},
             "news_mentions": [],
             "search_backend": self._get_backend_name(),
-            "total_results_analyzed": 0
+            "total_results_analyzed": 0,
+            "query_strategy": "dynamic" if context else "static"
         }
 
-        # Generate search queries
-        queries = self._generate_search_queries(url, domain)
+        # Generate search queries (dynamic based on context)
+        queries = self._generate_search_queries(url, domain, context)
         results["queries_used"] = queries
+
+        if context:
+            logger.info(f"Generated {len(queries)} context-aware queries")
 
         # Execute searches
         for query in queries:
@@ -79,37 +95,236 @@ class WebReputationSearcher:
 
         return results
 
-    def _generate_search_queries(self, url: str, domain: str) -> List[str]:
-        """Generate targeted search queries for reputation research"""
-        queries = [
-            # Scam and fraud queries
+    def _generate_search_queries(
+        self,
+        url: str,
+        domain: str,
+        context: Optional[Dict[str, Any]] = None
+    ) -> List[str]:
+        """
+        Generate dynamic, context-aware search queries
+
+        Uses preliminary analysis to intelligently select and prioritize queries
+        """
+        if not context:
+            # Fall back to static queries if no context
+            return self._generate_static_queries(domain)
+
+        queries = []
+        query_scores = []  # Track priority scores for each query
+
+        # Extract context data
+        url_structure = context.get("url_structure", {})
+        content_analysis = context.get("content_analysis", {})
+        ssl_info = context.get("ssl_info", {})
+        suspicious_patterns = url_structure.get("suspicious_patterns", [])
+
+        # Detect threat type and brand impersonation
+        threat_type = self._detect_threat_type(url_structure, content_analysis, ssl_info)
+        detected_brands = self._detect_brand_keywords(url, url_structure, content_analysis)
+
+        logger.info(f"Detected threat type: {threat_type}, brands: {detected_brands}")
+
+        # === BRAND IMPERSONATION QUERIES (Highest Priority) ===
+        if detected_brands:
+            for brand in detected_brands:
+                queries.append((f'"{domain}" {brand} phishing', 100))
+                queries.append((f'"{domain}" {brand} fake', 95))
+                queries.append((f'"{domain}" impersonating {brand}', 90))
+                queries.append((f'{brand} phishing "{domain}"', 85))
+
+        # === THREAT-SPECIFIC QUERIES (High Priority) ===
+        if threat_type == "phishing":
+            queries.append((f'"{domain}" phishing', 90))
+            queries.append((f'"{domain}" credential theft', 85))
+            queries.append((f'"{domain}" password stolen', 80))
+            queries.append((f'"{domain}" fake login', 75))
+
+        elif threat_type == "malware":
+            queries.append((f'"{domain}" malware', 90))
+            queries.append((f'"{domain}" virus', 85))
+            queries.append((f'"{domain}" trojan', 80))
+            queries.append((f'"{domain}" infected', 75))
+
+        elif threat_type == "scam":
+            queries.append((f'"{domain}" scam', 90))
+            queries.append((f'"{domain}" fraud', 85))
+            queries.append((f'"{domain}" "lost money"', 80))
+            queries.append((f'"{domain}" "did not receive"', 75))
+
+        elif threat_type == "ecommerce_scam":
+            queries.append((f'"{domain}" scam', 85))
+            queries.append((f'"{domain}" "never received"', 80))
+            queries.append((f'"{domain}" "no refund"', 75))
+            queries.append((f'"{domain}" "fake products"', 70))
+
+        # === SUSPICIOUS PATTERN QUERIES (Medium-High Priority) ===
+        if "suspicious_tld" in str(suspicious_patterns):
+            queries.append((f'"{domain}" scam', 75))
+            queries.append((f'"{domain}" fraud', 70))
+
+        if "url_shortener" in str(suspicious_patterns):
+            queries.append((f'"{domain}" redirect scam', 70))
+
+        if url_structure.get("has_ip"):
+            queries.append((f'"{domain}" phishing IP', 75))
+
+        # === SECURITY ISSUE QUERIES (Medium Priority) ===
+        if not ssl_info.get("has_ssl"):
+            queries.append((f'"{domain}" no ssl unsafe', 60))
+            queries.append((f'"{domain}" security risk', 55))
+
+        # === GENERAL REPUTATION QUERIES (Standard Priority) ===
+        # Always include some general queries
+        queries.append((f'"{domain}" scam', 50))
+        queries.append((f'"{domain}" fraud', 48))
+        queries.append((f'"{domain}" complaint', 45))
+        queries.append((f'"{domain}" review', 40))
+
+        # === VICTIM REPORT QUERIES (Medium Priority) ===
+        queries.append((f'"{domain}" "lost money"', 55))
+        queries.append((f'"{domain}" "did not receive"', 50))
+
+        # === REPUTATION SITE QUERIES (Lower Priority unless high risk) ===
+        priority = 60 if threat_type in ["phishing", "scam"] else 35
+        queries.append((f'site:reddit.com "{domain}"', priority))
+        queries.append((f'site:trustpilot.com "{domain}"', priority - 5))
+        queries.append((f'site:bbb.org "{domain}"', priority - 10))
+
+        # === POSITIVE QUERIES (Only for low-risk URLs) ===
+        if threat_type == "unknown" and len(suspicious_patterns) == 0:
+            queries.append((f'"{domain}" legitimate', 30))
+            queries.append((f'"{domain}" trustworthy', 25))
+            queries.append((f'"{domain}" safe', 20))
+
+        # Sort by priority (highest first) and deduplicate
+        queries = sorted(set(queries), key=lambda x: x[1], reverse=True)
+
+        # Determine query limit based on threat level
+        if threat_type in ["phishing", "malware", "scam"] or detected_brands:
+            query_limit = 15  # High-risk: more thorough search
+        elif len(suspicious_patterns) > 0:
+            query_limit = 12  # Medium-risk: standard search
+        else:
+            query_limit = 8  # Low-risk: basic search
+
+        # Extract just the query strings (remove scores)
+        final_queries = [q[0] for q in queries[:query_limit]]
+
+        logger.info(f"Query strategy: {query_limit} queries for threat_type={threat_type}")
+
+        return final_queries
+
+    def _generate_static_queries(self, domain: str) -> List[str]:
+        """Generate static queries when no context is available (fallback)"""
+        return [
             f'"{domain}" scam',
             f'"{domain}" fraud',
             f'"{domain}" phishing',
-            f'"{domain}" fake',
-            f'"{domain}" malware',
-
-            # Complaint and review queries
             f'"{domain}" complaint',
             f'"{domain}" review',
-            f'"{domain}" trustworthy',
-            f'"{domain}" legitimate',
-            f'"{domain}" safe',
-
-            # Specific problem queries
-            f'"{domain}" "did not receive"',
             f'"{domain}" "lost money"',
-            f'"{domain}" "credit card"',
-            f'"{domain}" "personal information"',
-
-            # Reputation sites
             f'site:reddit.com "{domain}"',
             f'site:trustpilot.com "{domain}"',
-            f'site:bbb.org "{domain}"',
-            f'site:sitejabber.com "{domain}"',
-        ]
+        ][:8]  # Conservative limit without context
 
-        return queries[:12]  # Limit to avoid rate limits
+    def _detect_threat_type(
+        self,
+        url_structure: Dict[str, Any],
+        content_analysis: Dict[str, Any],
+        ssl_info: Dict[str, Any]
+    ) -> str:
+        """
+        Detect likely threat type based on technical indicators
+
+        Returns: "phishing", "malware", "scam", "ecommerce_scam", or "unknown"
+        """
+        suspicious_patterns = url_structure.get("suspicious_patterns", [])
+        forms_count = content_analysis.get("forms_count", 0)
+        iframes = content_analysis.get("iframes_count", 0)
+        title = content_analysis.get("title", "").lower()
+
+        # Check for phishing indicators
+        phishing_score = 0
+        if "suspicious_keywords" in str(suspicious_patterns):
+            phishing_score += 2
+        if forms_count > 0 and ("login" in title or "signin" in title or "verify" in title):
+            phishing_score += 3
+        if not ssl_info.get("has_ssl") and forms_count > 0:
+            phishing_score += 2
+        if "external_form_submission" in content_analysis.get("suspicious_content", []):
+            phishing_score += 3
+
+        if phishing_score >= 4:
+            return "phishing"
+
+        # Check for malware indicators
+        if iframes > 2:
+            return "malware"
+        if content_analysis.get("external_scripts_count", 0) > 10:
+            return "malware"
+
+        # Check for e-commerce scam indicators
+        ecommerce_keywords = ["shop", "store", "buy", "cheap", "deal", "sale"]
+        if any(kw in title for kw in ecommerce_keywords):
+            if "suspicious_tld" in str(suspicious_patterns):
+                return "ecommerce_scam"
+
+        # Check for general scam indicators
+        if "suspicious_tld" in str(suspicious_patterns):
+            return "scam"
+        if len(suspicious_patterns) >= 3:
+            return "scam"
+
+        return "unknown"
+
+    def _detect_brand_keywords(
+        self,
+        url: str,
+        url_structure: Dict[str, Any],
+        content_analysis: Dict[str, Any]
+    ) -> List[str]:
+        """
+        Detect brand names that might be impersonated
+
+        Returns list of detected brand names
+        """
+        detected_brands = []
+        url_lower = url.lower()
+        title = content_analysis.get("title", "").lower()
+
+        # Major brands to check for
+        brand_list = {
+            "paypal": ["paypal", "pypal", "paypai", "paypa1"],
+            "amazon": ["amazon", "amaz0n", "amazom"],
+            "apple": ["apple", "appl", "icloud"],
+            "microsoft": ["microsoft", "windows", "outlook", "office365"],
+            "google": ["google", "gmail", "googl"],
+            "facebook": ["facebook", "fb", "meta"],
+            "instagram": ["instagram", "insta"],
+            "netflix": ["netflix", "netflx"],
+            "bank": ["bank", "banking", "wellsfargo", "chase", "bofa", "citibank"],
+            "ebay": ["ebay"],
+            "usps": ["usps", "ups", "fedex", "dhl"],
+            "irs": ["irs", "tax"],
+        }
+
+        for brand, variants in brand_list.items():
+            for variant in variants:
+                # Check URL
+                if variant in url_lower:
+                    # Check if it's the actual brand domain
+                    domain = url_structure.get("domain", "").lower()
+                    if domain != brand:  # Not the real brand
+                        detected_brands.append(brand)
+                        break
+
+                # Check page title
+                elif variant in title and brand not in title:
+                    detected_brands.append(brand)
+                    break
+
+        return list(set(detected_brands))  # Deduplicate
 
     async def _execute_search(self, query: str) -> List[Dict[str, Any]]:
         """Execute search using configured backend"""

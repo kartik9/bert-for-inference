@@ -73,9 +73,17 @@ class URLAnalyzer:
         # Search web for reputation information
         if self.reputation_searcher.is_configured():
             try:
-                logger.info("Performing web reputation search...")
+                logger.info("Performing context-aware web reputation search...")
+
+                # Build context for intelligent query generation
+                search_context = {
+                    "url_structure": analysis["url_structure"],
+                    "content_analysis": analysis["content_analysis"],
+                    "ssl_info": analysis["ssl_info"],
+                }
+
                 analysis["web_reputation"] = await self.reputation_searcher.search_reputation(
-                    url, extracted.fqdn
+                    url, extracted.fqdn, context=search_context
                 )
             except Exception as e:
                 logger.error(f"Web reputation search error: {str(e)}")
