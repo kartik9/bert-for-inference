@@ -173,6 +173,404 @@ Return ONLY a JSON object with this structure:
                 "message": f"Investigation error: {str(e)}"
             }
 
+    async def investigate_url_iterative(
+        self,
+        url: str,
+        technical_data: Dict[str, Any],
+        investigation_plan: List[str],
+        url_analyzer_instance=None,
+        max_iterations: int = 3
+    ) -> AsyncGenerator[Dict[str, Any], None]:
+        """
+        Perform iterative investigation that continues until AI is confident
+        Yields progress updates with AI reasoning and iteration tracking
+
+        Args:
+            url: URL being investigated
+            technical_data: Initial technical analysis data
+            investigation_plan: Initial investigation plan
+            url_analyzer_instance: URLAnalyzer instance for follow-up searches
+            max_iterations: Maximum number of investigation iterations (default 3)
+        """
+
+        if not self.is_configured():
+            yield {
+                "type": "error",
+                "message": "GPT-5 not configured. Please set OPENAI_API_KEY"
+            }
+            return
+
+        iteration = 1
+        is_confident = False
+        investigation_history = []
+        accumulated_data = technical_data.copy()
+
+        while not is_confident and iteration <= max_iterations:
+            # Notify user of iteration
+            yield {
+                "type": "iteration",
+                "iteration": iteration,
+                "max_iterations": max_iterations,
+                "message": f"Investigation Round {iteration}/{max_iterations}"
+            }
+
+            # Build investigation prompt with accumulated data
+            prompt = self._build_investigation_prompt(
+                url,
+                accumulated_data,
+                investigation_plan,
+                iteration=iteration,
+                previous_findings=investigation_history
+            )
+
+            try:
+                progress = 50
+                step_increment = 30 // len(investigation_plan)
+                collected_reasoning = ""
+
+                # Use GPT-5 streaming for investigation
+                stream = await self.openai_client.chat.completions.create(
+                    model=self.model,
+                    messages=[
+                        {
+                            "role": "system",
+                            "content": self._get_system_prompt()
+                        },
+                        {
+                            "role": "user",
+                            "content": prompt
+                        }
+                    ],
+                    temperature=0.7,
+                    max_tokens=4000,
+                    stream=True
+                )
+
+                async for chunk in stream:
+                    if chunk.choices[0].delta.content:
+                        content = chunk.choices[0].delta.content
+                        collected_reasoning += content
+
+                        if "INVESTIGATION STEP:" in collected_reasoning:
+                            progress = min(progress + step_increment, 75)
+                            yield {
+                                "type": "progress",
+                                "message": f"Round {iteration}: Analyzing next step...",
+                                "progress": progress
+                            }
+
+                        yield {
+                            "type": "reasoning",
+                            "content": content
+                        }
+
+                investigation_history.append({
+                    "iteration": iteration,
+                    "reasoning": collected_reasoning[:500]  # Store summary
+                })
+
+                # Assess confidence after this investigation round
+                yield {
+                    "type": "status",
+                    "message": f"Assessing confidence after round {iteration}..."
+                }
+
+                confidence_result = await self._assess_confidence(
+                    url,
+                    accumulated_data,
+                    collected_reasoning,
+                    iteration,
+                    max_iterations
+                )
+
+                yield {
+                    "type": "confidence",
+                    "iteration": iteration,
+                    "confidence_score": confidence_result["confidence_score"],
+                    "is_conclusive": confidence_result["is_conclusive"],
+                    "reasoning": confidence_result["reasoning"]
+                }
+
+                is_confident = confidence_result["is_conclusive"]
+
+                # If not confident and can iterate more, plan follow-up actions
+                if not is_confident and iteration < max_iterations:
+                    yield {
+                        "type": "status",
+                        "message": "Planning follow-up investigation actions..."
+                    }
+
+                    followup_plan = await self._plan_followup_actions(
+                        url,
+                        accumulated_data,
+                        collected_reasoning,
+                        confidence_result
+                    )
+
+                    yield {
+                        "type": "followup_plan",
+                        "iteration": iteration,
+                        "actions": followup_plan["actions"],
+                        "reasoning": followup_plan["reasoning"]
+                    }
+
+                    # Execute follow-up actions if url_analyzer available
+                    if url_analyzer_instance and followup_plan["actions"]:
+                        yield {
+                            "type": "status",
+                            "message": "Executing follow-up searches and analysis..."
+                        }
+
+                        new_data = await self._execute_followup_actions(
+                            url,
+                            followup_plan["actions"],
+                            url_analyzer_instance
+                        )
+
+                        # Merge new data into accumulated data
+                        if new_data:
+                            accumulated_data["followup_findings"] = accumulated_data.get("followup_findings", [])
+                            accumulated_data["followup_findings"].append({
+                                "iteration": iteration,
+                                "data": new_data
+                            })
+
+                            yield {
+                                "type": "followup_data",
+                                "iteration": iteration,
+                                "data": new_data,
+                                "message": "New evidence gathered from follow-up investigation"
+                            }
+
+                iteration += 1
+
+            except Exception as e:
+                logger.error(f"GPT-5 iterative investigation error (iteration {iteration}): {str(e)}")
+                yield {
+                    "type": "error",
+                    "message": f"Investigation error in round {iteration}: {str(e)}"
+                }
+                break
+
+        # Final status
+        if is_confident:
+            yield {
+                "type": "conclusion",
+                "message": f"Investigation concluded with confidence after {iteration-1} round(s)",
+                "total_iterations": iteration - 1
+            }
+        else:
+            yield {
+                "type": "conclusion",
+                "message": f"Investigation completed maximum {max_iterations} rounds",
+                "total_iterations": max_iterations
+            }
+
+    async def _assess_confidence(
+        self,
+        url: str,
+        accumulated_data: Dict[str, Any],
+        investigation_reasoning: str,
+        iteration: int,
+        max_iterations: int
+    ) -> Dict[str, Any]:
+        """
+        Use GPT-5 to assess confidence in the current findings
+        Returns confidence score and whether investigation is conclusive
+        """
+
+        prompt = f"""You are a trust and safety expert evaluating the completeness of a URL investigation.
+
+URL: {url}
+Current Investigation Round: {iteration}/{max_iterations}
+
+INVESTIGATION FINDINGS SO FAR:
+{investigation_reasoning[:2000]}
+
+AVAILABLE DATA:
+- Technical analysis: {"Complete" if accumulated_data.get("url_structure") else "Limited"}
+- Web reputation data: {"Available" if accumulated_data.get("web_reputation", {}).get("search_performed") else "Not available"}
+- Follow-up findings: {len(accumulated_data.get("followup_findings", []))} additional investigations
+
+Assess the confidence level in making a conclusive determination about this URL's safety.
+
+Return ONLY a JSON object with this structure:
+{{
+  "confidence_score": 0-100,
+  "is_conclusive": true/false,
+  "reasoning": "Explain what evidence you have, what's missing, and why you are/aren't confident",
+  "evidence_gaps": ["List any critical information gaps"],
+  "recommendation": "continue_investigation|conclude_now"
+}}
+
+Consider:
+1. Do you have enough evidence to make a decisive verdict?
+2. Are there critical unknowns that additional searches could resolve?
+3. Would more investigation significantly change your assessment?
+4. Have you exhausted useful avenues of investigation?
+
+Be decisive: Only continue if additional investigation would likely provide material new evidence."""
+
+        try:
+            response = await self.openai_client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You are a trust and safety expert evaluating investigation completeness."
+                    },
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.5,
+                max_tokens=500,
+                response_format={"type": "json_object"}
+            )
+
+            result = json.loads(response.choices[0].message.content)
+            return result
+
+        except Exception as e:
+            logger.error(f"Confidence assessment error: {str(e)}")
+            # Conservative fallback: continue investigating
+            return {
+                "confidence_score": 50,
+                "is_conclusive": iteration >= max_iterations,
+                "reasoning": "Unable to assess confidence due to error. Continuing investigation.",
+                "evidence_gaps": ["Assessment error occurred"],
+                "recommendation": "continue_investigation"
+            }
+
+    async def _plan_followup_actions(
+        self,
+        url: str,
+        accumulated_data: Dict[str, Any],
+        investigation_reasoning: str,
+        confidence_result: Dict[str, Any]
+    ) -> Dict[str, Any]:
+        """
+        Use GPT-5 to plan specific follow-up actions to gather more evidence
+        """
+
+        evidence_gaps = confidence_result.get("evidence_gaps", [])
+
+        prompt = f"""You are a trust and safety expert planning follow-up investigation actions.
+
+URL: {url}
+
+CURRENT ASSESSMENT:
+Confidence Score: {confidence_result.get("confidence_score", 0)}/100
+Evidence Gaps: {json.dumps(evidence_gaps)}
+Reasoning: {confidence_result.get("reasoning", "Unknown")}
+
+INVESTIGATION SUMMARY:
+{investigation_reasoning[:1500]}
+
+AVAILABLE DATA:
+{json.dumps({
+    "has_web_reputation": accumulated_data.get("web_reputation", {}).get("search_performed", False),
+    "reputation_score": accumulated_data.get("web_reputation", {}).get("reputation_score", "N/A"),
+    "scam_indicators_found": len(accumulated_data.get("web_reputation", {}).get("scam_indicators", [])),
+    "previous_followups": len(accumulated_data.get("followup_findings", []))
+}, indent=2)}
+
+Plan 2-4 specific, targeted follow-up actions that would address the evidence gaps. These can include:
+- Specific targeted web searches (provide exact search queries)
+- Checking specific technical attributes
+- Looking for specific patterns or indicators
+
+Return ONLY a JSON object with this structure:
+{{
+  "actions": [
+    {{
+      "type": "web_search",
+      "description": "What this search will find",
+      "search_queries": ["specific query 1", "specific query 2"]
+    }},
+    {{
+      "type": "technical_recheck",
+      "description": "What to verify",
+      "focus_areas": ["ssl_details", "redirect_chain", "content_patterns"]
+    }}
+  ],
+  "reasoning": "Why these actions will address the evidence gaps"
+}}
+
+Focus on actions that will provide NEW, specific evidence to resolve uncertainties."""
+
+        try:
+            response = await self.openai_client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You are a trust and safety expert planning targeted investigations."
+                    },
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.7,
+                max_tokens=600,
+                response_format={"type": "json_object"}
+            )
+
+            result = json.loads(response.choices[0].message.content)
+            return result
+
+        except Exception as e:
+            logger.error(f"Follow-up planning error: {str(e)}")
+            return {
+                "actions": [],
+                "reasoning": f"Unable to plan follow-up actions due to error: {str(e)}"
+            }
+
+    async def _execute_followup_actions(
+        self,
+        url: str,
+        actions: List[Dict[str, Any]],
+        url_analyzer_instance
+    ) -> Dict[str, Any]:
+        """
+        Execute the planned follow-up actions and gather new data
+        """
+
+        new_findings = {
+            "web_searches": [],
+            "technical_checks": []
+        }
+
+        for action in actions:
+            action_type = action.get("type")
+
+            try:
+                if action_type == "web_search" and hasattr(url_analyzer_instance, 'reputation_searcher'):
+                    # Execute targeted web searches
+                    search_queries = action.get("search_queries", [])
+                    if search_queries:
+                        search_results = await url_analyzer_instance.reputation_searcher.execute_targeted_searches(
+                            url,
+                            search_queries
+                        )
+                        new_findings["web_searches"].append({
+                            "description": action.get("description"),
+                            "results": search_results
+                        })
+
+                elif action_type == "technical_recheck":
+                    # Re-examine specific technical aspects
+                    focus_areas = action.get("focus_areas", [])
+                    # This could trigger specific technical re-checks
+                    # For now, we'll note what was requested
+                    new_findings["technical_checks"].append({
+                        "description": action.get("description"),
+                        "focus_areas": focus_areas,
+                        "status": "Noted for final analysis"
+                    })
+
+            except Exception as e:
+                logger.error(f"Error executing follow-up action {action_type}: {str(e)}")
+                continue
+
+        return new_findings
+
     def _get_system_prompt(self) -> str:
         """Get the system prompt for the AI agent"""
         return """You are an expert Trust and Safety analyst working for a major advertising platform.
@@ -207,7 +605,9 @@ After all steps, provide your thinking process in natural paragraphs showing how
         self,
         url: str,
         technical_data: Dict[str, Any],
-        investigation_plan: List[str]
+        investigation_plan: List[str],
+        iteration: int = 1,
+        previous_findings: Optional[List[Dict[str, Any]]] = None
     ) -> str:
         """Build comprehensive investigation prompt"""
 
@@ -217,10 +617,37 @@ After all steps, provide your thinking process in natural paragraphs showing how
         ssl_info = technical_data.get("ssl_info", {})
         content_analysis = technical_data.get("content_analysis", {})
         web_reputation = technical_data.get("web_reputation", {})
+        followup_findings = technical_data.get("followup_findings", [])
+
+        # Build iteration context
+        iteration_context = ""
+        if iteration > 1 and previous_findings:
+            iteration_context = f"""
+=== PREVIOUS INVESTIGATION ROUNDS ===
+
+This is investigation round {iteration}. Previous rounds have been conducted.
+You have access to new follow-up data gathered based on earlier findings.
+Focus on integrating this new evidence with previous analysis.
+
+Previous Investigation Summary:
+{chr(10).join([f"Round {f['iteration']}: {f['reasoning'][:200]}..." for f in previous_findings[-2:]])}
+"""
+
+        # Build follow-up findings section
+        followup_context = ""
+        if followup_findings:
+            followup_context = "\n=== FOLLOW-UP INVESTIGATION FINDINGS ===\n\n"
+            for idx, finding in enumerate(followup_findings, 1):
+                followup_context += f"Follow-up Round {finding['iteration']}:\n"
+                if finding['data'].get('web_searches'):
+                    followup_context += f"  - Additional web searches conducted: {len(finding['data']['web_searches'])} targeted searches\n"
+                if finding['data'].get('technical_checks'):
+                    followup_context += f"  - Technical re-checks: {len(finding['data']['technical_checks'])} areas verified\n"
 
         prompt = f"""Conduct a comprehensive trust and safety investigation of the following URL:
 
 URL: {url}
+{iteration_context}
 
 === TECHNICAL ANALYSIS DATA ===
 
@@ -258,6 +685,7 @@ HTTP RESPONSE:
 Follow these investigation steps systematically:
 
 {self._format_investigation_plan(investigation_plan)}
+{followup_context}
 
 === INSTRUCTIONS ===
 

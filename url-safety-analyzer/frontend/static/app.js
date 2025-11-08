@@ -177,6 +177,26 @@ function handleAnalysisEvent(data) {
             updateProgress(data.progress, data.message);
             break;
 
+        case 'iteration':
+            displayIteration(data.iteration, data.max_iterations, data.message);
+            break;
+
+        case 'confidence':
+            displayConfidenceAssessment(data);
+            break;
+
+        case 'followup_plan':
+            displayFollowupPlan(data);
+            break;
+
+        case 'followup_data':
+            displayFollowupData(data);
+            break;
+
+        case 'conclusion':
+            displayInvestigationConclusion(data);
+            break;
+
         case 'report':
             currentAnalysis.report = data.report;
             displayReport(data.report);
@@ -603,6 +623,144 @@ async function askFollowup() {
 
     // Scroll to bottom
     elements.followupHistory.scrollTop = elements.followupHistory.scrollHeight;
+}
+
+/**
+ * Display iteration marker
+ */
+function displayIteration(iteration, maxIterations, message) {
+    const iterationDiv = document.createElement('div');
+    iterationDiv.className = 'iteration-marker';
+    iterationDiv.style.cssText = 'background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 12px 20px; margin: 20px 0; border-radius: 8px; font-weight: 600;';
+    iterationDiv.innerHTML = `
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <span>🔄 ${message}</span>
+            <span style="opacity: 0.9;">${iteration}/${maxIterations}</span>
+        </div>
+    `;
+    elements.analysisContent.appendChild(iterationDiv);
+    scrollToBottom(elements.analysisContent);
+}
+
+/**
+ * Display confidence assessment
+ */
+function displayConfidenceAssessment(data) {
+    const confidenceDiv = document.createElement('div');
+    confidenceDiv.className = 'confidence-assessment';
+    const scoreColor = data.confidence_score >= 80 ? '#10b981' : data.confidence_score >= 60 ? '#f59e0b' : '#ef4444';
+    confidenceDiv.style.cssText = 'background: #f8fafc; border-left: 4px solid ' + scoreColor + '; padding: 16px; margin: 15px 0; border-radius: 6px;';
+
+    confidenceDiv.innerHTML = `
+        <div style="font-weight: 600; color: #1e293b; margin-bottom: 8px;">
+            📊 Confidence Assessment (Round ${data.iteration})
+        </div>
+        <div style="margin: 8px 0;">
+            <span style="font-weight: 500;">Confidence Score:</span>
+            <span style="color: ${scoreColor}; font-weight: 700;">${data.confidence_score}/100</span>
+        </div>
+        <div style="margin: 8px 0;">
+            <span style="font-weight: 500;">Status:</span>
+            <span style="color: ${data.is_conclusive ? '#10b981' : '#f59e0b'};">
+                ${data.is_conclusive ? '✓ Conclusive' : '⚠ Requires More Investigation'}
+            </span>
+        </div>
+        <div style="margin-top: 12px; padding: 10px; background: white; border-radius: 4px; font-size: 0.9em; color: #475569;">
+            ${data.reasoning}
+        </div>
+    `;
+    elements.analysisContent.appendChild(confidenceDiv);
+    scrollToBottom(elements.analysisContent);
+}
+
+/**
+ * Display follow-up investigation plan
+ */
+function displayFollowupPlan(data) {
+    const planDiv = document.createElement('div');
+    planDiv.className = 'followup-plan';
+    planDiv.style.cssText = 'background: #fff7ed; border-left: 4px solid #f59e0b; padding: 16px; margin: 15px 0; border-radius: 6px;';
+
+    let actionsHtml = '';
+    if (data.actions && data.actions.length > 0) {
+        actionsHtml = '<ul style="margin: 8px 0 0 20px; color: #78350f;">';
+        data.actions.forEach((action, idx) => {
+            actionsHtml += `<li style="margin: 6px 0;"><strong>${action.type}:</strong> ${action.description || 'Executing follow-up action'}</li>`;
+        });
+        actionsHtml += '</ul>';
+    }
+
+    planDiv.innerHTML = `
+        <div style="font-weight: 600; color: #78350f; margin-bottom: 8px;">
+            🔍 Planning Follow-up Investigation
+        </div>
+        <div style="margin: 8px 0; font-size: 0.9em; color: #92400e;">
+            ${data.reasoning}
+        </div>
+        ${actionsHtml}
+    `;
+    elements.analysisContent.appendChild(planDiv);
+    scrollToBottom(elements.analysisContent);
+}
+
+/**
+ * Display follow-up data gathered
+ */
+function displayFollowupData(data) {
+    const dataDiv = document.createElement('div');
+    dataDiv.className = 'followup-data';
+    dataDiv.style.cssText = 'background: #f0fdf4; border-left: 4px solid #10b981; padding: 16px; margin: 15px 0; border-radius: 6px;';
+
+    let findingsHtml = '';
+    if (data.data && data.data.web_searches) {
+        findingsHtml += `<div style="margin: 8px 0;">
+            <strong>Web Searches Conducted:</strong> ${data.data.web_searches.length} targeted searches
+        </div>`;
+    }
+
+    dataDiv.innerHTML = `
+        <div style="font-weight: 600; color: #065f46; margin-bottom: 8px;">
+            ✓ New Evidence Gathered (Round ${data.iteration})
+        </div>
+        <div style="font-size: 0.9em; color: #047857;">
+            ${data.message}
+        </div>
+        ${findingsHtml}
+    `;
+    elements.analysisContent.appendChild(dataDiv);
+    scrollToBottom(elements.analysisContent);
+}
+
+/**
+ * Display investigation conclusion
+ */
+function displayInvestigationConclusion(data) {
+    const conclusionDiv = document.createElement('div');
+    conclusionDiv.className = 'investigation-conclusion';
+    conclusionDiv.style.cssText = 'background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 16px 20px; margin: 20px 0; border-radius: 8px;';
+
+    conclusionDiv.innerHTML = `
+        <div style="font-weight: 600; font-size: 1.1em; margin-bottom: 8px;">
+            ✓ Investigation Complete
+        </div>
+        <div style="opacity: 0.95;">
+            ${data.message}
+        </div>
+        <div style="margin-top: 8px; opacity: 0.9; font-size: 0.9em;">
+            Total rounds: ${data.total_iterations}
+        </div>
+    `;
+    elements.analysisContent.appendChild(conclusionDiv);
+    scrollToBottom(elements.analysisContent);
+}
+
+/**
+ * Scroll to bottom helper
+ */
+function scrollToBottom(element) {
+    setTimeout(() => {
+        element.scrollTop = element.scrollHeight;
+    }, 100);
 }
 
 /**

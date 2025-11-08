@@ -108,11 +108,18 @@ async def analyze_url(request: URLAnalysisRequest):
 
             yield f"data: {json.dumps({'type': 'plan', 'plan': plan, 'progress': 40})}\n\n"
 
-            # Phase 3: Execute Investigation
-            yield f"data: {json.dumps({'type': 'phase', 'phase': 'Deep Investigation', 'progress': 45})}\n\n"
+            # Phase 3: Execute Iterative Investigation
+            yield f"data: {json.dumps({'type': 'phase', 'phase': 'Iterative Deep Investigation', 'progress': 45})}\n\n"
 
-            # Stream AI reasoning and analysis
-            async for update in ai_agent.investigate_url(request.url, technical_data, plan):
+            # Stream AI reasoning and analysis with iterative investigation
+            # AI will continue investigating until confident or max iterations reached
+            async for update in ai_agent.investigate_url_iterative(
+                request.url,
+                technical_data,
+                plan,
+                url_analyzer_instance=url_analyzer,
+                max_iterations=3
+            ):
                 yield f"data: {json.dumps(update)}\n\n"
                 await asyncio.sleep(0.1)  # Small delay for smooth streaming
 

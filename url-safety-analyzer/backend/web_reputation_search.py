@@ -124,6 +124,84 @@ class WebReputationSearcher:
 
         return results
 
+    async def execute_targeted_searches(
+        self,
+        url: str,
+        search_queries: List[str]
+    ) -> Dict[str, Any]:
+        """
+        Execute specific targeted web searches and analyze results
+        Used for follow-up investigations when AI needs more specific information
+
+        Args:
+            url: The URL being investigated
+            search_queries: List of specific search queries to execute
+
+        Returns: Analyzed search results with findings
+        """
+        logger.info(f"Executing {len(search_queries)} targeted searches for follow-up investigation")
+
+        results = {
+            "queries_executed": search_queries,
+            "findings": [],
+            "total_results": 0,
+            "backend": self._get_backend_name()
+        }
+
+        # Execute each targeted search query
+        all_search_results = []
+        for query in search_queries[:5]:  # Limit to 5 queries
+            try:
+                search_results = await self._execute_search(query)
+                all_search_results.extend(search_results)
+                results["total_results"] += len(search_results)
+                logger.info(f"Targeted search '{query}' returned {len(search_results)} results")
+            except Exception as e:
+                logger.error(f"Error executing targeted search '{query}': {str(e)}")
+                continue
+
+        # Use GPT-4o-mini to analyze the targeted search results
+        if self.openai_client and all_search_results:
+            try:
+                analysis_prompt = f"""Analyze these targeted web search results for URL: {url}
+
+These searches were conducted as follow-up investigation to address specific evidence gaps.
+
+Search queries executed: {json.dumps(search_queries)}
+
+Search Results ({len(all_search_results)} results):
+{json.dumps(all_search_results[:20], indent=2)}
+
+Analyze what new evidence these results provide. Return ONLY a JSON object:
+{{
+  "new_findings": ["List of specific new findings from these searches"],
+  "evidence_type": "reputation|scam_reports|user_reviews|technical_info",
+  "severity": "low|medium|high|critical",
+  "summary": "Brief summary of what was discovered",
+  "supports_concern": true/false
+}}"""
+
+                response = await self.openai_client.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=[
+                        {"role": "system", "content": "You are analyzing targeted web search results for trust and safety investigation."},
+                        {"role": "user", "content": analysis_prompt}
+                    ],
+                    temperature=0.5,
+                    max_tokens=800,
+                    response_format={"type": "json_object"}
+                )
+
+                analysis = json.loads(response.choices[0].message.content)
+                results["ai_analysis"] = analysis
+                results["findings"] = analysis.get("new_findings", [])
+
+            except Exception as e:
+                logger.error(f"Error analyzing targeted search results: {str(e)}")
+                results["findings"] = [f"Found {len(all_search_results)} results but analysis failed"]
+
+        return results
+
     async def _ai_generate_queries(
         self,
         url: str,
