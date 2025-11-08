@@ -306,6 +306,54 @@ function displayTechnicalData(data) {
         elements.technicalContent.appendChild(contentItem);
     }
 
+    // Web Reputation
+    const webRep = data.web_reputation || {};
+    if (webRep.search_performed) {
+        const repInfo = [
+            `Reputation Score: ${webRep.reputation_score || 'N/A'}/100`,
+            `Risk Level: ${webRep.risk_level || 'UNKNOWN'}`,
+            `Scam Reports: ${webRep.scam_indicators?.length || 0}`,
+            `User Complaints: ${webRep.user_complaints?.length || 0}`,
+            `Search Backend: ${webRep.search_backend || 'Unknown'}`,
+            `Results Analyzed: ${webRep.total_results_analyzed || 0}`
+        ];
+
+        // Determine risk level based on reputation
+        let repRiskLevel = 'low';
+        if (webRep.reputation_score < 30 || webRep.risk_level === 'CRITICAL' || webRep.risk_level === 'HIGH') {
+            repRiskLevel = 'high';
+        } else if (webRep.reputation_score < 50 || webRep.risk_level === 'MEDIUM') {
+            repRiskLevel = 'medium';
+        }
+
+        const repItem = createTechItem(
+            '🌐 Web Reputation Analysis',
+            repInfo,
+            repRiskLevel
+        );
+        elements.technicalContent.appendChild(repItem);
+
+        // Show scam details if found
+        if (webRep.scam_indicators && webRep.scam_indicators.length > 0) {
+            const scamDetails = webRep.scam_indicators.slice(0, 3).map((scam, idx) =>
+                `${idx + 1}. ${scam.title || 'Scam report'} [${scam.severity.toUpperCase()}]`
+            );
+            const scamItem = createTechItem(
+                `⚠️ Scam Reports Found (${webRep.scam_indicators.length})`,
+                scamDetails,
+                'high'
+            );
+            elements.technicalContent.appendChild(scamItem);
+        }
+    } else if (webRep.error) {
+        const repItem = createTechItem(
+            '🌐 Web Reputation Analysis',
+            [`Not available: ${webRep.error}`],
+            null
+        );
+        elements.technicalContent.appendChild(repItem);
+    }
+
     // Risk Indicators
     const indicators = data.risk_indicators || [];
     if (indicators.length > 0) {
@@ -315,7 +363,7 @@ function displayTechnicalData(data) {
         const riskItem = createTechItem(
             `Risk Indicators (${indicators.length})`,
             riskList,
-            indicators.some(i => i.type === 'high') ? 'high' : 'medium'
+            indicators.some(i => i.type === 'high' || i.type === 'critical') ? 'high' : 'medium'
         );
         elements.technicalContent.appendChild(riskItem);
     }

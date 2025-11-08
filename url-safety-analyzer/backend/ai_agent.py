@@ -259,6 +259,7 @@ After all steps, provide your thinking process in natural paragraphs showing how
         url_structure = technical_data.get("url_structure", {})
         ssl_info = technical_data.get("ssl_info", {})
         content_analysis = technical_data.get("content_analysis", {})
+        web_reputation = technical_data.get("web_reputation", {})
 
         prompt = f"""Conduct a comprehensive trust and safety investigation of the following URL:
 
@@ -284,6 +285,9 @@ CONTENT ANALYSIS:
 - External Scripts: {content_analysis.get('external_scripts_count', 0)}
 - iFrames: {content_analysis.get('iframes_count', 0)}
 - Suspicious Content Patterns: {', '.join(content_analysis.get('suspicious_content', [])) or 'None'}
+
+WEB REPUTATION ANALYSIS:
+{self._format_web_reputation(web_reputation)}
 
 AUTOMATED RISK INDICATORS:
 {self._format_risk_indicators(risk_indicators)}
@@ -327,6 +331,52 @@ Begin your investigation now:"""
                 f"   Risk: {indicator['risk']}"
             )
         return "\n".join(formatted)
+
+    def _format_web_reputation(self, web_rep: Dict[str, Any]) -> str:
+        """Format web reputation findings for prompt"""
+        if not web_rep.get("search_performed"):
+            return "Web reputation search not performed or not configured"
+
+        scam_indicators = web_rep.get("scam_indicators", [])
+        complaints = web_rep.get("user_complaints", [])
+        reputation_score = web_rep.get("reputation_score", 70)
+        risk_level = web_rep.get("risk_level", "UNKNOWN")
+        total_results = web_rep.get("total_results_analyzed", 0)
+        search_backend = web_rep.get("search_backend", "Unknown")
+
+        lines = [
+            f"- Search Backend: {search_backend}",
+            f"- Total Search Results Analyzed: {total_results}",
+            f"- Reputation Score: {reputation_score}/100",
+            f"- Risk Level: {risk_level}",
+            f"- Scam Reports Found: {len(scam_indicators)}",
+            f"- User Complaints Found: {len(complaints)}",
+        ]
+
+        # Add details about high-severity scam reports
+        if scam_indicators:
+            high_severity = [s for s in scam_indicators if s.get('severity') == 'high']
+            if high_severity:
+                lines.append(f"\nHIGH-SEVERITY SCAM REPORTS ({len(high_severity)}):")
+                for idx, scam in enumerate(high_severity[:3], 1):  # Show top 3
+                    lines.append(f"  {idx}. {scam.get('title', 'No title')}")
+                    lines.append(f"     Source: {scam.get('source', 'Unknown')}")
+                    lines.append(f"     Keywords: {', '.join(scam.get('keywords', []))}")
+                    snippet = scam.get('snippet', '')[:150]
+                    if snippet:
+                        lines.append(f"     Excerpt: {snippet}...")
+
+        # Add user complaint samples
+        if complaints:
+            lines.append(f"\nUSER COMPLAINTS ({len(complaints)}):")
+            for idx, complaint in enumerate(complaints[:3], 1):  # Show top 3
+                lines.append(f"  {idx}. Type: {complaint.get('type', 'Unknown')}")
+                lines.append(f"     Indicators: {', '.join(complaint.get('indicators', []))}")
+                snippet = complaint.get('snippet', '')[:150]
+                if snippet:
+                    lines.append(f"     Excerpt: {snippet}...")
+
+        return "\n".join(lines)
 
     def _format_investigation_plan(self, plan: List[str]) -> str:
         """Format investigation plan steps"""

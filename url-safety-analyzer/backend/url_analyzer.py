@@ -22,6 +22,8 @@ from bs4 import BeautifulSoup
 import tldextract
 import validators
 
+from web_reputation_search import WebReputationSearcher
+
 logger = logging.getLogger(__name__)
 
 
@@ -33,6 +35,7 @@ class URLAnalyzer:
         self.headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
         }
+        self.reputation_searcher = WebReputationSearcher()
 
     async def analyze(self, url: str) -> Dict[str, Any]:
         """
@@ -56,6 +59,7 @@ class URLAnalyzer:
             "ssl_info": await self._get_ssl_info(parsed.netloc or parsed.path),
             "http_response": await self._analyze_http_response(url),
             "content_analysis": {},
+            "web_reputation": {},
             "risk_indicators": []
         }
 
@@ -65,6 +69,26 @@ class URLAnalyzer:
                 analysis["http_response"]["content"],
                 url
             )
+
+        # Search web for reputation information
+        if self.reputation_searcher.is_configured():
+            try:
+                logger.info("Performing web reputation search...")
+                analysis["web_reputation"] = await self.reputation_searcher.search_reputation(
+                    url, extracted.fqdn
+                )
+            except Exception as e:
+                logger.error(f"Web reputation search error: {str(e)}")
+                analysis["web_reputation"] = {
+                    "search_performed": False,
+                    "error": str(e)
+                }
+        else:
+            logger.info("Web reputation search not configured (no search API key)")
+            analysis["web_reputation"] = {
+                "search_performed": False,
+                "error": "No search API configured. Set BRAVE_SEARCH_API_KEY, SERPAPI_KEY, or GOOGLE_CSE_API_KEY"
+            }
 
         # Detect risk indicators
         analysis["risk_indicators"] = self._detect_risk_indicators(analysis)
@@ -356,5 +380,70 @@ class URLAnalyzer:
                 "indicator": "Form submits to external domain",
                 "risk": "Potential credential harvesting or phishing"
             })
+
+        # Web reputation risks
+        web_rep = analysis.get("web_reputation", {})
+        if web_rep.get("search_performed"):
+            scam_count = len(web_rep.get("scam_indicators", []))
+            complaint_count = len(web_rep.get("user_complaints", []))
+            reputation_score = web_rep.get("reputation_score", 70)
+            risk_level = web_rep.get("risk_level", "UNKNOWN")
+
+            # Add indicators based on web reputation findings
+            if scam_count > 0:
+                high_severity = sum(1 for s in web_rep.get("scam_indicators", [])
+                                  if s.get("severity") == "high")
+
+                if high_severity >= 3:
+                    indicators.append({
+                        "type": "critical",
+                        "category": "web_reputation",
+                        "indicator": f"Multiple scam reports found online ({high_severity} high-severity)",
+                        "risk": "Website has been widely reported as a scam across multiple sources"
+                    })
+                elif high_severity >= 1:
+                    indicators.append({
+                        "type": "high",
+                        "category": "web_reputation",
+                        "indicator": f"Scam reports found online ({high_severity} high-severity, {scam_count} total)",
+                        "risk": "Website has been reported as potentially fraudulent"
+                    })
+                elif scam_count >= 2:
+                    indicators.append({
+                        "type": "medium",
+                        "category": "web_reputation",
+                        "indicator": f"{scam_count} scam-related mentions found",
+                        "risk": "Some negative reputation signals detected"
+                    })
+
+            if complaint_count >= 3:
+                indicators.append({
+                    "type": "high",
+                    "category": "web_reputation",
+                    "indicator": f"{complaint_count} user complaints found",
+                    "risk": "Multiple users have reported negative experiences"
+                })
+            elif complaint_count >= 1:
+                indicators.append({
+                    "type": "medium",
+                    "category": "web_reputation",
+                    "indicator": f"{complaint_count} user complaints found",
+                    "risk": "Some users have reported issues with this website"
+                })
+
+            if reputation_score < 30:
+                indicators.append({
+                    "type": "high",
+                    "category": "web_reputation",
+                    "indicator": f"Very poor online reputation (score: {reputation_score}/100)",
+                    "risk": "Website has overwhelmingly negative reputation online"
+                })
+            elif reputation_score < 50:
+                indicators.append({
+                    "type": "medium",
+                    "category": "web_reputation",
+                    "indicator": f"Poor online reputation (score: {reputation_score}/100)",
+                    "risk": "Website has significant negative reputation signals"
+                })
 
         return indicators
