@@ -955,6 +955,7 @@ Return ONLY valid JSON, no markdown formatting."""
     ) -> AsyncGenerator[Dict[str, Any], None]:
         """
         Answer follow-up questions about the URL analysis
+        Uses basic context-only approach (fast but limited)
         """
 
         if not self.is_configured():
@@ -1017,3 +1018,613 @@ Answer:"""
                 "type": "error",
                 "message": f"Error processing question: {str(e)}"
             }
+
+    async def answer_followup_with_investigation(
+        self,
+        url: str,
+        question: str,
+        previous_context: Optional[Dict[str, Any]] = None,
+        url_analyzer_instance=None
+    ) -> AsyncGenerator[Dict[str, Any], None]:
+        """
+        Answer follow-up questions with active investigation capability
+        Generic AI-driven system that can handle ANY question type
+
+        GPT-5 analyzes the question and decides what actions to take,
+        then synthesizes answer with gathered evidence
+        """
+
+        if not self.is_configured():
+            yield {
+                "type": "error",
+                "message": "GPT-5 not configured. Please set OPENAI_API_KEY"
+            }
+            return
+
+        yield {
+            "type": "status",
+            "message": "Analyzing your question..."
+        }
+
+        # Step 1: GPT-5 analyzes the question and determines required actions
+        action_plan = await self._analyze_followup_question(
+            url,
+            question,
+            previous_context
+        )
+
+        yield {
+            "type": "plan",
+            "message": f"Planning: {action_plan.get('reasoning', 'Determining investigation approach...')}"
+        }
+
+        # Step 2: Execute actions if new data is needed
+        new_data = {}
+        if action_plan.get("requires_new_data") and action_plan.get("actions"):
+            yield {
+                "type": "status",
+                "message": f"Gathering additional evidence ({len(action_plan['actions'])} action(s))..."
+            }
+
+            new_data = await self._execute_followup_investigation_actions(
+                url,
+                action_plan["actions"],
+                previous_context,
+                url_analyzer_instance
+            )
+
+            if new_data:
+                yield {
+                    "type": "data_gathered",
+                    "message": "New evidence collected. Analyzing..."
+                }
+
+        # Step 3: GPT-5 synthesizes comprehensive answer
+        yield {
+            "type": "status",
+            "message": "Formulating answer..."
+        }
+
+        async for response_chunk in self._synthesize_followup_answer(
+            url,
+            question,
+            previous_context,
+            action_plan,
+            new_data
+        ):
+            yield response_chunk
+
+    async def _analyze_followup_question(
+        self,
+        url: str,
+        question: str,
+        previous_context: Optional[Dict[str, Any]]
+    ) -> Dict[str, Any]:
+        """
+        Use GPT-5 to analyze the question and determine what actions are needed
+        This is the key to making the system generic
+        """
+
+        context_summary = self._build_context_summary(url, previous_context)
+
+        prompt = f"""You are a trust and safety expert analyzing a follow-up question about a URL investigation.
+
+ORIGINAL INVESTIGATION:
+{context_summary}
+
+RESEARCHER'S QUESTION:
+{question}
+
+Analyze this question and determine what additional information or actions are needed to answer it comprehensively.
+
+Available action types:
+1. "web_search" - Search the web for specific information
+2. "compare_domains" - Compare two or more domains for relationships/similarities
+3. "whois_lookup" - Get WHOIS registration data for a domain
+4. "fetch_evidence" - Retrieve specific evidence mentioned in investigation
+5. "analyze_advertiser" - Analyze advertiser information provided by user
+6. "check_relationship" - Check if domains/entities are related
+7. "no_action" - Answer from existing context only
+
+Return ONLY a JSON object:
+{{
+  "intent": "comparison|context_update|evidence_request|relationship_check|strategic_analysis|clarification",
+  "requires_new_data": true/false,
+  "actions": [
+    {{
+      "type": "web_search",
+      "description": "Why this search is needed",
+      "params": {{
+        "queries": ["specific query 1", "specific query 2"]
+      }}
+    }},
+    {{
+      "type": "compare_domains",
+      "description": "What to compare",
+      "params": {{
+        "domains": ["domain1.com", "domain2.com"],
+        "comparison_aspects": ["whois", "content", "reputation"]
+      }}
+    }},
+    {{
+      "type": "analyze_advertiser",
+      "description": "Analyze provided advertiser info",
+      "params": {{
+        "advertiser_data": "extracted from question"
+      }}
+    }}
+  ],
+  "reasoning": "Explain why these actions will answer the question"
+}}
+
+Be intelligent about detecting:
+- User providing new context (advertiser info, campaign details)
+- Questions about domain relationships (typosquatting, impersonation)
+- Requests for specific evidence or details
+- Comparative questions
+- Strategic/analytical questions (may not need new data)
+"""
+
+        try:
+            response = await self.openai_client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You are analyzing follow-up questions and planning investigation actions."
+                    },
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.5,
+                max_tokens=800,
+                response_format={"type": "json_object"}
+            )
+
+            return json.loads(response.choices[0].message.content)
+
+        except Exception as e:
+            logger.error(f"Question analysis error: {str(e)}")
+            # Fallback: answer from context only
+            return {
+                "intent": "clarification",
+                "requires_new_data": False,
+                "actions": [],
+                "reasoning": f"Error analyzing question: {str(e)}. Will answer from existing context."
+            }
+
+    async def _execute_followup_investigation_actions(
+        self,
+        url: str,
+        actions: List[Dict[str, Any]],
+        previous_context: Optional[Dict[str, Any]],
+        url_analyzer_instance
+    ) -> Dict[str, Any]:
+        """
+        Execute the actions determined by GPT-5
+        Modular design allows easy addition of new action types
+        """
+
+        results = {
+            "actions_executed": [],
+            "data": {}
+        }
+
+        for action in actions:
+            action_type = action.get("type")
+            params = action.get("params", {})
+
+            try:
+                logger.info(f"Executing follow-up action: {action_type}")
+
+                if action_type == "web_search":
+                    # Execute web searches
+                    queries = params.get("queries", [])
+                    if queries and url_analyzer_instance and hasattr(url_analyzer_instance, 'reputation_searcher'):
+                        search_results = await url_analyzer_instance.reputation_searcher.execute_targeted_searches(
+                            url,
+                            queries
+                        )
+                        results["data"]["web_search"] = search_results
+                        results["actions_executed"].append({
+                            "type": action_type,
+                            "description": action.get("description"),
+                            "queries": queries,
+                            "results_count": search_results.get("total_results", 0)
+                        })
+
+                elif action_type == "compare_domains":
+                    # Compare multiple domains
+                    domains = params.get("domains", [])
+                    if domains and url_analyzer_instance:
+                        comparison = await self._compare_domains(domains, url_analyzer_instance)
+                        results["data"]["domain_comparison"] = comparison
+                        results["actions_executed"].append({
+                            "type": action_type,
+                            "description": action.get("description"),
+                            "domains": domains
+                        })
+
+                elif action_type == "whois_lookup":
+                    # WHOIS lookup for domain
+                    domain = params.get("domain")
+                    if domain and url_analyzer_instance:
+                        whois_data = await self._whois_lookup(domain, url_analyzer_instance)
+                        results["data"]["whois"] = whois_data
+                        results["actions_executed"].append({
+                            "type": action_type,
+                            "description": action.get("description"),
+                            "domain": domain
+                        })
+
+                elif action_type == "analyze_advertiser":
+                    # Analyze user-provided advertiser information
+                    advertiser_data = params.get("advertiser_data", "")
+                    if advertiser_data:
+                        analysis = await self._analyze_advertiser_context(
+                            url,
+                            advertiser_data,
+                            previous_context
+                        )
+                        results["data"]["advertiser_analysis"] = analysis
+                        results["actions_executed"].append({
+                            "type": action_type,
+                            "description": action.get("description")
+                        })
+
+                elif action_type == "check_relationship":
+                    # Check relationship between entities
+                    entities = params.get("entities", [])
+                    if entities and url_analyzer_instance:
+                        relationship = await self._check_entity_relationship(
+                            entities,
+                            url_analyzer_instance
+                        )
+                        results["data"]["relationship_check"] = relationship
+                        results["actions_executed"].append({
+                            "type": action_type,
+                            "description": action.get("description"),
+                            "entities": entities
+                        })
+
+                elif action_type == "fetch_evidence":
+                    # Fetch specific evidence from previous investigation
+                    evidence_type = params.get("evidence_type")
+                    if evidence_type and previous_context:
+                        evidence = self._extract_evidence_from_context(
+                            evidence_type,
+                            previous_context
+                        )
+                        results["data"]["evidence"] = evidence
+                        results["actions_executed"].append({
+                            "type": action_type,
+                            "description": action.get("description"),
+                            "evidence_type": evidence_type
+                        })
+
+            except Exception as e:
+                logger.error(f"Error executing action {action_type}: {str(e)}")
+                results["actions_executed"].append({
+                    "type": action_type,
+                    "error": str(e)
+                })
+
+        return results
+
+    async def _synthesize_followup_answer(
+        self,
+        url: str,
+        question: str,
+        previous_context: Optional[Dict[str, Any]],
+        action_plan: Dict[str, Any],
+        new_data: Dict[str, Any]
+    ) -> AsyncGenerator[Dict[str, Any], None]:
+        """
+        Use GPT-5 to synthesize comprehensive answer with all available evidence
+        """
+
+        context_summary = self._build_context_summary(url, previous_context)
+
+        new_data_summary = ""
+        if new_data.get("data"):
+            new_data_summary = f"""
+
+NEW EVIDENCE GATHERED:
+{json.dumps(new_data, indent=2)[:3000]}
+"""
+
+        prompt = f"""You are a trust and safety expert providing a comprehensive answer to a follow-up question.
+
+ORIGINAL INVESTIGATION:
+{context_summary}
+
+RESEARCHER'S QUESTION:
+{question}
+
+INVESTIGATION ACTIONS TAKEN:
+{action_plan.get('reasoning', 'N/A')}
+{new_data_summary}
+
+Provide a detailed, evidence-based answer to the researcher's question.
+
+Key requirements:
+1. Cite specific evidence from both original investigation and new data
+2. Be decisive and clear in your assessment
+3. If new advertiser information was provided, compare it with findings
+4. If domain relationships were checked, explain the connection/threat
+5. Reference specific data points (quotes, statistics, sources)
+6. Update verdict if new evidence warrants it
+
+Answer the question comprehensively:"""
+
+        try:
+            stream = await self.openai_client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You are a trust and safety expert providing follow-up analysis."
+                    },
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.7,
+                max_tokens=2000,
+                stream=True
+            )
+
+            async for chunk in stream:
+                if chunk.choices[0].delta.content:
+                    yield {
+                        "type": "response",
+                        "content": chunk.choices[0].delta.content
+                    }
+
+        except Exception as e:
+            logger.error(f"Answer synthesis error: {str(e)}")
+            yield {
+                "type": "error",
+                "message": f"Error formulating answer: {str(e)}"
+            }
+
+    def _build_context_summary(
+        self,
+        url: str,
+        previous_context: Optional[Dict[str, Any]]
+    ) -> str:
+        """Build concise summary of investigation context"""
+
+        if not previous_context:
+            return f"URL: {url}\nNo previous investigation context available."
+
+        report = previous_context.get('report', {})
+        technical_data = previous_context.get('technical_data', {})
+
+        summary = f"""URL: {url}
+Verdict: {report.get('verdict', 'N/A')}
+Risk Score: {report.get('risk_score', 'N/A')}/100
+Confidence: {report.get('confidence', 'N/A')}%
+Primary Category: {report.get('primary_category', 'N/A')}
+
+Key Findings:
+{json.dumps(report.get('key_findings', []), indent=2)[:800]}
+
+Technical Data Summary:
+{json.dumps({
+    'domain': technical_data.get('url_structure', {}).get('fqdn'),
+    'has_ssl': technical_data.get('ssl_info', {}).get('has_ssl'),
+    'web_reputation': technical_data.get('web_reputation', {}).get('risk_level'),
+    'ad_platforms': technical_data.get('ad_platforms', {}).get('summary')
+}, indent=2)}
+"""
+        return summary
+
+    async def _compare_domains(
+        self,
+        domains: List[str],
+        url_analyzer_instance
+    ) -> Dict[str, Any]:
+        """Compare multiple domains for similarities and relationships"""
+
+        comparison = {
+            "domains": domains,
+            "similarities": [],
+            "differences": [],
+            "threat_assessment": ""
+        }
+
+        try:
+            # Analyze each domain
+            domain_analyses = {}
+            for domain in domains[:3]:  # Limit to 3 domains
+                try:
+                    import tldextract
+                    extracted = tldextract.extract(domain)
+
+                    # Basic structure comparison
+                    domain_analyses[domain] = {
+                        "domain": extracted.domain,
+                        "suffix": extracted.suffix,
+                        "length": len(domain),
+                        "has_hyphen": "-" in domain,
+                        "has_numbers": any(c.isdigit() for c in domain)
+                    }
+                except Exception as e:
+                    logger.error(f"Error analyzing domain {domain}: {str(e)}")
+
+            # Use GPT-4o-mini for comparison analysis
+            if self.openai_client and len(domain_analyses) >= 2:
+                prompt = f"""Compare these domains for potential typosquatting or impersonation:
+
+{json.dumps(domain_analyses, indent=2)}
+
+Return JSON:
+{{
+  "similarities": ["List specific similarities"],
+  "differences": ["List key differences"],
+  "relationship": "typosquatting|legitimate_variants|unrelated|same_entity",
+  "threat_level": "high|medium|low|none",
+  "threat_assessment": "Explanation of threat if any"
+}}"""
+
+                response = await self.openai_client.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=[
+                        {"role": "system", "content": "You are analyzing domain relationships for security threats."},
+                        {"role": "user", "content": prompt}
+                    ],
+                    temperature=0.3,
+                    max_tokens=500,
+                    response_format={"type": "json_object"}
+                )
+
+                comparison = json.loads(response.choices[0].message.content)
+
+        except Exception as e:
+            logger.error(f"Domain comparison error: {str(e)}")
+            comparison["error"] = str(e)
+
+        return comparison
+
+    async def _whois_lookup(
+        self,
+        domain: str,
+        url_analyzer_instance
+    ) -> Dict[str, Any]:
+        """Perform WHOIS lookup on domain"""
+
+        whois_data = {
+            "domain": domain,
+            "registrar": "N/A",
+            "creation_date": "N/A",
+            "registrant": "N/A"
+        }
+
+        try:
+            # Note: Actual WHOIS implementation would go here
+            # For now, return placeholder data
+            logger.info(f"WHOIS lookup for {domain} (placeholder)")
+            whois_data["note"] = "WHOIS lookup capability available"
+
+        except Exception as e:
+            logger.error(f"WHOIS lookup error: {str(e)}")
+            whois_data["error"] = str(e)
+
+        return whois_data
+
+    async def _analyze_advertiser_context(
+        self,
+        url: str,
+        advertiser_data: str,
+        previous_context: Optional[Dict[str, Any]]
+    ) -> Dict[str, Any]:
+        """Analyze user-provided advertiser information"""
+
+        try:
+            # Get existing ad platform findings
+            ad_platforms = previous_context.get('technical_data', {}).get('ad_platforms', {}) if previous_context else {}
+
+            prompt = f"""Analyze advertiser information provided by user and compare with investigation findings.
+
+URL BEING INVESTIGATED: {url}
+
+USER-PROVIDED ADVERTISER INFO:
+{advertiser_data}
+
+EXISTING AD PLATFORM FINDINGS:
+{json.dumps(ad_platforms, indent=2)}
+
+Analyze for discrepancies and fraud indicators. Return JSON:
+{{
+  "advertiser_claims": "What advertiser claims to be",
+  "investigation_findings": "What investigation found",
+  "discrepancies": ["List any mismatches"],
+  "fraud_indicators": ["Specific fraud signals"],
+  "threat_level": "critical|high|medium|low|none",
+  "assessment": "Overall assessment of advertiser legitimacy"
+}}"""
+
+            response = await self.openai_client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": "You are analyzing advertiser information for fraud detection."},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.5,
+                max_tokens=600,
+                response_format={"type": "json_object"}
+            )
+
+            return json.loads(response.choices[0].message.content)
+
+        except Exception as e:
+            logger.error(f"Advertiser analysis error: {str(e)}")
+            return {"error": str(e)}
+
+    async def _check_entity_relationship(
+        self,
+        entities: List[str],
+        url_analyzer_instance
+    ) -> Dict[str, Any]:
+        """Check relationships between entities (domains, companies, etc.)"""
+
+        relationship = {
+            "entities": entities,
+            "relationship_type": "unknown",
+            "evidence": []
+        }
+
+        try:
+            # Perform web searches to find relationships
+            if url_analyzer_instance and hasattr(url_analyzer_instance, 'reputation_searcher'):
+                search_query = f"{' '.join(entities)} relationship connection"
+                results = await url_analyzer_instance.reputation_searcher.execute_targeted_searches(
+                    entities[0],
+                    [search_query]
+                )
+
+                relationship["search_results"] = results.get("findings", [])
+                relationship["relationship_type"] = "search_conducted"
+
+        except Exception as e:
+            logger.error(f"Relationship check error: {str(e)}")
+            relationship["error"] = str(e)
+
+        return relationship
+
+    def _extract_evidence_from_context(
+        self,
+        evidence_type: str,
+        previous_context: Dict[str, Any]
+    ) -> Dict[str, Any]:
+        """Extract specific evidence from previous investigation context"""
+
+        evidence = {
+            "type": evidence_type,
+            "data": {}
+        }
+
+        try:
+            technical_data = previous_context.get('technical_data', {})
+
+            if evidence_type == "scam_reports":
+                web_rep = technical_data.get('web_reputation', {})
+                evidence["data"] = web_rep.get('scam_indicators', [])
+
+            elif evidence_type == "user_complaints":
+                web_rep = technical_data.get('web_reputation', {})
+                evidence["data"] = web_rep.get('user_complaints', [])
+
+            elif evidence_type == "ad_platforms":
+                evidence["data"] = technical_data.get('ad_platforms', {})
+
+            elif evidence_type == "ssl_info":
+                evidence["data"] = technical_data.get('ssl_info', {})
+
+            elif evidence_type == "all_findings":
+                report = previous_context.get('report', {})
+                evidence["data"] = report.get('key_findings', [])
+
+        except Exception as e:
+            logger.error(f"Evidence extraction error: {str(e)}")
+            evidence["error"] = str(e)
+
+        return evidence

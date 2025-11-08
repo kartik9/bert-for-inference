@@ -152,18 +152,19 @@ async def analyze_url(request: URLAnalysisRequest):
 async def followup_question(request: FollowUpRequest):
     """
     Handle follow-up questions about a previously analyzed URL
+    Uses generic AI-driven system that can actively investigate based on question
     """
 
     async def event_generator() -> AsyncGenerator[str, None]:
-        """Stream follow-up analysis"""
+        """Stream follow-up analysis with active investigation"""
         try:
-            yield f"data: {json.dumps({'type': 'status', 'message': 'Processing your question...'})}\n\n"
-
-            # Get AI response to follow-up
-            async for update in ai_agent.answer_followup(
+            # Use new generic follow-up system with investigation capabilities
+            # GPT-5 analyzes question, decides what actions to take, gathers evidence, answers
+            async for update in ai_agent.answer_followup_with_investigation(
                 request.url,
                 request.question,
-                request.previous_context
+                request.previous_context,
+                url_analyzer_instance=url_analyzer
             ):
                 yield f"data: {json.dumps(update)}\n\n"
                 await asyncio.sleep(0.1)
