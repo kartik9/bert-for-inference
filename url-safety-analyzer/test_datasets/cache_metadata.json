@@ -1,0 +1,2934 @@
+{
+  "statistics": {
+    "total_entries": 487,
+    "total_size_bytes": 204170,
+    "total_size_mb": 0.19471168518066406,
+    "cache_dir": "url_cache",
+    "created": "2025-11-09T18:56:34.086008",
+    "last_updated": "2025-11-09T18:56:35.502215"
+  },
+  "urls": [
+    {
+      "url": "https://www.ford.com",
+      "cache_id": "b96a75ab972f8d0e3a12f56b9082b8dc",
+      "cached_at": "2025-11-09T18:56:34.098335",
+      "status_code": 200
+    },
+    {
+      "url": "https://make-money-online-easy.com",
+      "cache_id": "de26eec1d1358c404569984a0399329b",
+      "cached_at": "2025-11-09T18:56:34.105824",
+      "status_code": 200
+    },
+    {
+      "url": "https://torrent-download-movies.com",
+      "cache_id": "3f6c95a4beb3e7c57251746b4910f91d",
+      "cached_at": "2025-11-09T18:56:34.105158",
+      "status_code": 200
+    },
+    {
+      "url": "https://windows-security-update.net",
+      "cache_id": "2a9c402ee88d701d7806004794bd0aaf",
+      "cached_at": "2025-11-09T18:56:34.104311",
+      "status_code": 200
+    },
+    {
+      "url": "https://slack-workspace-invite.net",
+      "cache_id": "c121178af4074c3b1ca95348bf96da5e",
+      "cached_at": "2025-11-09T18:56:34.106635",
+      "status_code": 200
+    },
+    {
+      "url": "https://linkedin-profile-viewed.com",
+      "cache_id": "0d810f9e92d26bf6f7682d19cc15e784",
+      "cached_at": "2025-11-09T18:56:34.107589",
+      "status_code": 200
+    },
+    {
+      "url": "https://toolbar-redirect-traffic.net",
+      "cache_id": "2ab11bd6d810bd4b6d6d92a822f025c9",
+      "cached_at": "2025-11-09T18:56:34.108708",
+      "status_code": 200
+    },
+    {
+      "url": "https://usps-redelivery-schedule.net",
+      "cache_id": "07dc5b5eac8b1f6911d97fe632dd76a8",
+      "cached_at": "2025-11-09T18:56:34.108171",
+      "status_code": 200
+    },
+    {
+      "url": "https://bot-vs-human-content.com",
+      "cache_id": "c1aae4ee0005aadcfc2558d37fc100a0",
+      "cached_at": "2025-11-09T18:56:34.109324",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.macys.com",
+      "cache_id": "4c50117dbadd83074353dad77aff5181",
+      "cached_at": "2025-11-09T18:56:34.109948",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.cdc.gov",
+      "cache_id": "7b260d37af4d9d7ff6ba87db2faf3bbc",
+      "cached_at": "2025-11-09T18:56:34.136439",
+      "status_code": 200
+    },
+    {
+      "url": "https://invest-and-earn-daily.com",
+      "cache_id": "39a63b2f699e90ef86bc7ae82cc9e717",
+      "cached_at": "2025-11-09T18:56:34.135387",
+      "status_code": 200
+    },
+    {
+      "url": "https://incentive-traffic-source.net",
+      "cache_id": "37ed0543fc4e521b81ce45351bbee5ff",
+      "cached_at": "2025-11-09T18:56:34.138053",
+      "status_code": 200
+    },
+    {
+      "url": "https://free-microsoft-office-download.net",
+      "cache_id": "1c660b98de4f00a2bafc585546dc2869",
+      "cached_at": "2025-11-09T18:56:34.138935",
+      "status_code": 200
+    },
+    {
+      "url": "https://psychic-readings-online.com",
+      "cache_id": "a773ca1ce9fe3f03de4face01bd93f5c",
+      "cached_at": "2025-11-09T18:56:34.140254",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.twitch.tv",
+      "cache_id": "e506ea4dc9486d471057e45c3ff3adf4",
+      "cached_at": "2025-11-09T18:56:34.139563",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.homedepot.com",
+      "cache_id": "1a7849b49fd3088dd88837f5fb69429a",
+      "cached_at": "2025-11-09T18:56:34.143040",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.stanford.edu",
+      "cache_id": "4c947da14506d76d8bfa04703ae069a3",
+      "cached_at": "2025-11-09T18:56:34.143803",
+      "status_code": 200
+    },
+    {
+      "url": "https://paypal-verify-account.net",
+      "cache_id": "687f1ada7d410ad054a69d633496052d",
+      "cached_at": "2025-11-09T18:56:34.144498",
+      "status_code": 200
+    },
+    {
+      "url": "https://pc-repair-tech-support.net",
+      "cache_id": "8ce42cc0c4ba3ffa4c2bc85dd99bdf27",
+      "cached_at": "2025-11-09T18:56:34.145257",
+      "status_code": 200
+    },
+    {
+      "url": "https://anonymous-browsing-vpn.com",
+      "cache_id": "4e699701fb256224e8a142f691757274",
+      "cached_at": "2025-11-09T18:56:34.162345",
+      "status_code": 200
+    },
+    {
+      "url": "https://free-web-hosting-site.net",
+      "cache_id": "c1adf08e8a5c495c584b5176dbb6a3c0",
+      "cached_at": "2025-11-09T18:56:34.161516",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.miro.com",
+      "cache_id": "77d8b585330deb619630340a8ddfbce8",
+      "cached_at": "2025-11-09T18:56:34.163027",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.salesforce.com",
+      "cache_id": "9ad95ed3d1f88bf298c4ad88fb83aef9",
+      "cached_at": "2025-11-09T18:56:34.164517",
+      "status_code": 200
+    },
+    {
+      "url": "https://bitcoin-mixer-anonymous.com",
+      "cache_id": "d5322242f6a6891ac9428a3947c833c6",
+      "cached_at": "2025-11-09T18:56:34.163600",
+      "status_code": 200
+    },
+    {
+      "url": "https://ad-platform-shows-different.net",
+      "cache_id": "faed2513f3f88abc80140c6c69ec0353",
+      "cached_at": "2025-11-09T18:56:34.168262",
+      "status_code": 200
+    },
+    {
+      "url": "https://mcafee-renewal-required.net",
+      "cache_id": "703ccf1af36978683a422f70d434bf72",
+      "cached_at": "2025-11-09T18:56:34.169068",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.chase.com",
+      "cache_id": "173bd3de81e6d7030370d7964c819a25",
+      "cached_at": "2025-11-09T18:56:34.169724",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.autozone.com",
+      "cache_id": "93a66fdf552b1ee5c3301371d77156fb",
+      "cached_at": "2025-11-09T18:56:34.170444",
+      "status_code": 200
+    },
+    {
+      "url": "https://walmart-survey-reward.com",
+      "cache_id": "91d338f6e96e37e13561812e50195974",
+      "cached_at": "2025-11-09T18:56:34.173193",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.supabase.com",
+      "cache_id": "c695352a8dcf213adbb7ccc6cd27a135",
+      "cached_at": "2025-11-09T18:56:34.186593",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.mayoclinic.org",
+      "cache_id": "89f54890c2d29f7fb42cd85d45068a87",
+      "cached_at": "2025-11-09T18:56:34.185830",
+      "status_code": 200
+    },
+    {
+      "url": "https://micr0soft.com",
+      "cache_id": "35e0870d518ace894d5ecaf515b6e56f",
+      "cached_at": "2025-11-09T18:56:34.192146",
+      "status_code": 200
+    },
+    {
+      "url": "https://limited-time-offer-scam.com",
+      "cache_id": "420bc83617b5d6754b5449754f58b553",
+      "cached_at": "2025-11-09T18:56:34.187386",
+      "status_code": 200
+    },
+    {
+      "url": "https://unlock-premium-features.net",
+      "cache_id": "7e2e76ab1ca3cd87379e6abbaaeee7bd",
+      "cached_at": "2025-11-09T18:56:34.191319",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.vercel.com",
+      "cache_id": "094c506918a7a4c68639088b1d000b67",
+      "cached_at": "2025-11-09T18:56:34.193551",
+      "status_code": 200
+    },
+    {
+      "url": "https://activate-windows-product-key.com",
+      "cache_id": "cc41e9600c8f48657b21c35c7b153da8",
+      "cached_at": "2025-11-09T18:56:34.192854",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.disney.com",
+      "cache_id": "b31791807829abbaef13286cd3bcd76c",
+      "cached_at": "2025-11-09T18:56:34.194318",
+      "status_code": 200
+    },
+    {
+      "url": "https://coupon-deals-aggregator.com",
+      "cache_id": "dd5c9ac86cd0b6aabe5ccf2fc066168a",
+      "cached_at": "2025-11-09T18:56:34.195922",
+      "status_code": 200
+    },
+    {
+      "url": "https://gift-cards-earn-free.com",
+      "cache_id": "64aacdee480b523b8451faf935cfe94c",
+      "cached_at": "2025-11-09T18:56:34.200890",
+      "status_code": 200
+    },
+    {
+      "url": "https://bot-generated-clicks.com",
+      "cache_id": "120037b6443069ceb2855fa3079ca61d",
+      "cached_at": "2025-11-09T18:56:34.208486",
+      "status_code": 200
+    },
+    {
+      "url": "https://linkedln.com",
+      "cache_id": "39d7649e6f97abccb2103cdd3305d4ce",
+      "cached_at": "2025-11-09T18:56:34.212812",
+      "status_code": 200
+    },
+    {
+      "url": "https://microsoft-support-center.net",
+      "cache_id": "656389de221db5d2e8076f9483e36655",
+      "cached_at": "2025-11-09T18:56:34.212089",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.costco.com",
+      "cache_id": "62efbe72009995ce1323fa390d7b443f",
+      "cached_at": "2025-11-09T18:56:34.213591",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.carmax.com",
+      "cache_id": "7c95f4c2068a1f8c8c4cfe6acd31dbd8",
+      "cached_at": "2025-11-09T18:56:34.214215",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.segment.com",
+      "cache_id": "75879efc4464112d94c77ad745d97bec",
+      "cached_at": "2025-11-09T18:56:34.215795",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.steam.com",
+      "cache_id": "82d706124440d4387febd8f90bee7808",
+      "cached_at": "2025-11-09T18:56:34.218693",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.walmart.com",
+      "cache_id": "9577be2a0a24ffcd657fc8dbaefb0ed6",
+      "cached_at": "2025-11-09T18:56:34.219954",
+      "status_code": 200
+    },
+    {
+      "url": "https://webcam-models-live.net",
+      "cache_id": "b1eef6cf30f0b3d48421682c686bc67c",
+      "cached_at": "2025-11-09T18:56:34.222169",
+      "status_code": 200
+    },
+    {
+      "url": "https://free-mp3-music-download.com",
+      "cache_id": "22e05fcb8d8ca00c0056dffe926c3a41",
+      "cached_at": "2025-11-09T18:56:34.224927",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.shopify.com",
+      "cache_id": "184a74c7df096faf104951aabfde0393",
+      "cached_at": "2025-11-09T18:56:34.235108",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.plausible.io",
+      "cache_id": "91c3560e2798d76ba69d4f434b940b74",
+      "cached_at": "2025-11-09T18:56:34.238498",
+      "status_code": 200
+    },
+    {
+      "url": "https://yield-farming-protocol.net",
+      "cache_id": "d2e00b37f3291dd015541978fd7b56f7",
+      "cached_at": "2025-11-09T18:56:34.237830",
+      "status_code": 200
+    },
+    {
+      "url": "https://norton-subscription-expired.com",
+      "cache_id": "055e6448bf9b49770ddfdbcf2ee71bab",
+      "cached_at": "2025-11-09T18:56:34.239273",
+      "status_code": 200
+    },
+    {
+      "url": "https://celebrity-endorsement-fake.net",
+      "cache_id": "b93384d7cd95993289b66eab1cf90f03",
+      "cached_at": "2025-11-09T18:56:34.241394",
+      "status_code": 200
+    },
+    {
+      "url": "https://email-list-purchase.net",
+      "cache_id": "e42b6f125ba74cefa8e4b29631bae2bc",
+      "cached_at": "2025-11-09T18:56:34.242572",
+      "status_code": 200
+    },
+    {
+      "url": "https://brand-new-startup-2024.com",
+      "cache_id": "9900e8e2cf52db6fe6541671e73e2669",
+      "cached_at": "2025-11-09T18:56:34.243530",
+      "status_code": 200
+    },
+    {
+      "url": "https://brand-shoes-wholesale.com",
+      "cache_id": "d05071107fbcee44aa7d013f1e280088",
+      "cached_at": "2025-11-09T18:56:34.245571",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.paypal.com",
+      "cache_id": "1064c1f8b712f5fd36f3078b0cc2b972",
+      "cached_at": "2025-11-09T18:56:34.249102",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.clickup.com",
+      "cache_id": "6fff52321ef456330402197617b3374b",
+      "cached_at": "2025-11-09T18:56:34.246193",
+      "status_code": 200
+    },
+    {
+      "url": "https://wellsfargo-online.net",
+      "cache_id": "63cd17821d7965ce2552960989b49afd",
+      "cached_at": "2025-11-09T18:56:34.261691",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.substack.com",
+      "cache_id": "8a061aaa09c282aee825f7c10bc4ce7d",
+      "cached_at": "2025-11-09T18:56:34.262429",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.openai.com",
+      "cache_id": "80a18e83d5c3c786cc6ede0352d29b1e",
+      "cached_at": "2025-11-09T18:56:34.263321",
+      "status_code": 200
+    },
+    {
+      "url": "https://file-recovery-software-free.net",
+      "cache_id": "ea375de82cbd2226ca7870ba42c8df2e",
+      "cached_at": "2025-11-09T18:56:34.266953",
+      "status_code": 200
+    },
+    {
+      "url": "https://call-microsoft-support-now.com",
+      "cache_id": "feb65c55212a5b6bce958a9b6f7dbc18",
+      "cached_at": "2025-11-09T18:56:34.265822",
+      "status_code": 200
+    },
+    {
+      "url": "https://podcast-show-official.net",
+      "cache_id": "c593e02278a95ace6e7818d6822ae079",
+      "cached_at": "2025-11-09T18:56:34.269371",
+      "status_code": 200
+    },
+    {
+      "url": "https://aws.amazon.com",
+      "cache_id": "a1f4f0bae0e2bf53f3231975b69917be",
+      "cached_at": "2025-11-09T18:56:34.270177",
+      "status_code": 200
+    },
+    {
+      "url": "https://clean-ad-malicious-landing.com",
+      "cache_id": "5e618c18a4a76c1d5d0c0e2af484d3e8",
+      "cached_at": "2025-11-09T18:56:34.273375",
+      "status_code": 200
+    },
+    {
+      "url": "https://native-advertising.net",
+      "cache_id": "44ca6362bef9559f49bdec5794a46488",
+      "cached_at": "2025-11-09T18:56:34.274316",
+      "status_code": 200
+    },
+    {
+      "url": "https://free-vpn-download-unlimited.com",
+      "cache_id": "420bf75028533bdc485e0f48ce5c3714",
+      "cached_at": "2025-11-09T18:56:34.274976",
+      "status_code": 200
+    },
+    {
+      "url": "https://media-player-codec-install.com",
+      "cache_id": "6b59de262fe6525a4be5bb7fff1a8de4",
+      "cached_at": "2025-11-09T18:56:34.287096",
+      "status_code": 200
+    },
+    {
+      "url": "https://adult-content-verify-age.com",
+      "cache_id": "943d8147a8dab5ebb597ac00728005b1",
+      "cached_at": "2025-11-09T18:56:34.287914",
+      "status_code": 200
+    },
+    {
+      "url": "https://nonprofit-organization-new.com",
+      "cache_id": "86bce8b1c24dd6f4b90e563f0c3ae438",
+      "cached_at": "2025-11-09T18:56:34.293169",
+      "status_code": 200
+    },
+    {
+      "url": "https://bot-traffic-source.com",
+      "cache_id": "f469b2d62c420d251b7fe65c2205efab",
+      "cached_at": "2025-11-09T18:56:34.290232",
+      "status_code": 200
+    },
+    {
+      "url": "https://you-won-prize-claim-now.com",
+      "cache_id": "f20c8c665d0adb5eb12d64e73210d79d",
+      "cached_at": "2025-11-09T18:56:34.293882",
+      "status_code": 200
+    },
+    {
+      "url": "https://keylogger-monitoring-software.com",
+      "cache_id": "d00069c5a182599b919739dcbea00db3",
+      "cached_at": "2025-11-09T18:56:34.296979",
+      "status_code": 200
+    },
+    {
+      "url": "https://lottery-international-winner.net",
+      "cache_id": "f78dd7db353851d983570160c543a85d",
+      "cached_at": "2025-11-09T18:56:34.297844",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.realtor.com",
+      "cache_id": "08ca94cad6369c5a9c093d930fccb9a9",
+      "cached_at": "2025-11-09T18:56:34.299034",
+      "status_code": 200
+    },
+    {
+      "url": "https://mature-singles-dating.com",
+      "cache_id": "7864667fc352389bd1c50d84f18a0163",
+      "cached_at": "2025-11-09T18:56:34.301804",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.render.com",
+      "cache_id": "3ac0b8f976e52a8faf98b6b1a17c8840",
+      "cached_at": "2025-11-09T18:56:34.302581",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.wsj.com",
+      "cache_id": "988d32c732618bcb5cb901c5dda31255",
+      "cached_at": "2025-11-09T18:56:34.313551",
+      "status_code": 200
+    },
+    {
+      "url": "https://local-business-new.com",
+      "cache_id": "7a3af5493364783e51dc0e400d35d25a",
+      "cached_at": "2025-11-09T18:56:34.315904",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.zillow.com",
+      "cache_id": "798016bbd6c1b56745a2b8724255a281",
+      "cached_at": "2025-11-09T18:56:34.319606",
+      "status_code": 200
+    },
+    {
+      "url": "https://githuh.com",
+      "cache_id": "1f67ea5b9c063b2446aeca2f440999ec",
+      "cached_at": "2025-11-09T18:56:34.318747",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.coinbase.com",
+      "cache_id": "3407933082dfb9b362c018968341fdbf",
+      "cached_at": "2025-11-09T18:56:34.326653",
+      "status_code": 200
+    },
+    {
+      "url": "https://chase-online-banking.net",
+      "cache_id": "ca844982e03180569c1a7ac7bd9176db",
+      "cached_at": "2025-11-09T18:56:34.323056",
+      "status_code": 200
+    },
+    {
+      "url": "https://apple-security-alert.net",
+      "cache_id": "cfbc10ebb25eaa3401cc2ec439ef8024",
+      "cached_at": "2025-11-09T18:56:34.322327",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.youtube.com",
+      "cache_id": "d245406cb6c9f36be9064c92c34e12e1",
+      "cached_at": "2025-11-09T18:56:34.327511",
+      "status_code": 200
+    },
+    {
+      "url": "https://background-removal-ai.com",
+      "cache_id": "b646e0fe57931efa88a66184d01a6726",
+      "cached_at": "2025-11-09T18:56:34.328920",
+      "status_code": 200
+    },
+    {
+      "url": "https://docusign-document-ready.com",
+      "cache_id": "1e276e282efe72a13c9ee5426024a8f4",
+      "cached_at": "2025-11-09T18:56:34.330354",
+      "status_code": 200
+    },
+    {
+      "url": "https://unclaimed-prize-notification.com",
+      "cache_id": "37bbbf7d587afd957dd4eef361b9d987",
+      "cached_at": "2025-11-09T18:56:34.340706",
+      "status_code": 200
+    },
+    {
+      "url": "https://phpbb-forum.com",
+      "cache_id": "f56cda3825a6806d526896e0cf338651",
+      "cached_at": "2025-11-09T18:56:34.343560",
+      "status_code": 200
+    },
+    {
+      "url": "https://christian-dating-network.com",
+      "cache_id": "1c427a979a60624aeca43e797bc331e3",
+      "cached_at": "2025-11-09T18:56:34.351653",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.asana.com",
+      "cache_id": "d9f083f579eea931dd77ba8664d4ee08",
+      "cached_at": "2025-11-09T18:56:34.346069",
+      "status_code": 200
+    },
+    {
+      "url": "https://joomla-cms-site.com",
+      "cache_id": "4af7b2b1e6ed911e0fba71aed21b0b61",
+      "cached_at": "2025-11-09T18:56:34.349577",
+      "status_code": 200
+    },
+    {
+      "url": "https://inspired-by-designer.com",
+      "cache_id": "2648b433896ffd325da968afa1d6b489",
+      "cached_at": "2025-11-09T18:56:34.350928",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.bankofamerica.com",
+      "cache_id": "23365aef81a2049e0b15230714e37d23",
+      "cached_at": "2025-11-09T18:56:34.352384",
+      "status_code": 200
+    },
+    {
+      "url": "https://second-hand-marketplace.net",
+      "cache_id": "5211f4f70b72add6563c05810846d4b8",
+      "cached_at": "2025-11-09T18:56:34.353604",
+      "status_code": 200
+    },
+    {
+      "url": "https://cloud.google.com",
+      "cache_id": "9f775861ac40840efb26293cd2e7d1f0",
+      "cached_at": "2025-11-09T18:56:34.356697",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.netflix.com",
+      "cache_id": "1deee184a49d3b009b5d64a2864b8dda",
+      "cached_at": "2025-11-09T18:56:34.357534",
+      "status_code": 200
+    },
+    {
+      "url": "https://cookie-stuffing-affiliate.net",
+      "cache_id": "62bec71e6fef758fa5dc8df24c10efa6",
+      "cached_at": "2025-11-09T18:56:34.368264",
+      "status_code": 200
+    },
+    {
+      "url": "https://system-warning-critical-error.com",
+      "cache_id": "9396db50e6c8c26986e86ba651b63528",
+      "cached_at": "2025-11-09T18:56:34.371404",
+      "status_code": 200
+    },
+    {
+      "url": "https://controversial-content-site.net",
+      "cache_id": "083020b4e38a6547668b53543aa9f69c",
+      "cached_at": "2025-11-09T18:56:34.376026",
+      "status_code": 200
+    },
+    {
+      "url": "https://initial-compliant-then-redirect.net",
+      "cache_id": "5265bf45714c354df97256b5c74cd40c",
+      "cached_at": "2025-11-09T18:56:34.375267",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.webmd.com",
+      "cache_id": "18818b92d6e734e815e00536c789a9bc",
+      "cached_at": "2025-11-09T18:56:34.376747",
+      "status_code": 200
+    },
+    {
+      "url": "https://go0gle.com",
+      "cache_id": "cb250b52c984cc1bf5e667dd6086bcc7",
+      "cached_at": "2025-11-09T18:56:34.377654",
+      "status_code": 200
+    },
+    {
+      "url": "https://google-drive-shared-doc.net",
+      "cache_id": "cabb4dcac46b9933ca09c11cef2f2bed",
+      "cached_at": "2025-11-09T18:56:34.382385",
+      "status_code": 200
+    },
+    {
+      "url": "https://international-dating-service.net",
+      "cache_id": "f63eea749b6055a10716986943ec8fd3",
+      "cached_at": "2025-11-09T18:56:34.380703",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.reddit.com",
+      "cache_id": "30dd8fd5626b7e36783516a6e238baf2",
+      "cached_at": "2025-11-09T18:56:34.383296",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.usa.gov",
+      "cache_id": "73b026f5d7970a89203e95dba50dc05c",
+      "cached_at": "2025-11-09T18:56:34.386106",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.airbnb.com",
+      "cache_id": "294e1b43ad06f6e15b22be186052de4b",
+      "cached_at": "2025-11-09T18:56:34.395783",
+      "status_code": 200
+    },
+    {
+      "url": "https://earn-money-from-home-now.net",
+      "cache_id": "28314738cb30a1a693ef407db9050472",
+      "cached_at": "2025-11-09T18:56:34.401177",
+      "status_code": 200
+    },
+    {
+      "url": "https://emerging-technology-ai.net",
+      "cache_id": "c191a4d9395269932f6519be2055bb6b",
+      "cached_at": "2025-11-09T18:56:34.402229",
+      "status_code": 200
+    },
+    {
+      "url": "https://secure-login-verify.com",
+      "cache_id": "46c50ee709e035aaf8250c05fc6f5567",
+      "cached_at": "2025-11-09T18:56:34.402929",
+      "status_code": 200
+    },
+    {
+      "url": "https://vbulletin-board.net",
+      "cache_id": "32f0dca2abdca3e12d04b93ecd1c3677",
+      "cached_at": "2025-11-09T18:56:34.403606",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.venmo.com",
+      "cache_id": "b1386f49049fd28879971f1b78a6bf5c",
+      "cached_at": "2025-11-09T18:56:34.409061",
+      "status_code": 200
+    },
+    {
+      "url": "https://windows-license-expired.net",
+      "cache_id": "3bae6ad64e9eff9ae21e22226f24b1d0",
+      "cached_at": "2025-11-09T18:56:34.407017",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.reuters.com",
+      "cache_id": "880922db02816158732477822da6d07f",
+      "cached_at": "2025-11-09T18:56:34.409760",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.beehiiv.com",
+      "cache_id": "b525126eea5b0f2abd7ab7b8792a0226",
+      "cached_at": "2025-11-09T18:56:34.410965",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.alibaba.com",
+      "cache_id": "7069fdb2fc5b92d82f7068c0fa65e7aa",
+      "cached_at": "2025-11-09T18:56:34.414362",
+      "status_code": 200
+    },
+    {
+      "url": "https://doctors-hate-this-one-trick.com",
+      "cache_id": "6ee16210e06ce22eac8909026eeb6cd7",
+      "cached_at": "2025-11-09T18:56:34.423264",
+      "status_code": 200
+    },
+    {
+      "url": "https://cracked-games-download.net",
+      "cache_id": "d888df5728bdb5138cc4a06750e98a63",
+      "cached_at": "2025-11-09T18:56:34.430787",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.theguardian.com",
+      "cache_id": "558a003a7a0164e924408edec7e99f99",
+      "cached_at": "2025-11-09T18:56:34.431619",
+      "status_code": 200
+    },
+    {
+      "url": "https://game-hacks-cheats-download.net",
+      "cache_id": "041c241cd876f74980ffd981363b830c",
+      "cached_at": "2025-11-09T18:56:34.432390",
+      "status_code": 200
+    },
+    {
+      "url": "https://ad-to-ad-redirect.net",
+      "cache_id": "7c37553d37d1cbd90e2b7b5ac30faa13",
+      "cached_at": "2025-11-09T18:56:34.433143",
+      "status_code": 200
+    },
+    {
+      "url": "https://security-patch-required.net",
+      "cache_id": "ca9e2498d7308c960d2e91457ea692ed",
+      "cached_at": "2025-11-09T18:56:34.433918",
+      "status_code": 200
+    },
+    {
+      "url": "https://sponsored-content-hub.com",
+      "cache_id": "2c5fb7fe3e902ccdaa4854cd803972a1",
+      "cached_at": "2025-11-09T18:56:34.436656",
+      "status_code": 200
+    },
+    {
+      "url": "https://legacy-php-application.com",
+      "cache_id": "92f76ea0dd3f8a2782e46911b7e642ee",
+      "cached_at": "2025-11-09T18:56:34.437664",
+      "status_code": 200
+    },
+    {
+      "url": "https://windows-defender-alert.net",
+      "cache_id": "337a635856da6441f170f0dd97e1cce4",
+      "cached_at": "2025-11-09T18:56:34.443643",
+      "status_code": 200
+    },
+    {
+      "url": "https://holistic-healing-center.net",
+      "cache_id": "2ca063026a75d73ea15138b54fbb7533",
+      "cached_at": "2025-11-09T18:56:34.444489",
+      "status_code": 200
+    },
+    {
+      "url": "https://weight-loss-miracle-supplement.com",
+      "cache_id": "25742c4139f5f59ad4ee284142d8c5c2",
+      "cached_at": "2025-11-09T18:56:34.453507",
+      "status_code": 200
+    },
+    {
+      "url": "https://nft-marketplace-new.com",
+      "cache_id": "48feb79abdd692ab72cecd9413b9133e",
+      "cached_at": "2025-11-09T18:56:34.459699",
+      "status_code": 200
+    },
+    {
+      "url": "https://unrealistic-claims-ad.net",
+      "cache_id": "9bf143a4f19ca7cc5237dd1565f2fdc7",
+      "cached_at": "2025-11-09T18:56:34.458905",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.slack.com",
+      "cache_id": "682403c39e0d51c742ad02455635600c",
+      "cached_at": "2025-11-09T18:56:34.460512",
+      "status_code": 200
+    },
+    {
+      "url": "https://musician-band-official.com",
+      "cache_id": "27d0ecb6c700fd78d5fefc9c23611cac",
+      "cached_at": "2025-11-09T18:56:34.461146",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.replicate.com",
+      "cache_id": "12b74e51998cebb262674169f39298be",
+      "cached_at": "2025-11-09T18:56:34.463033",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.stripe.com",
+      "cache_id": "ad6e6fd1d5335e392cde8a6930bc940b",
+      "cached_at": "2025-11-09T18:56:34.464994",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.jetbrains.com",
+      "cache_id": "c554f0ea50afd34b1f80e938c4ab332d",
+      "cached_at": "2025-11-09T18:56:34.467809",
+      "status_code": 200
+    },
+    {
+      "url": "https://replica-sunglasses-cheap.net",
+      "cache_id": "1aa27dee38ac3399ae61ef1195cb2a60",
+      "cached_at": "2025-11-09T18:56:34.471414",
+      "status_code": 200
+    },
+    {
+      "url": "https://photoshop-free-full-version.com",
+      "cache_id": "cec332854d70b2a661bad428a6ab32d7",
+      "cached_at": "2025-11-09T18:56:34.472181",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.zoom.us",
+      "cache_id": "36a609ab5c4a99a0c41684cb0b885955",
+      "cached_at": "2025-11-09T18:56:34.481178",
+      "status_code": 200
+    },
+    {
+      "url": "https://click-to-continue-reading.net",
+      "cache_id": "9d6c0b48212b27680669247b435cbe3e",
+      "cached_at": "2025-11-09T18:56:34.486053",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.apple.com",
+      "cache_id": "82cc5b2a23492c33d2115e3a27bfcbec",
+      "cached_at": "2025-11-09T18:56:34.486923",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.booking.com",
+      "cache_id": "f02ff3998879f0c71800bdd9d9740269",
+      "cached_at": "2025-11-09T18:56:34.488353",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.hubspot.com",
+      "cache_id": "5dd4e61469ae90ed3e97ede818bfb89a",
+      "cached_at": "2025-11-09T18:56:34.489397",
+      "status_code": 200
+    },
+    {
+      "url": "https://hidden-charges-checkout.net",
+      "cache_id": "3ba2897ee66f7ad84ae9142926a2174d",
+      "cached_at": "2025-11-09T18:56:34.490983",
+      "status_code": 200
+    },
+    {
+      "url": "https://small-business-website.com",
+      "cache_id": "64d562c5fb9b1830341b827dc9cf9f49",
+      "cached_at": "2025-11-09T18:56:34.494039",
+      "status_code": 200
+    },
+    {
+      "url": "https://watch-free-movies-online.net",
+      "cache_id": "670e04b97b7011939723c1d2905533b0",
+      "cached_at": "2025-11-09T18:56:34.493377",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.expedia.com",
+      "cache_id": "bb67b9da957a0641f09837623eb2ba6a",
+      "cached_at": "2025-11-09T18:56:34.497713",
+      "status_code": 200
+    },
+    {
+      "url": "https://discord-community-server.com",
+      "cache_id": "fbf6e710cbc8266b2c3221864234ac9d",
+      "cached_at": "2025-11-09T18:56:34.498429",
+      "status_code": 200
+    },
+    {
+      "url": "https://authentic-watches-cheap.net",
+      "cache_id": "5857876fd555fb77a546df2e897a1d78",
+      "cached_at": "2025-11-09T18:56:34.511015",
+      "status_code": 200
+    },
+    {
+      "url": "https://binance-account-recovery.net",
+      "cache_id": "803276568105ac213d1717ca8ca98559",
+      "cached_at": "2025-11-09T18:56:34.510119",
+      "status_code": 200
+    },
+    {
+      "url": "https://expired-ssl-certificate.net",
+      "cache_id": "555eff693a228b1aae80925597fce7a8",
+      "cached_at": "2025-11-09T18:56:34.513764",
+      "status_code": 200
+    },
+    {
+      "url": "https://nft-early-access-presale.com",
+      "cache_id": "5a96542cc6a4eb597a5c9f74b302cd75",
+      "cached_at": "2025-11-09T18:56:34.515337",
+      "status_code": 200
+    },
+    {
+      "url": "https://poker-online-real-money.net",
+      "cache_id": "5dde290c6e5270719a93e79ffc18e93f",
+      "cached_at": "2025-11-09T18:56:34.516910",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.railway.app",
+      "cache_id": "716ed45f0d8ed2b7e0259daa5014627c",
+      "cached_at": "2025-11-09T18:56:34.518841",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.target.com",
+      "cache_id": "1119629a93df1efe2e30c8157d8e8128",
+      "cached_at": "2025-11-09T18:56:34.522317",
+      "status_code": 200
+    },
+    {
+      "url": "https://coming-soon-launching.net",
+      "cache_id": "c0b2c2673442b13cde072b200b70382f",
+      "cached_at": "2025-11-09T18:56:34.523097",
+      "status_code": 200
+    },
+    {
+      "url": "https://survey-complete-continue.com",
+      "cache_id": "5264d1ea6559c5ab5ae1de5e5f1b0632",
+      "cached_at": "2025-11-09T18:56:34.523949",
+      "status_code": 200
+    },
+    {
+      "url": "https://meet-local-singles-tonight.net",
+      "cache_id": "0d03ddbd291f7f05fc080393ff041bf8",
+      "cached_at": "2025-11-09T18:56:34.527277",
+      "status_code": 200
+    },
+    {
+      "url": "https://photo-gallery-old.com",
+      "cache_id": "5a472cbf39041621c64ab635154e8a7c",
+      "cached_at": "2025-11-09T18:56:34.538331",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.atlassian.com",
+      "cache_id": "c39310ebc6f47ccbf04fd3c4532d686e",
+      "cached_at": "2025-11-09T18:56:34.539267",
+      "status_code": 200
+    },
+    {
+      "url": "https://auto-redirect-click.com",
+      "cache_id": "9d72ac62aabcd4a934042a5b47538a09",
+      "cached_at": "2025-11-09T18:56:34.541899",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.airtable.com",
+      "cache_id": "494a8caffe31116932006a8b15da2b90",
+      "cached_at": "2025-11-09T18:56:34.542857",
+      "status_code": 200
+    },
+    {
+      "url": "https://metamask-wallet-connect.com",
+      "cache_id": "d56f31242a3c2a2cc0af376002bdc8a8",
+      "cached_at": "2025-11-09T18:56:34.544750",
+      "status_code": 200
+    },
+    {
+      "url": "https://shocking-news-you-wont-believe.com",
+      "cache_id": "437353965fa5e3f431b1dbe01be08385",
+      "cached_at": "2025-11-09T18:56:34.547850",
+      "status_code": 200
+    },
+    {
+      "url": "https://anti-aging-secret-formula.net",
+      "cache_id": "77beab2be74346485cae7958f4e036f8",
+      "cached_at": "2025-11-09T18:56:34.548524",
+      "status_code": 200
+    },
+    {
+      "url": "https://crypto-guaranteed-returns.com",
+      "cache_id": "dbc0620a7d9802f85d6bdb67494224fe",
+      "cached_at": "2025-11-09T18:56:34.552370",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.planetscale.com",
+      "cache_id": "22ba865e3fd0bf0f793978aa89b787a5",
+      "cached_at": "2025-11-09T18:56:34.553296",
+      "status_code": 200
+    },
+    {
+      "url": "https://user-generated-content.com",
+      "cache_id": "d6f89b60f1238821c85d1c310b5f38b2",
+      "cached_at": "2025-11-09T18:56:34.555635",
+      "status_code": 200
+    },
+    {
+      "url": "https://dating-singles-near-you.com",
+      "cache_id": "c626ae7d741e5b0ddc99f13775f2fc5e",
+      "cached_at": "2025-11-09T18:56:34.563567",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.loom.com",
+      "cache_id": "bd89af5eeacf029873a212e64d921015",
+      "cached_at": "2025-11-09T18:56:34.567710",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.bbc.com",
+      "cache_id": "f331a5ed3965fb59761dfcecfc7e7a34",
+      "cached_at": "2025-11-09T18:56:34.576915",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.wellsfargo.com",
+      "cache_id": "fabcfbe0b415c5f03d39effedfcb8a3e",
+      "cached_at": "2025-11-09T18:56:34.579916",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.mixpanel.com",
+      "cache_id": "c29f1ecd06bb04f17f045f69635b97ac",
+      "cached_at": "2025-11-09T18:56:34.580831",
+      "status_code": 200
+    },
+    {
+      "url": "https://geocities-style-page.com",
+      "cache_id": "0882538d21e10b9a7e2dcd46c22e33bf",
+      "cached_at": "2025-11-09T18:56:34.584816",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.adobe.com",
+      "cache_id": "a5ed76d5e135b1ba09e8b97da9f44827",
+      "cached_at": "2025-11-09T18:56:34.584047",
+      "status_code": 200
+    },
+    {
+      "url": "https://forced-click-tracking.com",
+      "cache_id": "37401ed9e6c80237dc778add738aaf95",
+      "cached_at": "2025-11-09T18:56:34.589745",
+      "status_code": 200
+    },
+    {
+      "url": "https://popup-trap-advertising.com",
+      "cache_id": "43dfd9620daac72d6330269acd9ad93a",
+      "cached_at": "2025-11-09T18:56:34.588848",
+      "status_code": 200
+    },
+    {
+      "url": "https://coming-soon-launch.net",
+      "cache_id": "21fc1450736b049cacb2b0882d5c20e4",
+      "cached_at": "2025-11-09T18:56:34.590420",
+      "status_code": 200
+    },
+    {
+      "url": "https://private-membership-site.com",
+      "cache_id": "dfaa5454151ec7a8efa8c09f7ad6f35f",
+      "cached_at": "2025-11-09T18:56:34.597474",
+      "status_code": 200
+    },
+    {
+      "url": "https://affiliate-review-site.com",
+      "cache_id": "e09bf9dae2d3e21ecea31b43b293842d",
+      "cached_at": "2025-11-09T18:56:34.600573",
+      "status_code": 200
+    },
+    {
+      "url": "https://incentivized-clicks.net",
+      "cache_id": "9715e6a232b3a33ef4b916dc77d1c640",
+      "cached_at": "2025-11-09T18:56:34.604338",
+      "status_code": 200
+    },
+    {
+      "url": "https://secure-paypal-update.com",
+      "cache_id": "476ffcd833251173816c838bf36d33df",
+      "cached_at": "2025-11-09T18:56:34.607358",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.washingtonpost.com",
+      "cache_id": "aa250375ed4d1652ad2c07377b69f537",
+      "cached_at": "2025-11-09T18:56:34.606683",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.nih.gov",
+      "cache_id": "28b0cd506bd7fb68c4d99c29150be93c",
+      "cached_at": "2025-11-09T18:56:34.610037",
+      "status_code": 200
+    },
+    {
+      "url": "https://old-ecommerce-store.com",
+      "cache_id": "d22d2b064ef1219ce6db658cea55251c",
+      "cached_at": "2025-11-09T18:56:34.610768",
+      "status_code": 200
+    },
+    {
+      "url": "https://teams-meeting-link.com",
+      "cache_id": "4553f23d70f59ca6974863b0dd8c410d",
+      "cached_at": "2025-11-09T18:56:34.613692",
+      "status_code": 200
+    },
+    {
+      "url": "https://netfIix.com",
+      "cache_id": "f4be26d4126490b449cc0dc8f1c13090",
+      "cached_at": "2025-11-09T18:56:34.614481",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.ghost.org",
+      "cache_id": "bc0bd80fbe00e59949885cf8fbe40736",
+      "cached_at": "2025-11-09T18:56:34.617580",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.spotify.com",
+      "cache_id": "da52ee6ec620b5429e62ea95c60ec672",
+      "cached_at": "2025-11-09T18:56:34.624512",
+      "status_code": 200
+    },
+    {
+      "url": "https://amazon-prize-winner.com",
+      "cache_id": "8c74d8fd67e351a1fa2a465b6b0cd39d",
+      "cached_at": "2025-11-09T18:56:34.628315",
+      "status_code": 200
+    },
+    {
+      "url": "https://crypto-airdrop-free-tokens.net",
+      "cache_id": "440e8e068ce9e1a6682e64ffc8ec9a50",
+      "cached_at": "2025-11-09T18:56:34.631061",
+      "status_code": 200
+    },
+    {
+      "url": "https://apple-tech-support-center.com",
+      "cache_id": "5f47a8ebd2102787e50b04f6ef1f6819",
+      "cached_at": "2025-11-09T18:56:34.633886",
+      "status_code": 200
+    },
+    {
+      "url": "https://javascript-error-fix.net",
+      "cache_id": "9ae9478eda4ee6f24970f1e1ed0efe89",
+      "cached_at": "2025-11-09T18:56:34.634703",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.walgreens.com",
+      "cache_id": "7b78363d9fd548fca8d3dbdde1bc3467",
+      "cached_at": "2025-11-09T18:56:34.638056",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.whatsapp.com",
+      "cache_id": "ebf19dbe434e99eb83185f612093e3b9",
+      "cached_at": "2025-11-09T18:56:34.638834",
+      "status_code": 200
+    },
+    {
+      "url": "https://paypal-customer-security.com",
+      "cache_id": "e34d82db9a4960d6bca8c77329b2f450",
+      "cached_at": "2025-11-09T18:56:34.641740",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.canva.com",
+      "cache_id": "49a4cc0878fcda3b1338caa01d6df8ca",
+      "cached_at": "2025-11-09T18:56:34.642412",
+      "status_code": 200
+    },
+    {
+      "url": "https://testosterone-booster.com",
+      "cache_id": "4fa6026662e971598409eb9e9b59e556",
+      "cached_at": "2025-11-09T18:56:34.645859",
+      "status_code": 200
+    },
+    {
+      "url": "https://parody-brand-satire.com",
+      "cache_id": "d080b22ef57e4a1b4dd33cddbbd936b5",
+      "cached_at": "2025-11-09T18:56:34.651567",
+      "status_code": 200
+    },
+    {
+      "url": "https://celebrity-scandal-leaked.net",
+      "cache_id": "a3207b0a73f27e0d2ed602d7ebf2f977",
+      "cached_at": "2025-11-09T18:56:34.656363",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.bing.com",
+      "cache_id": "5b5951e4f10c268c49ff44a705023a13",
+      "cached_at": "2025-11-09T18:56:34.657256",
+      "status_code": 200
+    },
+    {
+      "url": "https://similar-to-brand.net",
+      "cache_id": "a3cf23c4a11a822005940ef52310c86b",
+      "cached_at": "2025-11-09T18:56:34.660145",
+      "status_code": 200
+    },
+    {
+      "url": "https://binary-options-trading-pro.com",
+      "cache_id": "14a60c33e4e9258a40b793292589e079",
+      "cached_at": "2025-11-09T18:56:34.663216",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.calendly.com",
+      "cache_id": "14ff0cee4fd1f452c9fef475bccd05ce",
+      "cached_at": "2025-11-09T18:56:34.663984",
+      "status_code": 200
+    },
+    {
+      "url": "https://shared-hosting-cheap.com",
+      "cache_id": "fe9d0f5a2f369ddab5795790af3f0857",
+      "cached_at": "2025-11-09T18:56:34.667126",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.hulu.com",
+      "cache_id": "caeae4aa5e06bcbe8e73c71adc36c300",
+      "cached_at": "2025-11-09T18:56:34.667949",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.robinhood.com",
+      "cache_id": "735207e556e55016de8bd66692e5d5f8",
+      "cached_at": "2025-11-09T18:56:34.670124",
+      "status_code": 200
+    },
+    {
+      "url": "https://new-crypto-token-launch.com",
+      "cache_id": "13730bc5bae53ed8a81383842e5c7665",
+      "cached_at": "2025-11-09T18:56:34.673440",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.linear.app",
+      "cache_id": "6084c1aeed4990b15938d06ee0160065",
+      "cached_at": "2025-11-09T18:56:34.679923",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.sec.gov",
+      "cache_id": "666b6f3403e079c5ee9aea3f98c1464e",
+      "cached_at": "2025-11-09T18:56:34.682030",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.anthropic.com",
+      "cache_id": "22819d0d920265b360a00bb16a422b9d",
+      "cached_at": "2025-11-09T18:56:34.684877",
+      "status_code": 200
+    },
+    {
+      "url": "https://mod-apk-android-games.com",
+      "cache_id": "edbb431bbb4a23063f357b7d2003f152",
+      "cached_at": "2025-11-09T18:56:34.691764",
+      "status_code": 200
+    },
+    {
+      "url": "https://invisible-overlay-click.com",
+      "cache_id": "2453e0b15eceefd71385394ae0006a44",
+      "cached_at": "2025-11-09T18:56:34.693239",
+      "status_code": 200
+    },
+    {
+      "url": "https://system-update-critical.com",
+      "cache_id": "64a937c122d9519e76f918c8d4247bb1",
+      "cached_at": "2025-11-09T18:56:34.687964",
+      "status_code": 200
+    },
+    {
+      "url": "https://email-password-hack-tool.com",
+      "cache_id": "61d8b3e0c012127fba3297cc6d0e703d",
+      "cached_at": "2025-11-09T18:56:34.692586",
+      "status_code": 200
+    },
+    {
+      "url": "https://look-alike-brand.net",
+      "cache_id": "41e5799e53468893b3afa6dfa189796c",
+      "cached_at": "2025-11-09T18:56:34.695375",
+      "status_code": 200
+    },
+    {
+      "url": "https://azure.microsoft.com",
+      "cache_id": "e3812de903efe31bd1231e78770afea1",
+      "cached_at": "2025-11-09T18:56:34.698130",
+      "status_code": 200
+    },
+    {
+      "url": "https://security-warning-override.com",
+      "cache_id": "eb1327f1fece16656d37a32bf90d19b9",
+      "cached_at": "2025-11-09T18:56:34.701330",
+      "status_code": 200
+    },
+    {
+      "url": "https://codec-required-download.com",
+      "cache_id": "ab6b1552d5c4ccb8b333e8fbf895ee63",
+      "cached_at": "2025-11-09T18:56:34.707065",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.berkeley.edu",
+      "cache_id": "d5d492e7f75e19407a0fc31a6ea541cf",
+      "cached_at": "2025-11-09T18:56:34.709725",
+      "status_code": 200
+    },
+    {
+      "url": "https://urgent-security-alert.com",
+      "cache_id": "03c41c33ced0c164af0a47c5527426c3",
+      "cached_at": "2025-11-09T18:56:34.712580",
+      "status_code": 200
+    },
+    {
+      "url": "https://freelancer-services.com",
+      "cache_id": "36a24af12856c549b9c2be6891e90fff",
+      "cached_at": "2025-11-09T18:56:34.718795",
+      "status_code": 200
+    },
+    {
+      "url": "https://get-rich-quick-trading.com",
+      "cache_id": "945f6a4c6073b87abc5f2d6158d97449",
+      "cached_at": "2025-11-09T18:56:34.720360",
+      "status_code": 200
+    },
+    {
+      "url": "https://investment-passive-income.com",
+      "cache_id": "ebd1d8c95fae2c2d6d01e6d84eb5bde1",
+      "cached_at": "2025-11-09T18:56:34.719577",
+      "status_code": 200
+    },
+    {
+      "url": "https://adult-entertainment-premium.com",
+      "cache_id": "d0a2147a3e3951e26f49b5ddabc92975",
+      "cached_at": "2025-11-09T18:56:34.721075",
+      "status_code": 200
+    },
+    {
+      "url": "https://instagram-verify-account.net",
+      "cache_id": "a099e4ece2c58bd9b6028c6ab113785d",
+      "cached_at": "2025-11-09T18:56:34.724279",
+      "status_code": 200
+    },
+    {
+      "url": "https://dropbox-file-share-login.net",
+      "cache_id": "03d63c06befc30edf64fa3a4b8bd1261",
+      "cached_at": "2025-11-09T18:56:34.727460",
+      "status_code": 200
+    },
+    {
+      "url": "https://facebook-security-check.com",
+      "cache_id": "b30444b423023b96ca63e5b190d041fd",
+      "cached_at": "2025-11-09T18:56:34.731573",
+      "status_code": 200
+    },
+    {
+      "url": "https://online-casino-free-bonus.net",
+      "cache_id": "1a532dd4fd69573599f7e91fcabbf0bb",
+      "cached_at": "2025-11-09T18:56:34.735921",
+      "status_code": 200
+    },
+    {
+      "url": "https://ups-tracking-update.com",
+      "cache_id": "481b06e9c3c093f8c5a8a023b1f5beae",
+      "cached_at": "2025-11-09T18:56:34.738777",
+      "status_code": 200
+    },
+    {
+      "url": "https://gooogle.com",
+      "cache_id": "46737e3ca806e12674d35196985c61d7",
+      "cached_at": "2025-11-09T18:56:34.742038",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.fly.io",
+      "cache_id": "50f07249d5eb1a3ebde2c1789171be2a",
+      "cached_at": "2025-11-09T18:56:34.748940",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.mit.edu",
+      "cache_id": "aac61d212bee32be1bfae89b38625cef",
+      "cached_at": "2025-11-09T18:56:34.748164",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.capitalone.com",
+      "cache_id": "f74dbb3ba015926277d13e90dc634912",
+      "cached_at": "2025-11-09T18:56:34.747372",
+      "status_code": 200
+    },
+    {
+      "url": "https://astrology-predictions.com",
+      "cache_id": "90e07b04baab749c26e4e2f32abbb000",
+      "cached_at": "2025-11-09T18:56:34.752365",
+      "status_code": 200
+    },
+    {
+      "url": "https://cloud-storage-unlimited.com",
+      "cache_id": "b3ae4f67f0eca0ac866a95ec5d23e995",
+      "cached_at": "2025-11-09T18:56:34.753087",
+      "status_code": 200
+    },
+    {
+      "url": "https://facebook-account-hacker.net",
+      "cache_id": "1f24c6e47e367f318550d3a8e6f99bd1",
+      "cached_at": "2025-11-09T18:56:34.755989",
+      "status_code": 200
+    },
+    {
+      "url": "https://community-project-initiative.net",
+      "cache_id": "8721a2434de13cfe7a6c6e85a65f9627",
+      "cached_at": "2025-11-09T18:56:34.758992",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.cnn.com",
+      "cache_id": "b7f8938851261c8403f75f40eb1d8645",
+      "cached_at": "2025-11-09T18:56:34.762723",
+      "status_code": 200
+    },
+    {
+      "url": "https://coinbase-security-verify.com",
+      "cache_id": "3dd3fec3f676eb42ba5d2714d78d91ce",
+      "cached_at": "2025-11-09T18:56:34.766786",
+      "status_code": 200
+    },
+    {
+      "url": "https://photography-portfolio.net",
+      "cache_id": "ce011fdf3905b1d70a8dea0cb327be23",
+      "cached_at": "2025-11-09T18:56:34.770113",
+      "status_code": 200
+    },
+    {
+      "url": "https://click-farm-traffic.net",
+      "cache_id": "ec817de6be26f41d9b6cd468ccbb74e1",
+      "cached_at": "2025-11-09T18:56:34.774477",
+      "status_code": 200
+    },
+    {
+      "url": "https://apple-id-verify.com",
+      "cache_id": "ec08b938f0aa0786ad0ca04bfdbdc55b",
+      "cached_at": "2025-11-09T18:56:34.775413",
+      "status_code": 200
+    },
+    {
+      "url": "https://twitch-streamer-page.net",
+      "cache_id": "63b6334a13556f3cd3c722b6cc07d013",
+      "cached_at": "2025-11-09T18:56:34.776100",
+      "status_code": 200
+    },
+    {
+      "url": "https://tax-refund-maximizer.com",
+      "cache_id": "84e6f0a9ca70cd13630054fe2fab619a",
+      "cached_at": "2025-11-09T18:56:34.780045",
+      "status_code": 200
+    },
+    {
+      "url": "https://offshore-hosting-provider.com",
+      "cache_id": "3271ea7c094f47b1ef4bd331d7ac302d",
+      "cached_at": "2025-11-09T18:56:34.780914",
+      "status_code": 200
+    },
+    {
+      "url": "https://dns-error-page.net",
+      "cache_id": "e4890cbabf4927780d1c0044028a89d1",
+      "cached_at": "2025-11-09T18:56:34.783702",
+      "status_code": 200
+    },
+    {
+      "url": "https://instaqram.com",
+      "cache_id": "f4805dfae55602ec2701a00e15382a83",
+      "cached_at": "2025-11-09T18:56:34.787270",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.oracle.com",
+      "cache_id": "57ca1cad87979ce4de589a67af1d4c95",
+      "cached_at": "2025-11-09T18:56:34.790598",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.xbox.com",
+      "cache_id": "fe14e9c684035a27a72b9873c9ee2402",
+      "cached_at": "2025-11-09T18:56:34.793931",
+      "status_code": 200
+    },
+    {
+      "url": "https://java-update-download.com",
+      "cache_id": "ffa6e2524bd2124399ad9036cca5fe5a",
+      "cached_at": "2025-11-09T18:56:34.799389",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.mailchimp.com",
+      "cache_id": "43e832aa18f0b8dd2719cd0b3c4d77af",
+      "cached_at": "2025-11-09T18:56:34.796385",
+      "status_code": 200
+    },
+    {
+      "url": "https://cheap-prescription-no-doctor.com",
+      "cache_id": "e6951da285b2955dbeb7729feace0311",
+      "cached_at": "2025-11-09T18:56:34.800192",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.amplitude.com",
+      "cache_id": "efa9d02cd2b4afb294123af1b7917159",
+      "cached_at": "2025-11-09T18:56:34.803066",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.sofi.com",
+      "cache_id": "90d5ab9edb5dec9c9e81e93c9782b151",
+      "cached_at": "2025-11-09T18:56:34.806925",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.redcross.org",
+      "cache_id": "085510f99756bb62bbe35679c9dfbb41",
+      "cached_at": "2025-11-09T18:56:34.807742",
+      "status_code": 200
+    },
+    {
+      "url": "https://development-staging-site.com",
+      "cache_id": "02be70b697b96f4ec95b74a035537043",
+      "cached_at": "2025-11-09T18:56:34.810515",
+      "status_code": 200
+    },
+    {
+      "url": "https://token-swap-platform.com",
+      "cache_id": "63236429ce3ed4c7c001b99818845639",
+      "cached_at": "2025-11-09T18:56:34.814188",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.redfin.com",
+      "cache_id": "c257178216f462ec752c367f78ca4d78",
+      "cached_at": "2025-11-09T18:56:34.818647",
+      "status_code": 200
+    },
+    {
+      "url": "https://rnicr0s0ft.com",
+      "cache_id": "02a1810e3c1db73cc5ee287108c1181e",
+      "cached_at": "2025-11-09T18:56:34.822446",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.midjourney.com",
+      "cache_id": "d7e2a7b484e11f212701f12a72ab6064",
+      "cached_at": "2025-11-09T18:56:34.826504",
+      "status_code": 200
+    },
+    {
+      "url": "https://expired-domain-traffic.net",
+      "cache_id": "91e339ce2e083bfe94943c1359637bab",
+      "cached_at": "2025-11-09T18:56:34.827293",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.forbes.com",
+      "cache_id": "c4e32b557a3dd75225975f11fb68a3a9",
+      "cached_at": "2025-11-09T18:56:34.829621",
+      "status_code": 200
+    },
+    {
+      "url": "https://page-not-found-redirect.com",
+      "cache_id": "c0d599b1e1d51d6f7138e6a6a5fa0c16",
+      "cached_at": "2025-11-09T18:56:34.831430",
+      "status_code": 200
+    },
+    {
+      "url": "https://writer-author-page.com",
+      "cache_id": "f12c477e76b64473510f41f20767967c",
+      "cached_at": "2025-11-09T18:56:34.835457",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.trello.com",
+      "cache_id": "65bf165c2506232c40e223d1d35cc9d2",
+      "cached_at": "2025-11-09T18:56:34.836150",
+      "status_code": 200
+    },
+    {
+      "url": "https://notification-spam-ads.net",
+      "cache_id": "8ecb401ad99a9a60cc4de3c45329d97e",
+      "cached_at": "2025-11-09T18:56:34.839273",
+      "status_code": 200
+    },
+    {
+      "url": "https://paypal-secure-login.com",
+      "cache_id": "a94f198018af1d6eff833b1bc9dacc09",
+      "cached_at": "2025-11-09T18:56:34.843270",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.square.com",
+      "cache_id": "5f6a33ac06bb5d95fb85076c7cdf9a7c",
+      "cached_at": "2025-11-09T18:56:34.846555",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.coursera.org",
+      "cache_id": "90055d58c2e1bbe440dc832a44c72669",
+      "cached_at": "2025-11-09T18:56:34.850122",
+      "status_code": 200
+    },
+    {
+      "url": "https://impression-fraud-bot.com",
+      "cache_id": "6c661870a8b2bea7f2abd2b05737ecca",
+      "cached_at": "2025-11-09T18:56:34.852701",
+      "status_code": 200
+    },
+    {
+      "url": "https://video-downloader-free.net",
+      "cache_id": "ba96494a3d7fb66aeab10747d2a4e54c",
+      "cached_at": "2025-11-09T18:56:34.855299",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.gitlab.com",
+      "cache_id": "25b3534f2220bc38fac3b1a1a33734e4",
+      "cached_at": "2025-11-09T18:56:34.856158",
+      "status_code": 200
+    },
+    {
+      "url": "https://microsoft-support-helpdesk.com",
+      "cache_id": "da834b24621d083c3b9dce92066d94fc",
+      "cached_at": "2025-11-09T18:56:34.859090",
+      "status_code": 200
+    },
+    {
+      "url": "https://beta-testing-closed.net",
+      "cache_id": "17c5f56a1abe6cfc248a1a68f8e7541e",
+      "cached_at": "2025-11-09T18:56:34.863086",
+      "status_code": 200
+    },
+    {
+      "url": "https://comparison-shopping.net",
+      "cache_id": "9524f8577eeb39396da717558e0910ff",
+      "cached_at": "2025-11-09T18:56:34.864008",
+      "status_code": 200
+    },
+    {
+      "url": "https://nootropics-brain-boost.net",
+      "cache_id": "b61433f4d21f21794c9a12b0d2a52857",
+      "cached_at": "2025-11-09T18:56:34.866962",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.tiktok.com",
+      "cache_id": "546e636b3f939e56341d00122e825c42",
+      "cached_at": "2025-11-09T18:56:34.872317",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.etsy.com",
+      "cache_id": "3bed37688bf427790f5dff25007d8532",
+      "cached_at": "2025-11-09T18:56:34.876276",
+      "status_code": 200
+    },
+    {
+      "url": "https://privacy-domain-registration.net",
+      "cache_id": "332708b8e75d89ac99767333d21cd4e9",
+      "cached_at": "2025-11-09T18:56:34.879243",
+      "status_code": 200
+    },
+    {
+      "url": "https://bankofamerica-secure.com",
+      "cache_id": "7a55ca00367af5e63b6ccc460f364a9c",
+      "cached_at": "2025-11-09T18:56:34.881856",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.epicgames.com",
+      "cache_id": "2aa26c783bfb3d13a260008c2b8eb248",
+      "cached_at": "2025-11-09T18:56:34.885532",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.huggingface.co",
+      "cache_id": "b4207e55fca40837f0a266e20ea24d0d",
+      "cached_at": "2025-11-09T18:56:34.884826",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.hp.com",
+      "cache_id": "2532b336f72c24ecfbb713e502ebb123",
+      "cached_at": "2025-11-09T18:56:34.889588",
+      "status_code": 200
+    },
+    {
+      "url": "https://pc-cleaner-speed-booster.net",
+      "cache_id": "38d6ad653009a59ddc00c1fcf71b2f80",
+      "cached_at": "2025-11-09T18:56:34.890654",
+      "status_code": 200
+    },
+    {
+      "url": "https://cheap-traffic-arbitrage.com",
+      "cache_id": "ad8aa24ef273824183bca9169c17bf53",
+      "cached_at": "2025-11-09T18:56:34.893546",
+      "status_code": 200
+    },
+    {
+      "url": "https://designer-handbags-discount.com",
+      "cache_id": "66e6db2fd523c5b4ae3571499b0a2ea8",
+      "cached_at": "2025-11-09T18:56:34.896781",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.snapchat.com",
+      "cache_id": "b017d9e94f0fc7d16bd3d8c579c875ba",
+      "cached_at": "2025-11-09T18:56:34.904081",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.bestbuy.com",
+      "cache_id": "ca8507f464bc15fcb0a57fbc06c527cd",
+      "cached_at": "2025-11-09T18:56:34.905091",
+      "status_code": 200
+    },
+    {
+      "url": "https://military-singles-connect.net",
+      "cache_id": "a98a12296fb11d07ff69c63a661f497d",
+      "cached_at": "2025-11-09T18:56:34.907900",
+      "status_code": 200
+    },
+    {
+      "url": "https://remote-access-tool-free.net",
+      "cache_id": "8b4ac8a572bb7862f9231161d1fe3c16",
+      "cached_at": "2025-11-09T18:56:34.913410",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.discord.com",
+      "cache_id": "21a9b12815fb424bf6eaaa7a1b5584ff",
+      "cached_at": "2025-11-09T18:56:34.914468",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.playstation.com",
+      "cache_id": "07fd1295bfb66d47947782bda3ff9e20",
+      "cached_at": "2025-11-09T18:56:34.915184",
+      "status_code": 200
+    },
+    {
+      "url": "https://forex-signals-guaranteed.net",
+      "cache_id": "c2705eceeb03f51359146c98afa55207",
+      "cached_at": "2025-11-09T18:56:34.918501",
+      "status_code": 200
+    },
+    {
+      "url": "https://temporary-landing-page.com",
+      "cache_id": "c20e65536222a48f49fb928962715a4c",
+      "cached_at": "2025-11-09T18:56:34.919315",
+      "status_code": 200
+    },
+    {
+      "url": "https://crystal-healing-shop.com",
+      "cache_id": "8b972fd717c994224947eedfdd012ae3",
+      "cached_at": "2025-11-09T18:56:34.923592",
+      "status_code": 200
+    },
+    {
+      "url": "https://resume-writing-guarantee.net",
+      "cache_id": "859fc7ef00b0c47c1a6b9703a7f78d15",
+      "cached_at": "2025-11-09T18:56:34.927271",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.signal.org",
+      "cache_id": "566d0bc28940b771b028096bcf103515",
+      "cached_at": "2025-11-09T18:56:34.934611",
+      "status_code": 200
+    },
+    {
+      "url": "https://user-agent-detection.com",
+      "cache_id": "1546740947936f7eb0d1de4f49fabe2b",
+      "cached_at": "2025-11-09T18:56:34.935397",
+      "status_code": 200
+    },
+    {
+      "url": "https://cheap-followers-buy.com",
+      "cache_id": "c6a1c775fa98ed8c16de083a9469fb98",
+      "cached_at": "2025-11-09T18:56:34.939106",
+      "status_code": 200
+    },
+    {
+      "url": "https://debt-consolidation-fast.com",
+      "cache_id": "eadc856c713e38c5110b605728cc2ffb",
+      "cached_at": "2025-11-09T18:56:34.947249",
+      "status_code": 200
+    },
+    {
+      "url": "https://natural-health-remedies.com",
+      "cache_id": "5eb9dbd3a7ce877a68f2a84fdd6bf613",
+      "cached_at": "2025-11-09T18:56:34.941947",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.monday.com",
+      "cache_id": "a494f418a4283dd5edfac058ffa88e70",
+      "cached_at": "2025-11-09T18:56:34.948164",
+      "status_code": 200
+    },
+    {
+      "url": "https://email-account-expiring.net",
+      "cache_id": "88b7ba6bb488c2fb8730fb452d1c5075",
+      "cached_at": "2025-11-09T18:56:34.949746",
+      "status_code": 200
+    },
+    {
+      "url": "https://microsoft-account-security.com",
+      "cache_id": "cb467261e6b18214b5020ab1f674ee52",
+      "cached_at": "2025-11-09T18:56:34.949108",
+      "status_code": 200
+    },
+    {
+      "url": "https://encrypted-email-service.net",
+      "cache_id": "25aa4f7b4332de5d2a8948f56b32c206",
+      "cached_at": "2025-11-09T18:56:34.952597",
+      "status_code": 200
+    },
+    {
+      "url": "https://stock-market-insider-tips.net",
+      "cache_id": "ee6ee0a61873bf5d4b941b3de4ab0615",
+      "cached_at": "2025-11-09T18:56:34.958752",
+      "status_code": 200
+    },
+    {
+      "url": "https://twltter.com",
+      "cache_id": "5d0937653712c20254c49a9bbf794812",
+      "cached_at": "2025-11-09T18:56:34.959566",
+      "status_code": 200
+    },
+    {
+      "url": "https://dropshipping-store.com",
+      "cache_id": "4b5d3801b4b38301093006de4f2748ac",
+      "cached_at": "2025-11-09T18:56:34.963633",
+      "status_code": 200
+    },
+    {
+      "url": "https://paypal-resolution-center.net",
+      "cache_id": "51c1b8822715fcbb10f7471428de954a",
+      "cached_at": "2025-11-09T18:56:34.967117",
+      "status_code": 200
+    },
+    {
+      "url": "https://fake-product-page.net",
+      "cache_id": "15cbd9b5ffca57435635dc1c282147f2",
+      "cached_at": "2025-11-09T18:56:34.972797",
+      "status_code": 200
+    },
+    {
+      "url": "https://drupal-community-site.net",
+      "cache_id": "4c05c5a2a8e6a8448fc4d9e7ce1c53dc",
+      "cached_at": "2025-11-09T18:56:34.972048",
+      "status_code": 200
+    },
+    {
+      "url": "https://amazon-security-alert.net",
+      "cache_id": "f418ff7af2012776c2336560e3f65028",
+      "cached_at": "2025-11-09T18:56:34.973602",
+      "status_code": 200
+    },
+    {
+      "url": "https://test-environment-public.net",
+      "cache_id": "bab343514d707316dde56265fc3492d8",
+      "cached_at": "2025-11-09T18:56:34.976709",
+      "status_code": 200
+    },
+    {
+      "url": "https://tarot-card-reading.net",
+      "cache_id": "f09f9c21e8efde934137fe8209a7a3a0",
+      "cached_at": "2025-11-09T18:56:34.977422",
+      "status_code": 200
+    },
+    {
+      "url": "https://download-adobe-reader-free.com",
+      "cache_id": "f20c60c03aba6ccb8c9cd3f81eab3799",
+      "cached_at": "2025-11-09T18:56:34.981357",
+      "status_code": 200
+    },
+    {
+      "url": "https://microsoft-office-renewal.com",
+      "cache_id": "953da9e7c3c114ab599d316a1be3a7bd",
+      "cached_at": "2025-11-09T18:56:34.985265",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.instagram.com",
+      "cache_id": "81baa2bda524b19dddf2507580b95e0b",
+      "cached_at": "2025-11-09T18:56:34.986099",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.google.com",
+      "cache_id": "8ffdefbdec956b595d257f0aaeefd623",
+      "cached_at": "2025-11-09T18:56:34.992902",
+      "status_code": 200
+    },
+    {
+      "url": "https://ebook-torrents-free.com",
+      "cache_id": "bd3a94c2feb5245a256c71f7a1b9710b",
+      "cached_at": "2025-11-09T18:56:34.996390",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.harvard.edu",
+      "cache_id": "48b5150e0d88d5d007540f293545b116",
+      "cached_at": "2025-11-09T18:56:35.001729",
+      "status_code": 200
+    },
+    {
+      "url": "https://low-quality-traffic.com",
+      "cache_id": "af1789fca1f1fa88c7b8947284eae0ce",
+      "cached_at": "2025-11-09T18:56:35.002569",
+      "status_code": 200
+    },
+    {
+      "url": "https://flash-based-website.net",
+      "cache_id": "deda316aa850e2ee9e9e8b4617c01a93",
+      "cached_at": "2025-11-09T18:56:35.003258",
+      "status_code": 200
+    },
+    {
+      "url": "https://pop-under-ads.net",
+      "cache_id": "c60038cb4673ea7e1acee44055e738e7",
+      "cached_at": "2025-11-09T18:56:35.005296",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.ubereats.com",
+      "cache_id": "3d280629f4230813e3783b7bf8a65df3",
+      "cached_at": "2025-11-09T18:56:35.007152",
+      "status_code": 200
+    },
+    {
+      "url": "https://likes-facebook-buy-cheap.com",
+      "cache_id": "5d7642c1d326a230f2a7203a0e329d75",
+      "cached_at": "2025-11-09T18:56:35.009906",
+      "status_code": 200
+    },
+    {
+      "url": "https://update-your-payment-method.com",
+      "cache_id": "c2b5fe93998b8924274640464425e930",
+      "cached_at": "2025-11-09T18:56:35.014169",
+      "status_code": 200
+    },
+    {
+      "url": "https://amazon-account-verify.com",
+      "cache_id": "69b892d381f0c4a907888092b81a84d5",
+      "cached_at": "2025-11-09T18:56:35.014922",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.salvation army.org",
+      "cache_id": "7ee2a9abc6cf431f676207dee1f77d3a",
+      "cached_at": "2025-11-09T18:56:35.021472",
+      "status_code": 200
+    },
+    {
+      "url": "https://countdown-timer-pressure.net",
+      "cache_id": "72a82e580b86e64527ce69af47f1be8b",
+      "cached_at": "2025-11-09T18:56:35.024283",
+      "status_code": 200
+    },
+    {
+      "url": "https://click-bait-ad-content.net",
+      "cache_id": "865953438e18150060cc85b1f6be656b",
+      "cached_at": "2025-11-09T18:56:35.028816",
+      "status_code": 200
+    },
+    {
+      "url": "https://torrent-tracker-site.net",
+      "cache_id": "170892a56a97239c60184c1d5a475524",
+      "cached_at": "2025-11-09T18:56:35.029512",
+      "status_code": 200
+    },
+    {
+      "url": "https://local-moms-discover-secret.net",
+      "cache_id": "034f6b9411c7dbf3747e4f5af2f22ebf",
+      "cached_at": "2025-11-09T18:56:35.032359",
+      "status_code": 200
+    },
+    {
+      "url": "https://vpn-free-unlimited-fast.net",
+      "cache_id": "7b27c6a7610e08566c75c560eb4af595",
+      "cached_at": "2025-11-09T18:56:35.033251",
+      "status_code": 200
+    },
+    {
+      "url": "https://arnaz0n.com",
+      "cache_id": "e67c465f9136703b1d5b893f89e2398e",
+      "cached_at": "2025-11-09T18:56:35.035674",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.linkedin.com",
+      "cache_id": "06cda0335c4acf2cd6035a1c46478678",
+      "cached_at": "2025-11-09T18:56:35.038948",
+      "status_code": 200
+    },
+    {
+      "url": "https://landing-page-bait-switch.com",
+      "cache_id": "f90abc53a85b0f269dbfb7ef6fba2f03",
+      "cached_at": "2025-11-09T18:56:35.043684",
+      "status_code": 200
+    },
+    {
+      "url": "https://ccleaner-pro-crack.net",
+      "cache_id": "021ec3f024e0a8ce3dca23c3a57551b2",
+      "cached_at": "2025-11-09T18:56:35.044590",
+      "status_code": 200
+    },
+    {
+      "url": "https://amaz0n.com",
+      "cache_id": "202f1fb2b3d74620e8784772d6171b84",
+      "cached_at": "2025-11-09T18:56:35.050964",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.khanacademy.org",
+      "cache_id": "5f98f891669c35ead13be1b9d5ad2347",
+      "cached_at": "2025-11-09T18:56:35.054664",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.typeform.com",
+      "cache_id": "cb49e2da6ae3ddb1d60f20374bae08c9",
+      "cached_at": "2025-11-09T18:56:35.055358",
+      "status_code": 200
+    },
+    {
+      "url": "https://browser-plugin-update-required.com",
+      "cache_id": "fc82806380d4c62dac8ae6df0b678ea3",
+      "cached_at": "2025-11-09T18:56:35.058697",
+      "status_code": 200
+    },
+    {
+      "url": "https://old-wordpress-blog.com",
+      "cache_id": "a86c658f4e5e7807f98ae46f8313becf",
+      "cached_at": "2025-11-09T18:56:35.060899",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.dell.com",
+      "cache_id": "c058aec404eabd4ba03e3acc27b1c350",
+      "cached_at": "2025-11-09T18:56:35.064113",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.amazon.com",
+      "cache_id": "86f59539dd529bf08baac69ebfca0e7b",
+      "cached_at": "2025-11-09T18:56:35.064829",
+      "status_code": 200
+    },
+    {
+      "url": "https://browser-extension-ads.com",
+      "cache_id": "868e4b5905a29f8e4501387401acb8ec",
+      "cached_at": "2025-11-09T18:56:35.068309",
+      "status_code": 200
+    },
+    {
+      "url": "https://decentralized-exchange-dex.com",
+      "cache_id": "1d3d01be73906380a9fdde2a58fd0f64",
+      "cached_at": "2025-11-09T18:56:35.072478",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.nytimes.com",
+      "cache_id": "2f580dc49292a1caf59cd86dd3c9e60b",
+      "cached_at": "2025-11-09T18:56:35.075423",
+      "status_code": 200
+    },
+    {
+      "url": "https://parked-domain-page.com",
+      "cache_id": "091c648640a4c4c573b14bf5120f7bb3",
+      "cached_at": "2025-11-09T18:56:35.081096",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.grubhub.com",
+      "cache_id": "fc10bdf67f86f1e414b4d27eb504a4d0",
+      "cached_at": "2025-11-09T18:56:35.084208",
+      "status_code": 200
+    },
+    {
+      "url": "https://opinion-rewards-cash.net",
+      "cache_id": "94374b5d7cb48feb004fe20a07b9e93e",
+      "cached_at": "2025-11-09T18:56:35.084946",
+      "status_code": 200
+    },
+    {
+      "url": "https://online-pharmacy-discount.net",
+      "cache_id": "d3eab9fa42635e965d6aecd2032a7f92",
+      "cached_at": "2025-11-09T18:56:35.091034",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.nordstrom.com",
+      "cache_id": "3ceca4a3d41af0ae811af2cf2bbd8c8b",
+      "cached_at": "2025-11-09T18:56:35.087987",
+      "status_code": 200
+    },
+    {
+      "url": "https://click-here-best-deals.com",
+      "cache_id": "afe2640e4278caae00c28b702bbc1b80",
+      "cached_at": "2025-11-09T18:56:35.094637",
+      "status_code": 200
+    },
+    {
+      "url": "https://onedrive-file-access.com",
+      "cache_id": "42c4ef9144cf29e400d1cfe39054a524",
+      "cached_at": "2025-11-09T18:56:35.095260",
+      "status_code": 200
+    },
+    {
+      "url": "https://this-domain-for-sale.com",
+      "cache_id": "9ccf2541f1079cf61c09365f3c9c791a",
+      "cached_at": "2025-11-09T18:56:35.098224",
+      "status_code": 200
+    },
+    {
+      "url": "https://fresh-content-platform.com",
+      "cache_id": "7838431c7a0bf1d73e46257e8810116d",
+      "cached_at": "2025-11-09T18:56:35.102368",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.netlify.com",
+      "cache_id": "94eac46d29cbdccc7cafeeac4c16fc76",
+      "cached_at": "2025-11-09T18:56:35.105946",
+      "status_code": 200
+    },
+    {
+      "url": "https://sports-betting-guaranteed.com",
+      "cache_id": "c5d3850a1a3da8ec0e82d58dc867929d",
+      "cached_at": "2025-11-09T18:56:35.109470",
+      "status_code": 200
+    },
+    {
+      "url": "https://weird-trick-reveals.com",
+      "cache_id": "aacdca974c0f6f5b019786ae78d3a0eb",
+      "cached_at": "2025-11-09T18:56:35.113068",
+      "status_code": 200
+    },
+    {
+      "url": "https://congratulations-prize-winner.net",
+      "cache_id": "c8667c0265d7c963de1b333e6a1deacb",
+      "cached_at": "2025-11-09T18:56:35.113833",
+      "status_code": 200
+    },
+    {
+      "url": "https://automated-trading-bot.com",
+      "cache_id": "88beb6e9b496cd6276a23381d2c4b003",
+      "cached_at": "2025-11-09T18:56:35.119687",
+      "status_code": 200
+    },
+    {
+      "url": "https://paypa1.com",
+      "cache_id": "0fdd926e77a095d750cf87470b975544",
+      "cached_at": "2025-11-09T18:56:35.120362",
+      "status_code": 200
+    },
+    {
+      "url": "https://website-traffic-boost.com",
+      "cache_id": "221c05b4d2847911a74497e058f4f1f2",
+      "cached_at": "2025-11-09T18:56:35.124733",
+      "status_code": 200
+    },
+    {
+      "url": "https://regional-news-outlet.com",
+      "cache_id": "cb3ce0712b0554b99f1fc7fb1cbdaa6e",
+      "cached_at": "2025-11-09T18:56:35.123948",
+      "status_code": 200
+    },
+    {
+      "url": "https://amazon-customer-service-help.net",
+      "cache_id": "04bf718c44731f4372372c9a5594d2a6",
+      "cached_at": "2025-11-09T18:56:35.127713",
+      "status_code": 200
+    },
+    {
+      "url": "https://spotify-account-suspended.net",
+      "cache_id": "f65f160af968d02590cea81040713dc4",
+      "cached_at": "2025-11-09T18:56:35.130964",
+      "status_code": 200
+    },
+    {
+      "url": "https://term-paper-buy-online.net",
+      "cache_id": "8c69665a4f2449589bdf386ccf8baac1",
+      "cached_at": "2025-11-09T18:56:35.136488",
+      "status_code": 200
+    },
+    {
+      "url": "https://free-trial-offers.net",
+      "cache_id": "222f00c6a1e52c94b7e2c63cea32dac6",
+      "cached_at": "2025-11-09T18:56:35.135656",
+      "status_code": 200
+    },
+    {
+      "url": "https://stackoverflow.com",
+      "cache_id": "7f4c919540be6ec81cd37d9e61da6c37",
+      "cached_at": "2025-11-09T18:56:35.140755",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.wikipedia.org",
+      "cache_id": "8d1d8a3956ab5668e1da4e3e7f856f08",
+      "cached_at": "2025-11-09T18:56:35.141433",
+      "status_code": 200
+    },
+    {
+      "url": "https://pdf-converter-download.com",
+      "cache_id": "45416ce6b4367d273beba8395d5f18c3",
+      "cached_at": "2025-11-09T18:56:35.150794",
+      "status_code": 200
+    },
+    {
+      "url": "https://certificate-error-bypass.net",
+      "cache_id": "3ab804faede6cb316673677a8331c8e2",
+      "cached_at": "2025-11-09T18:56:35.151791",
+      "status_code": 200
+    },
+    {
+      "url": "https://remove-watermark-tool.com",
+      "cache_id": "53d93432d3a361a32dfb1fbaefa15f84",
+      "cached_at": "2025-11-09T18:56:35.152915",
+      "status_code": 200
+    },
+    {
+      "url": "https://bodybuilding-supplements.com",
+      "cache_id": "599d56adf5bcb5f84e1a409365719d9f",
+      "cached_at": "2025-11-09T18:56:35.156191",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.resend.com",
+      "cache_id": "865f5657d9942d7f5e815f2cebb8b818",
+      "cached_at": "2025-11-09T18:56:35.158969",
+      "status_code": 200
+    },
+    {
+      "url": "https://duckduckgo.com",
+      "cache_id": "e90a0afbdc3263653443966cdb191196",
+      "cached_at": "2025-11-09T18:56:35.164270",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.microsoft.com",
+      "cache_id": "d696f975bb3df45472669f8d56aef437",
+      "cached_at": "2025-11-09T18:56:35.164902",
+      "status_code": 200
+    },
+    {
+      "url": "https://just-launched-product.net",
+      "cache_id": "203406283c98926d734cd503c62ec58a",
+      "cached_at": "2025-11-09T18:56:35.169912",
+      "status_code": 200
+    },
+    {
+      "url": "https://paid-surveys-rewards.com",
+      "cache_id": "e0ccf932e667a7ba272a32f89afa611a",
+      "cached_at": "2025-11-09T18:56:35.165803",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.edx.org",
+      "cache_id": "c16b442cf589885ebedcbe4aa29ff64e",
+      "cached_at": "2025-11-09T18:56:35.172529",
+      "status_code": 200
+    },
+    {
+      "url": "https://lonely-hearts-connection.com",
+      "cache_id": "ba87ab5222a5af488403ed7b1cbef42f",
+      "cached_at": "2025-11-09T18:56:35.181786",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.southwest.com",
+      "cache_id": "a18a6dff7c5a6d88560f4a98af3ec1b1",
+      "cached_at": "2025-11-09T18:56:35.182473",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.intuit.com",
+      "cache_id": "e5fa48ea400ee3590e4358020a5334aa",
+      "cached_at": "2025-11-09T18:56:35.183229",
+      "status_code": 200
+    },
+    {
+      "url": "https://sports-live-stream-free.net",
+      "cache_id": "8f5a4fb0e3554182a6579e3f847b9b2a",
+      "cached_at": "2025-11-09T18:56:35.185595",
+      "status_code": 200
+    },
+    {
+      "url": "https://telegram-group-official.net",
+      "cache_id": "044f2d1b4a93f53789c2de10d7a58821",
+      "cached_at": "2025-11-09T18:56:35.189684",
+      "status_code": 200
+    },
+    {
+      "url": "https://essay-writing-service-cheap.com",
+      "cache_id": "d3aa0e7616af1d179bfbc6a5c1e88ebc",
+      "cached_at": "2025-11-09T18:56:35.195324",
+      "status_code": 200
+    },
+    {
+      "url": "https://ebook-pdf-free-download.com",
+      "cache_id": "33f34e93862e30a6e264f5768d2815e6",
+      "cached_at": "2025-11-09T18:56:35.197077",
+      "status_code": 200
+    },
+    {
+      "url": "https://iframe-click-hijacking.net",
+      "cache_id": "77e8d4bb5e2c4d97b5e505071c7c9257",
+      "cached_at": "2025-11-09T18:56:35.196175",
+      "status_code": 200
+    },
+    {
+      "url": "https://bad-credit-loans-guaranteed.net",
+      "cache_id": "8a27b3b55f88b5ef049fbfb38118a3e5",
+      "cached_at": "2025-11-09T18:56:35.197686",
+      "status_code": 200
+    },
+    {
+      "url": "https://indie-game-developer.net",
+      "cache_id": "d0a4ca52fc807184dafc0aa94e38389c",
+      "cached_at": "2025-11-09T18:56:35.203366",
+      "status_code": 200
+    },
+    {
+      "url": "https://payday-loans-instant-approval.com",
+      "cache_id": "05bc1c157251e59b7e57e018e97ebd61",
+      "cached_at": "2025-11-09T18:56:35.208183",
+      "status_code": 200
+    },
+    {
+      "url": "https://classified-ads-local.com",
+      "cache_id": "64e2f3db7efddbd29639b460418d55c3",
+      "cached_at": "2025-11-09T18:56:35.209774",
+      "status_code": 200
+    },
+    {
+      "url": "https://iphone-giveaway-winner.net",
+      "cache_id": "7c50c07b390e37d69344df659d921aff",
+      "cached_at": "2025-11-09T18:56:35.213221",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.runway.ml",
+      "cache_id": "413290cfcee00f3b69c9daaae8a3f602",
+      "cached_at": "2025-11-09T18:56:35.215640",
+      "status_code": 200
+    },
+    {
+      "url": "https://app1e.com",
+      "cache_id": "7a8e9fceef2f70294827cea147f04088",
+      "cached_at": "2025-11-09T18:56:35.218338",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.toyota.com",
+      "cache_id": "e8661452d1529d92ad9324753d5f387d",
+      "cached_at": "2025-11-09T18:56:35.222758",
+      "status_code": 200
+    },
+    {
+      "url": "https://antivirus-free-download.net",
+      "cache_id": "019506bfacb5ba8d1ba32aeb8933193b",
+      "cached_at": "2025-11-09T18:56:35.223448",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.kohls.com",
+      "cache_id": "92d5aa777d9324ee51667b08d5512993",
+      "cached_at": "2025-11-09T18:56:35.224301",
+      "status_code": 200
+    },
+    {
+      "url": "https://cryptocurrency-mining-profit.com",
+      "cache_id": "1a8375fb039d52aed91af648d20b9fcd",
+      "cached_at": "2025-11-09T18:56:35.228065",
+      "status_code": 200
+    },
+    {
+      "url": "https://confirm-your-identity.net",
+      "cache_id": "7454ace9701aea93d0e1025c88492d8f",
+      "cached_at": "2025-11-09T18:56:35.233890",
+      "status_code": 200
+    },
+    {
+      "url": "https://invitation-only-platform.com",
+      "cache_id": "534bddb09e62fbc08f3b50280f8fdc80",
+      "cached_at": "2025-11-09T18:56:35.234657",
+      "status_code": 200
+    },
+    {
+      "url": "https://crypto-tumbler-service.net",
+      "cache_id": "adf34e4cfe091d0524e9bad10c96e52c",
+      "cached_at": "2025-11-09T18:56:35.239397",
+      "status_code": 200
+    },
+    {
+      "url": "https://real-estate-investment-deals.net",
+      "cache_id": "f80331937fb2ec7eacb23025b9e9b521",
+      "cached_at": "2025-11-09T18:56:35.245343",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.fda.gov",
+      "cache_id": "057b9e6fcd2a4c482b0d2b74bd066402",
+      "cached_at": "2025-11-09T18:56:35.242509",
+      "status_code": 200
+    },
+    {
+      "url": "https://reddit-subreddit-wiki.com",
+      "cache_id": "15948a06d23b0dbcd1710f7bb1f0817e",
+      "cached_at": "2025-11-09T18:56:35.250740",
+      "status_code": 200
+    },
+    {
+      "url": "https://access-restricted-content.net",
+      "cache_id": "a1443a3844249943d86472cafbe7a40a",
+      "cached_at": "2025-11-09T18:56:35.251576",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.cvs.com",
+      "cache_id": "5e6f9a4b05b9bbbd69b39e7fdcb2a68b",
+      "cached_at": "2025-11-09T18:56:35.252440",
+      "status_code": 200
+    },
+    {
+      "url": "https://wealthy-singles-club.net",
+      "cache_id": "b50bd10f0dbbd478a323826af19189eb",
+      "cached_at": "2025-11-09T18:56:35.254939",
+      "status_code": 200
+    },
+    {
+      "url": "https://driver-update-software.com",
+      "cache_id": "d893ba44c8f2860fa8d58d163ea66c5a",
+      "cached_at": "2025-11-09T18:56:35.257770",
+      "status_code": 200
+    },
+    {
+      "url": "https://educational-resource-free.net",
+      "cache_id": "571940131e4070d9547743a5b42d7988",
+      "cached_at": "2025-11-09T18:56:35.264608",
+      "status_code": 200
+    },
+    {
+      "url": "https://adult-dating-network.com",
+      "cache_id": "484f3e4731a8323d9796b47053895c35",
+      "cached_at": "2025-11-09T18:56:35.265304",
+      "status_code": 200
+    },
+    {
+      "url": "https://youtube-creator-merch.com",
+      "cache_id": "08a4cdd8879d7bb7b2da2eef2d7ac622",
+      "cached_at": "2025-11-09T18:56:35.267979",
+      "status_code": 200
+    },
+    {
+      "url": "https://icloud-storage-upgrade.com",
+      "cache_id": "484866031cb3bbf93b84846a0aea2d4c",
+      "cached_at": "2025-11-09T18:56:35.276200",
+      "status_code": 200
+    },
+    {
+      "url": "https://file-upload-anonymous.com",
+      "cache_id": "8460dd23a63b023c6252e71b674e1264",
+      "cached_at": "2025-11-09T18:56:35.276922",
+      "status_code": 200
+    },
+    {
+      "url": "https://forex-trading-signals-premium.net",
+      "cache_id": "73b20de3d067f99d0d0c333523e626db",
+      "cached_at": "2025-11-09T18:56:35.277686",
+      "status_code": 200
+    },
+    {
+      "url": "https://your-computer-infected.com",
+      "cache_id": "7c0de612c4c8b9183739035ce7c36852",
+      "cached_at": "2025-11-09T18:56:35.278541",
+      "status_code": 200
+    },
+    {
+      "url": "https://webmail-storage-full.com",
+      "cache_id": "6173201127bf1cd3e12ff12c4c37b38a",
+      "cached_at": "2025-11-09T18:56:35.282508",
+      "status_code": 200
+    },
+    {
+      "url": "https://artist-portfolio-gallery.net",
+      "cache_id": "55bf1c53734e15e9cd5bd26ff0f3d1ad",
+      "cached_at": "2025-11-09T18:56:35.285824",
+      "status_code": 200
+    },
+    {
+      "url": "https://background-check-anyone.com",
+      "cache_id": "e5895aca3d1e97339328ce8f5464c532",
+      "cached_at": "2025-11-09T18:56:35.289451",
+      "status_code": 200
+    },
+    {
+      "url": "https://password-recovery-free.net",
+      "cache_id": "204a2f910814cad2649fb2554344a1db",
+      "cached_at": "2025-11-09T18:56:35.295255",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.pinterest.com",
+      "cache_id": "1fe28ab191ffd72c6fe15a714fdbee8f",
+      "cached_at": "2025-11-09T18:56:35.296035",
+      "status_code": 200
+    },
+    {
+      "url": "https://yah00.com",
+      "cache_id": "fee002fbf943749a80c778f56b3bf92c",
+      "cached_at": "2025-11-09T18:56:35.300051",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.irs.gov",
+      "cache_id": "54a1ce97eef7cb5412c3af7985648765",
+      "cached_at": "2025-11-09T18:56:35.307433",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.ibm.com",
+      "cache_id": "102a42f652c24c3f2c9db99fb5cc738e",
+      "cached_at": "2025-11-09T18:56:35.308085",
+      "status_code": 200
+    },
+    {
+      "url": "https://claim-your-reward-immediately.com",
+      "cache_id": "18d1e8e4f1a367628fa510e58f17f51e",
+      "cached_at": "2025-11-09T18:56:35.308845",
+      "status_code": 200
+    },
+    {
+      "url": "https://windows-10-free-download.com",
+      "cache_id": "6bb3359b487bb57cb6a23a23e4cb2b88",
+      "cached_at": "2025-11-09T18:56:35.309612",
+      "status_code": 200
+    },
+    {
+      "url": "https://netflix-payment-update.com",
+      "cache_id": "46f63e4f0a0ef92527cc7b57548724f0",
+      "cached_at": "2025-11-09T18:56:35.313343",
+      "status_code": 200
+    },
+    {
+      "url": "https://seo-backlinks-instant.net",
+      "cache_id": "5306945945de0486e21465adecf34a67",
+      "cached_at": "2025-11-09T18:56:35.317841",
+      "status_code": 200
+    },
+    {
+      "url": "https://fedex-package-delivery.net",
+      "cache_id": "5d1598d4a3bbb26a9e97dc816676867c",
+      "cached_at": "2025-11-09T18:56:35.320171",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.figma.com",
+      "cache_id": "d8af62e46bbdd42c05f9921288d7bcc2",
+      "cached_at": "2025-11-09T18:56:35.326615",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.doordash.com",
+      "cache_id": "2d2a72143bfa91f7b633ef8cccc5b165",
+      "cached_at": "2025-11-09T18:56:35.327316",
+      "status_code": 200
+    },
+    {
+      "url": "https://crypto-signals-premium.net",
+      "cache_id": "517b5f412fe5206271c475b4e6610145",
+      "cached_at": "2025-11-09T18:56:35.332546",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.clerk.dev",
+      "cache_id": "3b36f4d72d4dc4d9b75be13236100c83",
+      "cached_at": "2025-11-09T18:56:35.333203",
+      "status_code": 200
+    },
+    {
+      "url": "https://temp-email-disposable.net",
+      "cache_id": "7041cd9d9e4348f993143943602290e8",
+      "cached_at": "2025-11-09T18:56:35.331774",
+      "status_code": 200
+    },
+    {
+      "url": "https://zoom-meeting-invitation.net",
+      "cache_id": "f8dc025b93fffda2325ecea61dbccd2b",
+      "cached_at": "2025-11-09T18:56:35.336617",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.tripadvisor.com",
+      "cache_id": "5c2a9bca2f71da12d7a4266271b0903c",
+      "cached_at": "2025-11-09T18:56:35.339807",
+      "status_code": 200
+    },
+    {
+      "url": "https://typo-traffic-monetization.com",
+      "cache_id": "c54c0d90b7bddd6bd8f883d0c0442f8b",
+      "cached_at": "2025-11-09T18:56:35.341411",
+      "status_code": 200
+    },
+    {
+      "url": "https://niche-blog-topic.net",
+      "cache_id": "c39057ba0ce90a03b65b7391482fded0",
+      "cached_at": "2025-11-09T18:56:35.344058",
+      "status_code": 200
+    },
+    {
+      "url": "https://geo-based-content-switch.net",
+      "cache_id": "cc64e57834a04041c6cd51fc30357fe5",
+      "cached_at": "2025-11-09T18:56:35.348621",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.ebay.com",
+      "cache_id": "28a155e8407f663b9e9a9a95d4a52be3",
+      "cached_at": "2025-11-09T18:56:35.354435",
+      "status_code": 200
+    },
+    {
+      "url": "https://computer-virus-detected.net",
+      "cache_id": "d0de7d06fa67c2f7c83b10fc8edced4b",
+      "cached_at": "2025-11-09T18:56:35.358539",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.hrblock.com",
+      "cache_id": "72c0cf2663452280341845f60d15d120",
+      "cached_at": "2025-11-09T18:56:35.359353",
+      "status_code": 200
+    },
+    {
+      "url": "https://under-construction-page.com",
+      "cache_id": "9d395da0856be04b1d5af0b56ff7d169",
+      "cached_at": "2025-11-09T18:56:35.362889",
+      "status_code": 200
+    },
+    {
+      "url": "https://search.yahoo.com",
+      "cache_id": "4d8ce1b5dc99fca9581ad7a23e42e2ed",
+      "cached_at": "2025-11-09T18:56:35.363737",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.telegram.org",
+      "cache_id": "192315187fa647f9721cc69ab9419005",
+      "cached_at": "2025-11-09T18:56:35.367066",
+      "status_code": 200
+    },
+    {
+      "url": "https://remove-virus-now.net",
+      "cache_id": "86e30424534b172dc09d860d2bc9ffdf",
+      "cached_at": "2025-11-09T18:56:35.371091",
+      "status_code": 200
+    },
+    {
+      "url": "https://redirect-placeholder.net",
+      "cache_id": "7ec8000aff09e6fd331a494330cea4a2",
+      "cached_at": "2025-11-09T18:56:35.371807",
+      "status_code": 200
+    },
+    {
+      "url": "https://amazon-order-confirmation.com",
+      "cache_id": "5adeaca2db25f19b8e0d294d7d7f4788",
+      "cached_at": "2025-11-09T18:56:35.375197",
+      "status_code": 200
+    },
+    {
+      "url": "https://faceb00k.com",
+      "cache_id": "3b7d454cb7b4544fb66023491e87494e",
+      "cached_at": "2025-11-09T18:56:35.380343",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.turbotax.com",
+      "cache_id": "49799a7bf1fe0f486f7e57d40c406b90",
+      "cached_at": "2025-11-09T18:56:35.382826",
+      "status_code": 200
+    },
+    {
+      "url": "https://account-verification-required.net",
+      "cache_id": "67797f58230970ea9a7d749b83427c98",
+      "cached_at": "2025-11-09T18:56:35.386926",
+      "status_code": 200
+    },
+    {
+      "url": "https://sweepstakes-winner-notification.com",
+      "cache_id": "460af5619a9b798daa65b87dd7c346cf",
+      "cached_at": "2025-11-09T18:56:35.390672",
+      "status_code": 200
+    },
+    {
+      "url": "https://forced-subscription-ad.com",
+      "cache_id": "b8d98ab18969ad2de913451360de6e50",
+      "cached_at": "2025-11-09T18:56:35.392769",
+      "status_code": 200
+    },
+    {
+      "url": "https://discount-electronics-wholesale.com",
+      "cache_id": "6bf24f16a3a49b86760baf4bb48ccacd",
+      "cached_at": "2025-11-09T18:56:35.393675",
+      "status_code": 200
+    },
+    {
+      "url": "https://free-subdomain-site.net",
+      "cache_id": "c18d3642ad7e450f227c91d701138949",
+      "cached_at": "2025-11-09T18:56:35.396865",
+      "status_code": 200
+    },
+    {
+      "url": "https://personal-blog-2010.net",
+      "cache_id": "c4f234226b19a554f8a633b33ad48819",
+      "cached_at": "2025-11-09T18:56:35.401038",
+      "status_code": 200
+    },
+    {
+      "url": "https://before-after-fake-results.com",
+      "cache_id": "dc35af034639982e8cc90e4f3d54ade3",
+      "cached_at": "2025-11-09T18:56:35.401789",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.github.com",
+      "cache_id": "1895ab41ad3a81f6fd0a194bbc337a22",
+      "cached_at": "2025-11-09T18:56:35.404999",
+      "status_code": 200
+    },
+    {
+      "url": "https://high-yield-investment-program.net",
+      "cache_id": "1f9b57dc4cde32005af074963974a1a7",
+      "cached_at": "2025-11-09T18:56:35.409709",
+      "status_code": 200
+    },
+    {
+      "url": "https://personal-portfolio-site.com",
+      "cache_id": "faebbc26743cc8b6df971d3401474395",
+      "cached_at": "2025-11-09T18:56:35.413912",
+      "status_code": 200
+    },
+    {
+      "url": "https://community-forum-archived.net",
+      "cache_id": "cb0e7a95d72cc4b84257458ec64ca069",
+      "cached_at": "2025-11-09T18:56:35.416936",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.intercom.com",
+      "cache_id": "260e5e2b07fce1e65334012c57595bd8",
+      "cached_at": "2025-11-09T18:56:35.420857",
+      "status_code": 200
+    },
+    {
+      "url": "https://download-file-rapidshare.net",
+      "cache_id": "1b58d3570ceb22e864e0cb3a4ea295d8",
+      "cached_at": "2025-11-09T18:56:35.425442",
+      "status_code": 200
+    },
+    {
+      "url": "https://flash-player-update-required.net",
+      "cache_id": "a36c02fbbde3593832e7f58073811e2c",
+      "cached_at": "2025-11-09T18:56:35.424451",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.gap.com",
+      "cache_id": "7d81d7a5e1a3f091a90b3e2372d650dd",
+      "cached_at": "2025-11-09T18:56:35.428394",
+      "status_code": 200
+    },
+    {
+      "url": "https://marketplace-peer-to-peer.net",
+      "cache_id": "4b37b34bdbfd8154f41ddb8547ea63ca",
+      "cached_at": "2025-11-09T18:56:35.429074",
+      "status_code": 200
+    },
+    {
+      "url": "https://followers-instagram-free.net",
+      "cache_id": "bd7438f6aa9c71c7f372bf94c2320ff8",
+      "cached_at": "2025-11-09T18:56:35.432717",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.twitter.com",
+      "cache_id": "196287304fd73ddd3ebae44cfad2d6fb",
+      "cached_at": "2025-11-09T18:56:35.435458",
+      "status_code": 200
+    },
+    {
+      "url": "https://ad-shows-different-content.com",
+      "cache_id": "fc40b8f1af1f2c25c75d6739d7c5816b",
+      "cached_at": "2025-11-09T18:56:35.437699",
+      "status_code": 200
+    },
+    {
+      "url": "https://amazon-gift-card-winner.net",
+      "cache_id": "c85b5f4700b787f5baa43713140ded0d",
+      "cached_at": "2025-11-09T18:56:35.445260",
+      "status_code": 200
+    },
+    {
+      "url": "https://small-consultancy-firm.net",
+      "cache_id": "2980c1e6f5dd4b8587cbd5adfa8863a6",
+      "cached_at": "2025-11-09T18:56:35.446037",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.facebook.com",
+      "cache_id": "a24a5be7a6076556c8c2f16e5065bd40",
+      "cached_at": "2025-11-09T18:56:35.449189",
+      "status_code": 200
+    },
+    {
+      "url": "https://abandoned-forum-site.net",
+      "cache_id": "fc5838cf5e0e5a7f058db4f54d6bee9c",
+      "cached_at": "2025-11-09T18:56:35.456818",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.notion.so",
+      "cache_id": "32ffe4c5f09610cf228c7a4f75da1436",
+      "cached_at": "2025-11-09T18:56:35.458252",
+      "status_code": 200
+    },
+    {
+      "url": "https://misleading-advertisement.com",
+      "cache_id": "89dc14ca7b482f1bc3ee63a0bbf923eb",
+      "cached_at": "2025-11-09T18:56:35.457558",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.dropbox.com",
+      "cache_id": "b83879a97344ff58537620a675ad21a8",
+      "cached_at": "2025-11-09T18:56:35.458831",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.jcpenney.com",
+      "cache_id": "0e71fec1c6b6ba1fb7f9166e8a579fed",
+      "cached_at": "2025-11-09T18:56:35.462576",
+      "status_code": 200
+    },
+    {
+      "url": "https://open-source-project.com",
+      "cache_id": "6406b0f9ddd7e3c45f8e762d6bad25f5",
+      "cached_at": "2025-11-09T18:56:35.466184",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.legalzoom.com",
+      "cache_id": "029fadccd152ac4565a6874d6a0fc40d",
+      "cached_at": "2025-11-09T18:56:35.468808",
+      "status_code": 200
+    },
+    {
+      "url": "https://www.doppler.com",
+      "cache_id": "4527f57fc4f9d618075ea0505e5f96de",
+      "cached_at": "2025-11-09T18:56:35.476056",
+      "status_code": 200
+    },
+    {
+      "url": "https://exclusive-member-reward.net",
+      "cache_id": "c7879cae95a6f1e990ece936fb123e33",
+      "cached_at": "2025-11-09T18:56:35.476872",
+      "status_code": 200
+    },
+    {
+      "url": "https://advertiser-redirect-chain.net",
+      "cache_id": "c23caabc801576777b296ca639d97a9a",
+      "cached_at": "2025-11-09T18:56:35.481747",
+      "status_code": 200
+    },
+    {
+      "url": "https://mixed-reviews-product.com",
+      "cache_id": "188fda32f2897e4103d414415e10a4de",
+      "cached_at": "2025-11-09T18:56:35.487972",
+      "status_code": 200
+    },
+    {
+      "url": "https://bitcoin-doubler-investment.net",
+      "cache_id": "b6a88477233c5d51e2b46e80ef5d8bc8",
+      "cached_at": "2025-11-09T18:56:35.489429",
+      "status_code": 200
+    }
+  ]
+}
