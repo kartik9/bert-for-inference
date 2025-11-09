@@ -136,7 +136,23 @@ For all non-SAFE verdicts, the system generates **specific, descriptive risk cat
 - **Pattern Detection:** Disposable hosting, professional scam infrastructure
 - **Infrastructure Fingerprinting:** Link multiple fraud domains via shared servers
 
-### 5. Follow-Up Investigation
+### 5. Content Security Analysis (Malware Detection)
+- **Malicious JavaScript Detection:** Static analysis for malware patterns
+  - Obfuscation techniques (eval chains, Base64 encoding, hex encoding)
+  - Cryptominers (Coinhive, Monero miners)
+  - Keyloggers and data exfiltration code
+  - Browser exploits and heap spray patterns
+- **Exploit Kit Signatures:** RIG, Angler, Magnitude, Neutrino, BlackHole detection
+- **Obfuscation Detection:** High-entropy code analysis, encoding pattern recognition
+- **Suspicious External Resources:** Analyzes loaded scripts, iframes, links
+- **Threat Intelligence Integration:**
+  - **DomainTools API:** Domain reputation and risk scoring
+  - **VirusTotal API:** Multi-engine malware scanning for domains/resources
+  - **URLhaus Database:** Known malware URL detection
+- **Link Analysis:** Identifies suspicious download links, malware distribution sites
+- **Compromised Site Detection:** Recognizes legitimate sites with injected malware
+
+### 6. Follow-Up Investigation
 - **Generic AI System:** Handles ANY follow-up question type
 - **Available Actions:**
   - Targeted web searches
@@ -387,7 +403,10 @@ For all non-SAFE verdicts, the system generates **specific, descriptive risk cat
 ### Optional API Keys (Enhanced Intelligence)
 - **BRAVE_SEARCH_API_KEY** or **SERPAPI_KEY** or **GOOGLE_CSE_API_KEY**: Web reputation search
 - **SHODAN_API_KEY**: Infrastructure intelligence
+- **DOMAINTOOLS_API_KEY** + **DOMAINTOOLS_USERNAME**: Domain reputation and malware detection
+- **VIRUSTOTAL_API_KEY**: Multi-engine malware scanning for URLs and domains
 - **Meta/Google Ad Transparency**: Built-in, no API key needed (public access)
+- **URLhaus**: Built-in, no API key needed (public malware database)
 
 ### Deployment Models
 - **Cloud (Recommended):** FastAPI backend + React frontend

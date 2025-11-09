@@ -25,6 +25,7 @@ import validators
 from web_reputation_search import WebReputationSearcher
 from ad_platform_checker import AdPlatformChecker
 from shodan_analyzer import ShodanAnalyzer
+from content_security_analyzer import ContentSecurityAnalyzer
 
 logger = logging.getLogger(__name__)
 
@@ -40,6 +41,7 @@ class URLAnalyzer:
         self.reputation_searcher = WebReputationSearcher()
         self.ad_platform_checker = AdPlatformChecker()
         self.shodan_analyzer = ShodanAnalyzer()
+        self.content_security_analyzer = ContentSecurityAnalyzer()
 
     async def analyze(self, url: str) -> Dict[str, Any]:
         """
@@ -63,6 +65,7 @@ class URLAnalyzer:
             "ssl_info": await self._get_ssl_info(parsed.netloc or parsed.path),
             "http_response": await self._analyze_http_response(url),
             "content_analysis": {},
+            "content_security": {},
             "web_reputation": {},
             "ad_platforms": {},
             "shodan_infrastructure": {},
@@ -75,6 +78,21 @@ class URLAnalyzer:
                 analysis["http_response"]["content"],
                 url
             )
+
+            # Analyze content security (malware, malicious JS, suspicious links)
+            try:
+                logger.info("Analyzing content security for malware and malicious code...")
+                analysis["content_security"] = await self.content_security_analyzer.analyze_content_security(
+                    analysis["http_response"]["content"],
+                    url,
+                    extracted.fqdn
+                )
+            except Exception as e:
+                logger.error(f"Content security analysis error: {str(e)}")
+                analysis["content_security"] = {
+                    "analyzed": False,
+                    "error": str(e)
+                }
 
         # Search web for reputation information
         if self.reputation_searcher.is_configured():
@@ -513,6 +531,88 @@ class URLAnalyzer:
                     "indicator": risk.get("description", "Infrastructure concern detected"),
                     "risk": risk.get("note", risk.get("description", "Infrastructure-related risk")),
                     "source": "Shodan"
+                })
+
+        # Content security risks (malware, malicious JavaScript, compromised sites)
+        content_sec = analysis.get("content_security", {})
+        if content_sec.get("analyzed"):
+            risk_level = content_sec.get("risk_level", "UNKNOWN")
+
+            # Exploit kits (critical)
+            if content_sec.get("exploit_kits"):
+                for exploit in content_sec["exploit_kits"]:
+                    indicators.append({
+                        "type": "critical",
+                        "category": "content_security",
+                        "indicator": f"Exploit kit detected: {exploit.get('kit_name', 'unknown')}",
+                        "risk": "Website contains known exploit kit signature - likely compromised",
+                        "source": "Content Security Analysis"
+                    })
+
+            # Malicious JavaScript (high)
+            mal_js_count = len(content_sec.get("malicious_javascript", []))
+            if mal_js_count > 0:
+                js_types = set([m.get("type", "unknown") for m in content_sec.get("malicious_javascript", [])])
+                indicators.append({
+                    "type": "high",
+                    "category": "content_security",
+                    "indicator": f"{mal_js_count} malicious JavaScript patterns detected ({', '.join(list(js_types)[:3])})",
+                    "risk": "Website contains malicious JavaScript code - possible malware, keyloggers, or data theft",
+                    "source": "Static JavaScript Analysis"
+                })
+
+            # Malware domains in external resources (high)
+            malware_domains = content_sec.get("external_resources", {}).get("malware_domains", [])
+            if malware_domains:
+                indicators.append({
+                    "type": "high",
+                    "category": "content_security",
+                    "indicator": f"Website loads resources from {len(malware_domains)} known malware domains",
+                    "risk": "Compromised website loading malicious external resources",
+                    "source": "Threat Intelligence (DomainTools/VirusTotal/URLhaus)"
+                })
+
+            # Suspicious scripts (medium)
+            if content_sec.get("suspicious_scripts"):
+                indicators.append({
+                    "type": "medium",
+                    "category": "content_security",
+                    "indicator": f"{len(content_sec['suspicious_scripts'])} known malware script signatures",
+                    "risk": "Website contains scripts matching known malware patterns (webshells, backdoors)",
+                    "source": "Malware Signature Database"
+                })
+
+            # Obfuscated code (medium)
+            obf_count = len(content_sec.get("obfuscated_code", []))
+            if obf_count >= 3:
+                indicators.append({
+                    "type": "medium",
+                    "category": "content_security",
+                    "indicator": f"{obf_count} obfuscated code segments detected",
+                    "risk": "Heavy code obfuscation may indicate malware injection or compromise",
+                    "source": "Obfuscation Detection"
+                })
+
+            # Suspicious links (medium if many)
+            susp_links = content_sec.get("suspicious_links", [])
+            high_sev_links = [l for l in susp_links if l.get("severity") == "high"]
+            if len(high_sev_links) >= 3:
+                indicators.append({
+                    "type": "medium",
+                    "category": "content_security",
+                    "indicator": f"{len(high_sev_links)} suspicious download/malware links detected",
+                    "risk": "Website contains links to suspicious downloads or malware sites",
+                    "source": "Link Analysis"
+                })
+
+            # Overall high risk level
+            if risk_level in ["CRITICAL", "HIGH"] and content_sec.get("risk_score", 0) >= 50:
+                indicators.append({
+                    "type": "high",
+                    "category": "content_security",
+                    "indicator": f"Overall content security risk: {risk_level} (score: {content_sec.get('risk_score', 0)}/100)",
+                    "risk": content_sec.get("summary", "Multiple malware/compromise indicators detected"),
+                    "source": "Content Security Analysis"
                 })
 
         return indicators
