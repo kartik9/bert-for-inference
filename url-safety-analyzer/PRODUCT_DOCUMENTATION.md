@@ -1,5 +1,6 @@
-# URL Trust & Safety Analysis Platform
-## Product Documentation for Users & Product Managers
+# AURORA
+## AI-Powered URL Trust & Safety Analysis Platform
+### Product Documentation for Users & Product Managers
 
 **Version:** 1.0
 **Last Updated:** 2025-11-09
@@ -9,7 +10,7 @@
 
 ## Executive Summary
 
-The URL Trust & Safety Analysis Platform is an AI-powered investigation system designed to help ad platform safety researchers identify and classify fraudulent, phishing, malware, and scam URLs submitted for advertising. The system combines advanced AI reasoning with comprehensive data intelligence to provide actionable threat assessments with human-in-the-loop workflow optimization.
+AURORA is an AI-powered investigation system designed to help ad platform safety researchers identify and classify fraudulent, phishing, malware, and scam URLs submitted for advertising. The system combines advanced AI reasoning with comprehensive data intelligence to provide actionable threat assessments with human-in-the-loop workflow optimization.
 
 **Key Value Propositions:**
 - **Reduces manual review time** by 60-70% through intelligent classification
@@ -437,7 +438,7 @@ A: Real-time for web searches and ad platform checks. Shodan data refreshed on e
 
 ## Conclusion
 
-The URL Trust & Safety Analysis Platform represents a significant advancement in automated threat detection for advertising platforms. By combining cutting-edge AI reasoning with comprehensive intelligence gathering and human expertise, the system enables security teams to:
+AURORA represents a significant advancement in automated threat detection for advertising platforms. By combining cutting-edge AI reasoning with comprehensive intelligence gathering and human expertise, the system enables security teams to:
 
 - **Scale operations** without proportional headcount increases
 - **Improve accuracy** through multi-source verification

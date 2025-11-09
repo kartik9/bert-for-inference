@@ -1,5 +1,6 @@
-# URL Trust & Safety Analysis Platform
-## Technical Documentation for Engineers
+# AURORA
+## AI-Powered URL Trust & Safety Analysis Platform
+### Technical Documentation for Engineers
 
 **Version:** 1.0
 **Last Updated:** 2025-11-09
@@ -1735,8 +1736,8 @@ Investigation:
 
 ```bash
 # Clone repository
-git clone https://github.com/yourorg/url-safety-analyzer.git
-cd url-safety-analyzer
+git clone https://github.com/yourorg/aurora.git
+cd aurora
 
 # Create virtual environment
 python3.11 -m venv venv
@@ -1785,10 +1786,10 @@ uvicorn main:app --reload --port 8000
 - **Security Issues:** security@company.com
 
 ### Links
-- GitHub Repository: https://github.com/yourorg/url-safety-analyzer
-- Issue Tracker: https://github.com/yourorg/url-safety-analyzer/issues
-- CI/CD Pipeline: https://github.com/yourorg/url-safety-analyzer/actions
-- Documentation: https://docs.url-safety-analyzer.com
+- GitHub Repository: https://github.com/yourorg/aurora
+- Issue Tracker: https://github.com/yourorg/aurora/issues
+- CI/CD Pipeline: https://github.com/yourorg/aurora/actions
+- Documentation: https://docs.aurora.ai
 
 ---
 
