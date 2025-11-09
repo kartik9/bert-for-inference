@@ -1124,7 +1124,8 @@ Available action types:
 4. "fetch_evidence" - Retrieve specific evidence mentioned in investigation
 5. "analyze_advertiser" - Analyze advertiser information provided by user
 6. "check_relationship" - Check if domains/entities are related
-7. "no_action" - Answer from existing context only
+7. "shodan_lookup" - Get infrastructure intelligence from Shodan (ports, services, vulnerabilities, hosting)
+8. "no_action" - Answer from existing context only
 
 Return ONLY a JSON object:
 {{
@@ -1285,6 +1286,34 @@ Be intelligent about detecting:
                             "description": action.get("description"),
                             "entities": entities
                         })
+
+                elif action_type == "shodan_lookup":
+                    # Perform Shodan infrastructure lookup
+                    domain = params.get("domain")
+                    if not domain:
+                        # Extract domain from URL if not provided
+                        from urllib.parse import urlparse
+                        parsed = urlparse(url)
+                        domain = parsed.netloc or parsed.path
+
+                    if domain and url_analyzer_instance and hasattr(url_analyzer_instance, 'shodan_analyzer'):
+                        if url_analyzer_instance.shodan_analyzer.is_configured():
+                            shodan_data = await url_analyzer_instance.shodan_analyzer.analyze_infrastructure(
+                                url, domain
+                            )
+                            results["data"]["shodan"] = shodan_data
+                            results["actions_executed"].append({
+                                "type": action_type,
+                                "description": action.get("description"),
+                                "domain": domain,
+                                "found_data": shodan_data.get("checked", False)
+                            })
+                        else:
+                            logger.warning("Shodan not configured for follow-up lookup")
+                            results["data"]["shodan"] = {
+                                "checked": False,
+                                "error": "Shodan not configured"
+                            }
 
                 elif action_type == "fetch_evidence":
                     # Fetch specific evidence from previous investigation

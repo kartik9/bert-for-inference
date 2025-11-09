@@ -24,6 +24,7 @@ import validators
 
 from web_reputation_search import WebReputationSearcher
 from ad_platform_checker import AdPlatformChecker
+from shodan_analyzer import ShodanAnalyzer
 
 logger = logging.getLogger(__name__)
 
@@ -38,6 +39,7 @@ class URLAnalyzer:
         }
         self.reputation_searcher = WebReputationSearcher()
         self.ad_platform_checker = AdPlatformChecker()
+        self.shodan_analyzer = ShodanAnalyzer()
 
     async def analyze(self, url: str) -> Dict[str, Any]:
         """
@@ -63,6 +65,7 @@ class URLAnalyzer:
             "content_analysis": {},
             "web_reputation": {},
             "ad_platforms": {},
+            "shodan_infrastructure": {},
             "risk_indicators": []
         }
 
@@ -112,6 +115,26 @@ class URLAnalyzer:
             analysis["ad_platforms"] = {
                 "checked": False,
                 "error": str(e)
+            }
+
+        # Analyze infrastructure with Shodan
+        if self.shodan_analyzer.is_configured():
+            try:
+                logger.info("Analyzing infrastructure with Shodan...")
+                analysis["shodan_infrastructure"] = await self.shodan_analyzer.analyze_infrastructure(
+                    url, extracted.fqdn
+                )
+            except Exception as e:
+                logger.error(f"Shodan analysis error: {str(e)}")
+                analysis["shodan_infrastructure"] = {
+                    "checked": False,
+                    "error": str(e)
+                }
+        else:
+            logger.info("Shodan not configured (set SHODAN_API_KEY for infrastructure intelligence)")
+            analysis["shodan_infrastructure"] = {
+                "checked": False,
+                "error": "Shodan not configured. Set SHODAN_API_KEY environment variable."
             }
 
         # Detect risk indicators
@@ -468,6 +491,28 @@ class URLAnalyzer:
                     "category": "web_reputation",
                     "indicator": f"Poor online reputation (score: {reputation_score}/100)",
                     "risk": "Website has significant negative reputation signals"
+                })
+
+        # Shodan infrastructure risks
+        shodan_data = analysis.get("shodan_infrastructure", {})
+        if shodan_data.get("checked"):
+            shodan_risks = shodan_data.get("risk_indicators", [])
+
+            for risk in shodan_risks:
+                severity_map = {
+                    "critical": "critical",
+                    "high": "high",
+                    "medium": "medium",
+                    "low": "low",
+                    "info": "low"
+                }
+
+                indicators.append({
+                    "type": severity_map.get(risk.get("severity", "medium"), "medium"),
+                    "category": "infrastructure",
+                    "indicator": risk.get("description", "Infrastructure concern detected"),
+                    "risk": risk.get("note", risk.get("description", "Infrastructure-related risk")),
+                    "source": "Shodan"
                 })
 
         return indicators
