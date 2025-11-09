@@ -1351,14 +1351,25 @@ Answer:"""
         url: str,
         question: str,
         previous_context: Optional[Dict[str, Any]] = None,
-        url_analyzer_instance=None
+        url_analyzer_instance=None,
+        user_screenshots: Optional[List[str]] = None,
+        screenshot_context: Optional[str] = None
     ) -> AsyncGenerator[Dict[str, Any], None]:
         """
         Answer follow-up questions with active investigation capability
         Generic AI-driven system that can handle ANY question type
 
+        Now supports multimodal analysis with user-provided screenshots for:
+        - Ad cloaking detection (compare user's ad screenshot vs actual site)
+        - Visual evidence analysis
+        - Screenshot comparison (user vs URLScan.io)
+
         GPT-5 analyzes the question and decides what actions to take,
         then synthesizes answer with gathered evidence
+
+        Args:
+            user_screenshots: List of base64-encoded images or image URLs
+            screenshot_context: User description of screenshots (e.g., "This is the ad I saw on Facebook")
         """
 
         if not self.is_configured():
@@ -1373,11 +1384,34 @@ Answer:"""
             "message": "Analyzing your question..."
         }
 
+        # If user provided screenshots, analyze them first
+        screenshot_analysis = None
+        if user_screenshots:
+            yield {
+                "type": "status",
+                "message": f"Analyzing {len(user_screenshots)} screenshot(s) with AI..."
+            }
+
+            screenshot_analysis = await self._analyze_user_screenshots(
+                url,
+                user_screenshots,
+                screenshot_context,
+                previous_context
+            )
+
+            if screenshot_analysis:
+                yield {
+                    "type": "screenshot_analysis",
+                    "data": screenshot_analysis,
+                    "message": "Screenshot analysis complete"
+                }
+
         # Step 1: GPT-5 analyzes the question and determines required actions
         action_plan = await self._analyze_followup_question(
             url,
             question,
-            previous_context
+            previous_context,
+            screenshot_analysis
         )
 
         yield {
@@ -1406,7 +1440,7 @@ Answer:"""
                     "message": "New evidence collected. Analyzing..."
                 }
 
-        # Step 3: GPT-5 synthesizes comprehensive answer
+        # Step 3: GPT-5 synthesizes comprehensive answer (including screenshot analysis)
         yield {
             "type": "status",
             "message": "Formulating answer..."
@@ -1417,7 +1451,8 @@ Answer:"""
             question,
             previous_context,
             action_plan,
-            new_data
+            new_data,
+            screenshot_analysis
         ):
             yield response_chunk
 
@@ -1425,19 +1460,28 @@ Answer:"""
         self,
         url: str,
         question: str,
-        previous_context: Optional[Dict[str, Any]]
+        previous_context: Optional[Dict[str, Any]],
+        screenshot_analysis: Optional[Dict[str, Any]] = None
     ) -> Dict[str, Any]:
         """
         Use GPT-5 to analyze the question and determine what actions are needed
         This is the key to making the system generic
+
+        Now also considers user-provided screenshot analysis if available
         """
 
         context_summary = self._build_context_summary(url, previous_context)
+
+        # Add screenshot analysis to context if available
+        screenshot_info = ""
+        if screenshot_analysis:
+            screenshot_info = f"\n\nUSER-PROVIDED SCREENSHOTS ANALYSIS:\n{json.dumps(screenshot_analysis, indent=2)}\n\nThe user has provided visual evidence. Consider this in your investigation plan."
 
         prompt = f"""You are a trust and safety expert analyzing a follow-up question about a URL investigation.
 
 ORIGINAL INVESTIGATION:
 {context_summary}
+{screenshot_info}
 
 RESEARCHER'S QUESTION:
 {question}
@@ -1672,10 +1716,12 @@ Be intelligent about detecting:
         question: str,
         previous_context: Optional[Dict[str, Any]],
         action_plan: Dict[str, Any],
-        new_data: Dict[str, Any]
+        new_data: Dict[str, Any],
+        screenshot_analysis: Optional[Dict[str, Any]] = None
     ) -> AsyncGenerator[Dict[str, Any], None]:
         """
         Use GPT-5 to synthesize comprehensive answer with all available evidence
+        Now includes screenshot analysis for visual evidence
         """
 
         context_summary = self._build_context_summary(url, previous_context)
@@ -1686,6 +1732,16 @@ Be intelligent about detecting:
 
 NEW EVIDENCE GATHERED:
 {json.dumps(new_data, indent=2)[:3000]}
+"""
+
+        screenshot_summary = ""
+        if screenshot_analysis:
+            screenshot_summary = f"""
+
+USER-PROVIDED VISUAL EVIDENCE:
+{json.dumps(screenshot_analysis, indent=2)[:2000]}
+
+CLOAKING DETECTED: {'YES - Site shows different content in ads vs direct visits!' if screenshot_analysis.get('cloaking_detected') else 'No significant differences detected'}
 """
 
         prompt = f"""You are a trust and safety expert providing a comprehensive answer to a follow-up question.
@@ -1699,6 +1755,7 @@ RESEARCHER'S QUESTION:
 INVESTIGATION ACTIONS TAKEN:
 {action_plan.get('reasoning', 'N/A')}
 {new_data_summary}
+{screenshot_summary}
 
 Provide a detailed, evidence-based answer to the researcher's question.
 
@@ -1709,6 +1766,8 @@ Key requirements:
 4. If domain relationships were checked, explain the connection/threat
 5. Reference specific data points (quotes, statistics, sources)
 6. Update verdict if new evidence warrants it
+7. **If user provided screenshots and cloaking was detected, emphasize this as critical finding**
+8. **Analyze visual evidence alongside technical findings for comprehensive assessment**
 
 Answer the question comprehensively:"""
 
@@ -1984,3 +2043,364 @@ Analyze for discrepancies and fraud indicators. Return JSON:
             evidence["error"] = str(e)
 
         return evidence
+
+    async def _analyze_user_screenshots(
+        self,
+        url: str,
+        screenshots: List[str],
+        screenshot_context: Optional[str],
+        previous_context: Optional[Dict[str, Any]]
+    ) -> Dict[str, Any]:
+        """
+        Analyze user-provided screenshots with GPT-4o
+
+        Performs:
+        1. Visual analysis of each screenshot
+        2. Comparison with URLScan.io screenshot if available (ad cloaking detection)
+        3. Threat assessment
+        4. Correlation with investigation findings
+
+        Args:
+            screenshots: List of base64-encoded images or image URLs
+            screenshot_context: User's description (e.g., "This is the native ad I saw")
+            previous_context: Previous investigation data (may contain URLScan.io screenshot)
+
+        Returns:
+            Dict with:
+            - individual_analysis: List of analysis for each screenshot
+            - cloaking_detected: Bool indicating if ad shows different content
+            - comparison_with_urlscan: Comparison results if URLScan screenshot available
+            - threat_assessment: Overall threat evaluation based on visual evidence
+        """
+
+        if not screenshots:
+            return None
+
+        try:
+            # Get URLScan.io screenshot from previous context if available
+            urlscan_screenshot_url = None
+            if previous_context:
+                technical_data = previous_context.get('technical_data', {})
+                content_sec = technical_data.get('content_security', {})
+                urlscan_data = content_sec.get('threat_intelligence', {}).get('urlscan_io', {})
+                urlscan_screenshot_url = urlscan_data.get('screenshot_url')
+
+            result = {
+                "individual_analysis": [],
+                "cloaking_detected": False,
+                "comparison_with_urlscan": None,
+                "threat_assessment": {},
+                "user_context": screenshot_context or "No context provided"
+            }
+
+            # Analyze each user screenshot
+            for idx, screenshot in enumerate(screenshots):
+                analysis = await self._analyze_single_screenshot(
+                    screenshot,
+                    url,
+                    screenshot_context,
+                    f"User Screenshot {idx + 1}"
+                )
+
+                if analysis:
+                    result["individual_analysis"].append(analysis)
+
+            # If we have both user screenshots and URLScan.io screenshot, compare them
+            if urlscan_screenshot_url and screenshots:
+                logger.info("Comparing user screenshot with URLScan.io screenshot for cloaking detection...")
+
+                comparison = await self._compare_screenshots(
+                    screenshots[0],  # Use first user screenshot
+                    urlscan_screenshot_url,
+                    url,
+                    screenshot_context
+                )
+
+                if comparison:
+                    result["comparison_with_urlscan"] = comparison
+                    result["cloaking_detected"] = comparison.get("significant_differences", False)
+
+            # Generate overall threat assessment
+            result["threat_assessment"] = self._synthesize_screenshot_threat_assessment(
+                result["individual_analysis"],
+                result.get("comparison_with_urlscan"),
+                previous_context
+            )
+
+            return result
+
+        except Exception as e:
+            logger.error(f"Screenshot analysis error: {str(e)}")
+            return {
+                "error": str(e),
+                "message": "Failed to analyze screenshots"
+            }
+
+    async def _analyze_single_screenshot(
+        self,
+        screenshot: str,
+        url: str,
+        context: Optional[str],
+        label: str
+    ) -> Dict[str, Any]:
+        """Analyze a single screenshot using GPT-4o"""
+
+        try:
+            headers = {
+                'Authorization': f'Bearer {self.openai_api_key}',
+                'Content-Type': 'application/json'
+            }
+
+            context_info = f"\n\nUSER CONTEXT: {context}" if context else ""
+
+            prompt = f"""Analyze this screenshot related to the URL: {url}
+{context_info}
+
+You are a trust & safety analyst. Analyze this visual evidence and answer:
+
+1. **Content Description**: What does this page/ad show?
+2. **Promises/Claims**: What is being promised or advertised?
+3. **Targeting**: Who is the target audience?
+4. **Visual Indicators**: Any suspicious visual elements?
+   - Urgency tactics ("Limited time!", "Act now!")
+   - Too-good-to-be-true offers
+   - Poor quality graphics or typos
+   - Brand impersonation attempts
+   - Requests for sensitive information
+   - Fake testimonials or fake urgency counters
+5. **URL Match**: Does the visual content match what you'd expect from the domain {url}?
+6. **Threat Assessment**: Is this likely malicious, deceptive, or legitimate?
+
+Respond in JSON format:
+{{
+    "content_description": "Detailed description of what's shown",
+    "promises_or_claims": ["List of promises/claims made"],
+    "target_audience": "Who this targets",
+    "visual_red_flags": ["List of suspicious visual elements"],
+    "url_content_match": "Does visual match domain? Yes/No/Uncertain",
+    "threat_level": "CRITICAL|HIGH|MEDIUM|LOW|BENIGN",
+    "threat_explanation": "Why this threat level?",
+    "is_deceptive": true/false,
+    "deception_type": "brand_impersonation|fake_scarcity|false_promises|fake_testimonials|none"
+}}"""
+
+            payload = {
+                "model": "gpt-4o",
+                "messages": [
+                    {
+                        "role": "user",
+                        "content": [
+                            {"type": "text", "text": prompt},
+                            {
+                                "type": "image_url",
+                                "image_url": {
+                                    "url": screenshot,
+                                    "detail": "high"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "max_tokens": 1200,
+                "response_format": {"type": "json_object"}
+            }
+
+            logger.info(f"Analyzing {label} with GPT-4o...")
+
+            async with httpx.AsyncClient(timeout=60.0) as client:
+                response = await client.post(
+                    "https://api.openai.com/v1/chat/completions",
+                    headers=headers,
+                    json=payload
+                )
+
+            if response.status_code == 200:
+                result = response.json()
+                content = result.get('choices', [{}])[0].get('message', {}).get('content', '{}')
+
+                analysis = json.loads(content)
+                analysis['label'] = label
+                analysis['analyzed'] = True
+
+                return analysis
+            else:
+                logger.warning(f"GPT-4o screenshot analysis failed: {response.status_code}")
+                return {"error": f"API error {response.status_code}", "label": label}
+
+        except Exception as e:
+            logger.error(f"Single screenshot analysis error: {str(e)}")
+            return {"error": str(e), "label": label}
+
+    async def _compare_screenshots(
+        self,
+        user_screenshot: str,
+        urlscan_screenshot: str,
+        url: str,
+        user_context: Optional[str]
+    ) -> Dict[str, Any]:
+        """
+        Compare user's screenshot with URLScan.io screenshot to detect cloaking
+
+        Ad cloaking = showing different content in ads vs direct visits
+        """
+
+        try:
+            headers = {
+                'Authorization': f'Bearer {self.openai_api_key}',
+                'Content-Type': 'application/json'
+            }
+
+            context_info = f"\n\nUser says: '{user_context}'" if user_context else ""
+
+            prompt = f"""Compare these two screenshots of {url}:
+- Image 1: What the user saw (in an ad, social media, or elsewhere){context_info}
+- Image 2: What URLScan.io's automated browser captured when directly visiting the URL
+
+Your task: Detect **AD CLOAKING** or **CONTENT DIFFERENCES**
+
+AD CLOAKING = Website shows different content to ads/users vs automated scanners
+
+Compare:
+1. **Visual Content**: Do they show the same page or completely different content?
+2. **Promises/Offers**: Are the same offers/claims shown in both?
+3. **Branding**: Same branding or different?
+4. **Call-to-Action**: Same CTAs or different?
+5. **Overall Layout**: Similar or completely different?
+
+IMPORTANT:
+- Minor differences (different time of day, slight layout changes) are NORMAL
+- We're looking for SIGNIFICANT differences indicating cloaking or deception
+- Examples of cloaking: Ad shows "free iPhone", site shows generic content
+                      Ad shows legitimate brand, site is totally different
+
+Respond in JSON:
+{{
+    "significant_differences": true/false,
+    "difference_severity": "CRITICAL|HIGH|MEDIUM|LOW|NONE",
+    "differences_found": ["Specific difference 1", "Specific difference 2"],
+    "cloaking_likelihood": "VERY_LIKELY|LIKELY|POSSIBLE|UNLIKELY",
+    "cloaking_explanation": "Why we think this is/isn't cloaking",
+    "user_saw": "Brief description of Image 1",
+    "scanner_saw": "Brief description of Image 2",
+    "recommendation": "What action to take based on this comparison"
+}}"""
+
+            payload = {
+                "model": "gpt-4o",
+                "messages": [
+                    {
+                        "role": "user",
+                        "content": [
+                            {"type": "text", "text": prompt},
+                            {
+                                "type": "image_url",
+                                "image_url": {
+                                    "url": user_screenshot,
+                                    "detail": "high"
+                                }
+                            },
+                            {
+                                "type": "image_url",
+                                "image_url": {
+                                    "url": urlscan_screenshot,
+                                    "detail": "high"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "max_tokens": 1000,
+                "response_format": {"type": "json_object"}
+            }
+
+            logger.info("Comparing user screenshot vs URLScan.io screenshot for cloaking detection...")
+
+            async with httpx.AsyncClient(timeout=60.0) as client:
+                response = await client.post(
+                    "https://api.openai.com/v1/chat/completions",
+                    headers=headers,
+                    json=payload
+                )
+
+            if response.status_code == 200:
+                result = response.json()
+                content = result.get('choices', [{}])[0].get('message', {}).get('content', '{}')
+
+                comparison = json.loads(content)
+                comparison['compared'] = True
+
+                return comparison
+            else:
+                logger.warning(f"GPT-4o comparison failed: {response.status_code}")
+                return {"error": f"API error {response.status_code}"}
+
+        except Exception as e:
+            logger.error(f"Screenshot comparison error: {str(e)}")
+            return {"error": str(e)}
+
+    def _synthesize_screenshot_threat_assessment(
+        self,
+        individual_analyses: List[Dict[str, Any]],
+        comparison: Optional[Dict[str, Any]],
+        previous_context: Optional[Dict[str, Any]]
+    ) -> Dict[str, Any]:
+        """Synthesize overall threat assessment from screenshot analyses"""
+
+        assessment = {
+            "overall_threat_level": "UNKNOWN",
+            "confidence": 0,
+            "key_findings": [],
+            "recommendations": []
+        }
+
+        try:
+            # Aggregate threat levels from individual analyses
+            threat_levels = []
+            for analysis in individual_analyses:
+                if analysis.get("threat_level"):
+                    threat_levels.append(analysis["threat_level"])
+
+                # Collect red flags
+                if analysis.get("visual_red_flags"):
+                    assessment["key_findings"].extend(analysis["visual_red_flags"])
+
+                # Check deception
+                if analysis.get("is_deceptive"):
+                    assessment["key_findings"].append(
+                        f"Deceptive content detected: {analysis.get('deception_type', 'unknown')}"
+                    )
+
+            # Determine overall threat level (take highest)
+            threat_priority = {"CRITICAL": 4, "HIGH": 3, "MEDIUM": 2, "LOW": 1, "BENIGN": 0}
+            if threat_levels:
+                highest_threat = max(threat_levels, key=lambda x: threat_priority.get(x, 0))
+                assessment["overall_threat_level"] = highest_threat
+                assessment["confidence"] = 75  # Base confidence
+
+            # Factor in cloaking detection
+            if comparison:
+                if comparison.get("significant_differences"):
+                    assessment["key_findings"].append(
+                        f"AD CLOAKING DETECTED: {comparison.get('cloaking_explanation', 'Content differs between ad and direct visit')}"
+                    )
+                    # Escalate threat level if cloaking detected
+                    if threat_priority.get(assessment["overall_threat_level"], 0) < 3:
+                        assessment["overall_threat_level"] = "HIGH"
+
+                    assessment["recommendations"].append(
+                        "IMMEDIATE ACTION: This site shows different content in ads vs direct visits. Likely ad fraud or deceptive advertising."
+                    )
+
+            # Generate recommendations
+            if assessment["overall_threat_level"] in ["CRITICAL", "HIGH"]:
+                assessment["recommendations"].append("Block this URL from ad platforms immediately")
+                assessment["recommendations"].append("Report to relevant authorities")
+            elif assessment["overall_threat_level"] == "MEDIUM":
+                assessment["recommendations"].append("Flag for manual review")
+                assessment["recommendations"].append("Monitor for user complaints")
+
+        except Exception as e:
+            logger.error(f"Threat assessment synthesis error: {str(e)}")
+            assessment["error"] = str(e)
+
+        return assessment

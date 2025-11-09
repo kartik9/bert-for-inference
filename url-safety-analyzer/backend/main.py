@@ -59,6 +59,14 @@ class FollowUpRequest(BaseModel):
     url: str
     question: str
     previous_context: Optional[Dict[str, Any]] = None
+    screenshots: Optional[List[str]] = Field(
+        default=None,
+        description="List of base64-encoded images (PNG/JPEG) or image URLs. Example: ['data:image/png;base64,...', 'https://example.com/screenshot.png']"
+    )
+    screenshot_context: Optional[str] = Field(
+        default=None,
+        description="Context about the screenshots. Example: 'This is what I saw in the native ad on Facebook'"
+    )
 
 
 class AnalysisStatus(BaseModel):
@@ -160,11 +168,14 @@ async def followup_question(request: FollowUpRequest):
         try:
             # Use new generic follow-up system with investigation capabilities
             # GPT-5 analyzes question, decides what actions to take, gathers evidence, answers
+            # Now supports multimodal analysis with user-provided screenshots
             async for update in ai_agent.answer_followup_with_investigation(
                 request.url,
                 request.question,
                 request.previous_context,
-                url_analyzer_instance=url_analyzer
+                url_analyzer_instance=url_analyzer,
+                user_screenshots=request.screenshots,
+                screenshot_context=request.screenshot_context
             ):
                 yield f"data: {json.dumps(update)}\n\n"
                 await asyncio.sleep(0.1)

@@ -192,6 +192,27 @@ For all non-SAFE verdicts, the system generates **specific, descriptive risk cat
   - Evidence extraction
 - **User-Provided Context:** Accept advertiser info from your platform for verification
 
+#### Multimodal Visual Evidence (NEW)
+- **Screenshot Attachment:** Users can attach screenshots to follow-up questions
+  - Example: "This is the ad I saw on Facebook - does it match the site?"
+  - Supports base64-encoded images or image URLs
+  - Multiple screenshots per question
+- **AI-Powered Visual Analysis (GPT-4o):**
+  - Content description and threat assessment
+  - Visual red flag detection (urgency tactics, fake scarcity, brand impersonation)
+  - Promise/claim extraction from visuals
+  - Deception pattern recognition
+- **Ad Cloaking Detection:**
+  - Automatic comparison with URLScan.io screenshots
+  - Detects when ads show different content than actual site
+  - Critical for detecting ad fraud and deceptive advertising
+  - Confidence scoring for cloaking likelihood
+- **Use Cases:**
+  - Verify native ad content matches landing page
+  - Detect "bait and switch" advertising
+  - Investigate user complaints with visual evidence
+  - Compare reported ad creative with actual site
+
 ---
 
 ## Key Features
@@ -297,6 +318,33 @@ For all non-SAFE verdicts, the system generates **specific, descriptive risk cat
 4. Team proactively blocks 15 related domains before they're used in ads
 
 **Outcome:** Prevent campaign-scale fraud with 15x efficiency vs. reactive blocking
+
+### 6. Ad Cloaking Investigation with Visual Evidence
+**Scenario:** User reports seeing deceptive ad that doesn't match the landing page
+
+**Workflow:**
+1. User submits complaint: "This Facebook ad promised free iPhone but landing page is generic survey"
+2. User attaches screenshot of the native ad they saw
+3. AURORA performs initial URL analysis (may show generic content)
+4. User asks follow-up with screenshot: "This is what I saw in the ad - does it match?"
+5. AI analyzes user's ad screenshot with GPT-4o:
+   - Detects promises: "FREE iPhone 15 Pro - Limited Time!"
+   - Identifies urgency tactics and fake scarcity
+   - Flags visual red flags (poor quality graphics, urgency countdown)
+6. AI compares user's ad screenshot vs URLScan.io screenshot of actual site:
+   - User saw: "Free iPhone" promise with countdown timer
+   - Direct visit shows: Generic "Complete Survey for Rewards" page
+   - **CLOAKING DETECTED:** Site shows different content in ads vs direct visits
+7. AI generates comprehensive assessment:
+   - "AD CLOAKING CONFIRMED - Difference Severity: CRITICAL"
+   - "Ad promised specific product (iPhone) but site delivers generic survey scam"
+   - "Recommended Action: Block immediately, report for ad fraud"
+
+**Outcome:**
+- Detect sophisticated ad cloaking that automated tools miss
+- Validate user complaints with visual evidence
+- Catch "bait and switch" advertising fraud
+- Enable enforcement action with concrete proof
 
 ---
 
