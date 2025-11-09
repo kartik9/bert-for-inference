@@ -1,0 +1,10 @@
+{
+  "url": "https://www.tripadvisor.com",
+  "cache_id": "5c2a9bca2f71da12d7a4266271b0903c",
+  "cached_at": "2025-11-09T18:56:35.339807",
+  "status_code": 200,
+  "headers": {
+    "content-type": "text/html"
+  },
+  "content_length": 139
+}

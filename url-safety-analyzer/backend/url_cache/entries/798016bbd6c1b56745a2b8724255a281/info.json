@@ -1,0 +1,10 @@
+{
+  "url": "https://www.zillow.com",
+  "cache_id": "798016bbd6c1b56745a2b8724255a281",
+  "cached_at": "2025-11-09T18:56:34.319606",
+  "status_code": 200,
+  "headers": {
+    "content-type": "text/html"
+  },
+  "content_length": 139
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://www.hulu.com",
+  "cache_id": "caeae4aa5e06bcbe8e73c71adc36c300",
+  "cached_at": "2025-11-09T18:56:34.667949",
+  "status_code": 200,
+  "headers": {
+    "content-type": "text/html"
+  },
+  "content_length": 145
+}

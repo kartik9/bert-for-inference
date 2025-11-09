@@ -1,0 +1,10 @@
+{
+  "url": "https://www.toyota.com",
+  "cache_id": "e8661452d1529d92ad9324753d5f387d",
+  "cached_at": "2025-11-09T18:56:35.222758",
+  "status_code": 200,
+  "headers": {
+    "content-type": "text/html"
+  },
+  "content_length": 137
+}

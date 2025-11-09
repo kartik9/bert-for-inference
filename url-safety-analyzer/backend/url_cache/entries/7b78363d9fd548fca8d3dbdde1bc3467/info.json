@@ -1,0 +1,10 @@
+{
+  "url": "https://www.walgreens.com",
+  "cache_id": "7b78363d9fd548fca8d3dbdde1bc3467",
+  "cached_at": "2025-11-09T18:56:34.638056",
+  "status_code": 200,
+  "headers": {
+    "content-type": "text/html"
+  },
+  "content_length": 143
+}

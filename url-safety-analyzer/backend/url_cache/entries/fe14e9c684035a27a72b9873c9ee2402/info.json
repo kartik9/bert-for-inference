@@ -1,0 +1,10 @@
+{
+  "url": "https://www.xbox.com",
+  "cache_id": "fe14e9c684035a27a72b9873c9ee2402",
+  "cached_at": "2025-11-09T18:56:34.793931",
+  "status_code": 200,
+  "headers": {
+    "content-type": "text/html"
+  },
+  "content_length": 125
+}

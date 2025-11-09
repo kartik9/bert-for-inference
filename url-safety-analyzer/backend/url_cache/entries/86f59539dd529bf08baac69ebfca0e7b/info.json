@@ -1,0 +1,10 @@
+{
+  "url": "https://www.amazon.com",
+  "cache_id": "86f59539dd529bf08baac69ebfca0e7b",
+  "cached_at": "2025-11-09T18:56:35.064829",
+  "status_code": 200,
+  "headers": {
+    "content-type": "text/html"
+  },
+  "content_length": 141
+}

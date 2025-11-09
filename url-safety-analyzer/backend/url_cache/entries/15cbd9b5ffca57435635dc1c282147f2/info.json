@@ -1,0 +1,10 @@
+{
+  "url": "https://fake-product-page.net",
+  "cache_id": "15cbd9b5ffca57435635dc1c282147f2",
+  "cached_at": "2025-11-09T18:56:34.972797",
+  "status_code": 200,
+  "headers": {
+    "content-type": "text/html"
+  },
+  "content_length": 97
+}

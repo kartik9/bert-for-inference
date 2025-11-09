@@ -1,0 +1,10 @@
+{
+  "url": "https://www.nytimes.com",
+  "cache_id": "2f580dc49292a1caf59cd86dd3c9e60b",
+  "cached_at": "2025-11-09T18:56:35.075423",
+  "status_code": 200,
+  "headers": {
+    "content-type": "text/html"
+  },
+  "content_length": 159
+}

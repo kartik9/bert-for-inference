@@ -1,0 +1,10 @@
+{
+  "url": "https://www.playstation.com",
+  "cache_id": "07fd1295bfb66d47947782bda3ff9e20",
+  "cached_at": "2025-11-09T18:56:34.915184",
+  "status_code": 200,
+  "headers": {
+    "content-type": "text/html"
+  },
+  "content_length": 139
+}

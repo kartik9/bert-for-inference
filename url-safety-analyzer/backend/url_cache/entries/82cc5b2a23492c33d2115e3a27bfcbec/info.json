@@ -1,0 +1,10 @@
+{
+  "url": "https://www.apple.com",
+  "cache_id": "82cc5b2a23492c33d2115e3a27bfcbec",
+  "cached_at": "2025-11-09T18:56:34.486923",
+  "status_code": 200,
+  "headers": {
+    "content-type": "text/html"
+  },
+  "content_length": 141
+}

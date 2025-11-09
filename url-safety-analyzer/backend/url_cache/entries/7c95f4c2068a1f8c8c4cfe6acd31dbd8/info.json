@@ -1,0 +1,10 @@
+{
+  "url": "https://www.carmax.com",
+  "cache_id": "7c95f4c2068a1f8c8c4cfe6acd31dbd8",
+  "cached_at": "2025-11-09T18:56:34.214215",
+  "status_code": 200,
+  "headers": {
+    "content-type": "text/html"
+  },
+  "content_length": 137
+}

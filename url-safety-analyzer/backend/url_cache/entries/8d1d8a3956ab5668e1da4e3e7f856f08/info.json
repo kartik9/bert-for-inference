@@ -1,0 +1,10 @@
+{
+  "url": "https://www.wikipedia.org",
+  "cache_id": "8d1d8a3956ab5668e1da4e3e7f856f08",
+  "cached_at": "2025-11-09T18:56:35.141433",
+  "status_code": 200,
+  "headers": {
+    "content-type": "text/html"
+  },
+  "content_length": 141
+}

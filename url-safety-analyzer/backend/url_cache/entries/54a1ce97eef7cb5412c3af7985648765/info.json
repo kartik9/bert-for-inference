@@ -1,0 +1,10 @@
+{
+  "url": "https://www.irs.gov",
+  "cache_id": "54a1ce97eef7cb5412c3af7985648765",
+  "cached_at": "2025-11-09T18:56:35.307433",
+  "status_code": 200,
+  "headers": {
+    "content-type": "text/html"
+  },
+  "content_length": 137
+}

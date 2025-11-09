@@ -1,0 +1,10 @@
+{
+  "url": "https://www.costco.com",
+  "cache_id": "62efbe72009995ce1323fa390d7b443f",
+  "cached_at": "2025-11-09T18:56:34.213591",
+  "status_code": 200,
+  "headers": {
+    "content-type": "text/html"
+  },
+  "content_length": 141
+}

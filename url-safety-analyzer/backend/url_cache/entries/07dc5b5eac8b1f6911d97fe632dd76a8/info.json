@@ -1,0 +1,10 @@
+{
+  "url": "https://usps-redelivery-schedule.net",
+  "cache_id": "07dc5b5eac8b1f6911d97fe632dd76a8",
+  "cached_at": "2025-11-09T18:56:34.108171",
+  "status_code": 200,
+  "headers": {
+    "content-type": "text/html"
+  },
+  "content_length": 137
+}

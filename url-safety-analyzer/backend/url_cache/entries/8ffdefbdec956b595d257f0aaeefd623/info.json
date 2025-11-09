@@ -1,0 +1,10 @@
+{
+  "url": "https://www.google.com",
+  "cache_id": "8ffdefbdec956b595d257f0aaeefd623",
+  "cached_at": "2025-11-09T18:56:34.992902",
+  "status_code": 200,
+  "headers": {
+    "content-type": "text/html"
+  },
+  "content_length": 165
+}
