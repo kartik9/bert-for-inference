@@ -2052,17 +2052,26 @@ Analyze for discrepancies and fraud indicators. Return JSON:
         previous_context: Optional[Dict[str, Any]]
     ) -> Dict[str, Any]:
         """
-        Analyze user-provided screenshots with GPT-4o
+        Analyze user-provided visual evidence with GPT-4o
+
+        Accepts ANY type of screenshot/image that provides useful investigation context:
+        - Advertisements (social media, native ads, banners)
+        - Website screenshots (landing pages, forms, checkout, errors)
+        - Communications (emails, messages, notifications)
+        - Browser interactions (popups, warnings, downloads)
+        - Comparisons (legitimate vs suspicious sites)
+        - Mobile views (apps, mobile browsers)
+        - Any other visual evidence
 
         Performs:
-        1. Visual analysis of each screenshot
-        2. Comparison with URLScan.io screenshot if available (ad cloaking detection)
-        3. Threat assessment
-        4. Correlation with investigation findings
+        1. Intelligent content type recognition (ad, webpage, email, popup, etc.)
+        2. Context-aware visual analysis adapted to screenshot type
+        3. Comparison with URLScan.io screenshot if available (cloaking detection)
+        4. Threat assessment and correlation with technical findings
 
         Args:
-            screenshots: List of base64-encoded images or image URLs
-            screenshot_context: User's description (e.g., "This is the native ad I saw")
+            screenshots: List of base64-encoded images or image URLs (any type)
+            screenshot_context: User's description (e.g., "Facebook ad I saw", "Error at checkout", "Email I received")
             previous_context: Previous investigation data (may contain URLScan.io screenshot)
 
         Returns:
@@ -2156,32 +2165,48 @@ Analyze for discrepancies and fraud indicators. Return JSON:
             prompt = f"""Analyze this screenshot related to the URL: {url}
 {context_info}
 
-You are a trust & safety analyst. Analyze this visual evidence and answer:
+You are a trust & safety analyst. The user has provided this visual evidence for investigation. This could be:
+- An advertisement or social media post promoting the URL
+- A screenshot of the actual website/landing page
+- An error message or warning
+- An email or message referencing the URL
+- A payment screen or form
+- A suspicious popup or overlay
+- A comparison with a legitimate site
+- Any other visual context the user finds relevant
 
-1. **Content Description**: What does this page/ad show?
-2. **Promises/Claims**: What is being promised or advertised?
-3. **Targeting**: Who is the target audience?
-4. **Visual Indicators**: Any suspicious visual elements?
-   - Urgency tactics ("Limited time!", "Act now!")
-   - Too-good-to-be-true offers
-   - Poor quality graphics or typos
-   - Brand impersonation attempts
-   - Requests for sensitive information
-   - Fake testimonials or fake urgency counters
-5. **URL Match**: Does the visual content match what you'd expect from the domain {url}?
-6. **Threat Assessment**: Is this likely malicious, deceptive, or legitimate?
+Analyze this visual evidence comprehensively:
+
+1. **Content Type & Description**: What is shown? (ad, webpage, email, error, popup, form, etc.)
+2. **Key Information**: What text, claims, promises, or information is presented?
+3. **Visual Elements Analysis**:
+   - Branding (logos, colors, layout - does it match expected brand for {url}?)
+   - Quality indicators (professional vs hastily made, typos, poor graphics)
+   - Urgency or pressure tactics ("Act now!", countdown timers, limited offers)
+   - Requests for sensitive data (credentials, payment info, personal details)
+   - Suspicious elements (fake testimonials, too-good-to-be-true, security warnings)
+4. **Contextual Relevance**: How does this relate to {url}? Does it match, contradict, or reveal deception?
+5. **Threat Indicators**: Any red flags suggesting:
+   - Phishing (fake login, credential harvesting)
+   - Scams (prize schemes, fake tech support, malware warnings)
+   - Ad fraud (misleading promises, cloaking, bait-and-switch)
+   - Brand impersonation or spoofing
+   - Social engineering tactics
+6. **Overall Assessment**: Based on this visual evidence, what threat level is indicated?
 
 Respond in JSON format:
 {{
+    "content_type": "ad|webpage|email|error_message|popup|payment_screen|social_media|comparison|other",
     "content_description": "Detailed description of what's shown",
-    "promises_or_claims": ["List of promises/claims made"],
-    "target_audience": "Who this targets",
+    "key_information": ["Important text, claims, or details extracted"],
+    "promises_or_claims": ["Specific promises or claims made (if any)"],
     "visual_red_flags": ["List of suspicious visual elements"],
-    "url_content_match": "Does visual match domain? Yes/No/Uncertain",
+    "url_content_match": "Does visual content match/support what you'd expect from {url}? Explain",
     "threat_level": "CRITICAL|HIGH|MEDIUM|LOW|BENIGN",
-    "threat_explanation": "Why this threat level?",
+    "threat_explanation": "Why this threat level based on visual evidence?",
     "is_deceptive": true/false,
-    "deception_type": "brand_impersonation|fake_scarcity|false_promises|fake_testimonials|none"
+    "deception_indicators": ["Specific deceptive elements identified"],
+    "relevance_to_investigation": "How this visual evidence helps understand the threat"
 }}"""
 
             payload = {

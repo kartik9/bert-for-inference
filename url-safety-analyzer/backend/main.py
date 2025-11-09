@@ -61,11 +61,11 @@ class FollowUpRequest(BaseModel):
     previous_context: Optional[Dict[str, Any]] = None
     screenshots: Optional[List[str]] = Field(
         default=None,
-        description="List of base64-encoded images (PNG/JPEG) or image URLs. Example: ['data:image/png;base64,...', 'https://example.com/screenshot.png']"
+        description="Any visual evidence (screenshots, images) that adds useful context. Can be: ads, website screenshots, emails, popups, error messages, mobile views, comparisons, etc. Formats: base64-encoded images (PNG/JPEG) or image URLs. Example: ['data:image/png;base64,...', 'https://example.com/screenshot.png']"
     )
     screenshot_context: Optional[str] = Field(
         default=None,
-        description="Context about the screenshots. Example: 'This is what I saw in the native ad on Facebook'"
+        description="User description of what the screenshots show. Examples: 'This is the ad I saw on Facebook', 'Error message I got at checkout', 'Email promoting this URL', 'Suspicious popup that appeared'"
     )
 
 

@@ -193,25 +193,48 @@ For all non-SAFE verdicts, the system generates **specific, descriptive risk cat
 - **User-Provided Context:** Accept advertiser info from your platform for verification
 
 #### Multimodal Visual Evidence (NEW)
-- **Screenshot Attachment:** Users can attach screenshots to follow-up questions
-  - Example: "This is the ad I saw on Facebook - does it match the site?"
-  - Supports base64-encoded images or image URLs
-  - Multiple screenshots per question
-- **AI-Powered Visual Analysis (GPT-4o):**
-  - Content description and threat assessment
-  - Visual red flag detection (urgency tactics, fake scarcity, brand impersonation)
-  - Promise/claim extraction from visuals
-  - Deception pattern recognition
-- **Ad Cloaking Detection:**
-  - Automatic comparison with URLScan.io screenshots
-  - Detects when ads show different content than actual site
-  - Critical for detecting ad fraud and deceptive advertising
+- **Flexible Screenshot Attachment:** Attach ANY visual evidence to follow-up questions
+  - **Advertisements & Promotions:** Social media ads, native ads, sponsored posts, banner ads
+  - **Website Screenshots:** Landing pages, payment screens, forms, error messages, popups
+  - **Communications:** Emails promoting the URL, messages, notifications, text conversations
+  - **Browser Interactions:** Security warnings, download prompts, certificate errors
+  - **Social Proof:** Review screenshots, testimonials, social media discussions
+  - **Comparisons:** Side-by-side with legitimate sites, before/after changes
+  - **Mobile Views:** App screenshots, mobile browser views, push notifications
+  - **Any other visual context** that adds useful investigation insight
+  - Supports base64-encoded images or image URLs | Multiple screenshots per question
+
+- **AI-Powered Universal Visual Analysis (GPT-4o):**
+  - **Intelligent Content Recognition:** Automatically identifies type (ad, webpage, email, error, popup, form, etc.)
+  - **Context-Aware Analysis:** Adapts to what's shown - no pre-defined templates
+  - **Information Extraction:** Text, claims, promises, key details from visuals
+  - **Visual Red Flag Detection:**
+    - Urgency/pressure tactics and fake scarcity
+    - Brand impersonation or visual spoofing
+    - Quality indicators (professional vs suspicious)
+    - Requests for sensitive information
+  - **Threat Pattern Recognition:**
+    - Phishing (fake logins, credential harvesting)
+    - Scams (prize schemes, fake tech support)
+    - Ad fraud (misleading promises, bait-and-switch)
+    - Social engineering tactics
+  - **Relevance Assessment:** Explains how evidence relates to investigation
+
+- **Automated Cloaking Detection:**
+  - Compares user screenshots with URLScan.io screenshots
+  - Detects when sites show different content in different contexts
+  - Critical for sophisticated ad fraud detection
   - Confidence scoring for cloaking likelihood
-- **Use Cases:**
-  - Verify native ad content matches landing page
-  - Detect "bait and switch" advertising
-  - Investigate user complaints with visual evidence
-  - Compare reported ad creative with actual site
+
+- **Example Use Cases:**
+  - **Ad Verification:** "This is the Facebook ad I saw - does it match?"
+  - **Error Investigation:** "Got this error at checkout - is it legit?"
+  - **Email Analysis:** "Received this suspicious email promoting the URL"
+  - **Popup Concerns:** "This popup asked for payment details - safe?"
+  - **Brand Comparison:** "Here's real PayPal vs this site"
+  - **Mobile Evidence:** "Screenshot from iOS app"
+  - **Payment Validation:** "Is this checkout page legitimate?"
+  - **Social Media:** "Instagram story promoting this URL"
 
 ---
 
