@@ -853,7 +853,7 @@ Technical Data Summary:
 Generate a comprehensive final report in JSON format with the following structure:
 
 {{
-  "verdict": "SAFE|SUSPICIOUS|MALICIOUS|BLOCKED",
+  "verdict": "SAFE|MANUAL_REVIEW_REQUIRED|SUSPICIOUS|MALICIOUS",
   "confidence": 0-100,
   "primary_category": "phishing|malware|scam|fraud|legitimate|unknown",
   "secondary_categories": ["list", "of", "relevant", "categories"],
@@ -879,7 +879,30 @@ Generate a comprehensive final report in JSON format with the following structur
   "analyst_notes": "Additional context or observations"
 }}
 
-Ensure every finding has a clear citation to technical evidence. Be decisive in your verdict.
+VERDICT CLASSIFICATION SYSTEM (for human security researchers with expert manual reviewers):
+
+1. SAFE: High confidence that the URL is legitimate with no significant threats
+   - Use when: Clear evidence of legitimacy, no concerning indicators
+   - Confidence threshold: >80
+
+2. MANUAL_REVIEW_REQUIRED: Insufficient evidence to classify definitively despite thorough investigation
+   - Use when: Conflicting signals, limited data availability, edge cases, or uncertainty remains
+   - This is NOT a middle ground between safe and unsafe - it means "I don't have enough evidence"
+   - Examples: New domain with no reputation data, technical issues preventing analysis, ambiguous indicators
+   - Expert human reviewers will investigate these cases
+
+3. SUSPICIOUS: Evidence suggests potential threats or concerning patterns, but not definitively malicious
+   - Use when: Some red flags present but not conclusive proof of malicious intent
+   - May include: Poor reputation, suspicious patterns, minor violations
+   - Confidence threshold: >70 that something is concerning
+
+4. MALICIOUS: High confidence that the URL is actively engaged in fraud, phishing, malware, or scams
+   - Use when: Strong evidence of malicious activity (scam reports, phishing indicators, malware hosting)
+   - Confidence threshold: >80 for malicious classification
+
+Be decisive based on available evidence. Use MANUAL_REVIEW_REQUIRED only when you genuinely lack sufficient data to classify, NOT as a safety net for uncertain cases where you have evidence pointing one way or another.
+
+Ensure every finding has a clear citation to technical evidence.
 Return ONLY valid JSON, no markdown formatting."""
 
         try:
@@ -912,39 +935,69 @@ Return ONLY valid JSON, no markdown formatting."""
         """Generate a basic report when AI is unavailable"""
 
         risk_indicators = technical_data.get("risk_indicators", [])
-        high_risk = sum(1 for r in risk_indicators if r["type"] == "high")
-        medium_risk = sum(1 for r in risk_indicators if r["type"] == "medium")
+        critical_risk = sum(1 for r in risk_indicators if r.get("type") == "critical")
+        high_risk = sum(1 for r in risk_indicators if r.get("type") == "high")
+        medium_risk = sum(1 for r in risk_indicators if r.get("type") == "medium")
+        total_indicators = len(risk_indicators)
 
-        # Simple scoring
-        risk_score = (high_risk * 30) + (medium_risk * 15)
+        # Simple scoring with updated thresholds
+        risk_score = (critical_risk * 40) + (high_risk * 25) + (medium_risk * 10)
         risk_score = min(risk_score, 100)
 
-        if risk_score >= 60:
+        # Check if we have sufficient data for classification
+        has_web_reputation = technical_data.get("web_reputation", {}).get("search_performed", False)
+        has_dns = technical_data.get("dns_info", {}).get("resolved", False)
+        has_content = technical_data.get("content_analysis", {}) and not technical_data.get("content_analysis", {}).get("error")
+
+        data_sources_available = sum([has_web_reputation, has_dns, has_content])
+
+        # Determine verdict based on 4-level system
+        if data_sources_available < 2 or total_indicators == 0:
+            # Insufficient data for classification
+            verdict = "MANUAL_REVIEW_REQUIRED"
+            confidence = 40
+            summary = f"Limited data available for automated classification. Only {data_sources_available}/3 primary data sources accessible."
+        elif critical_risk >= 2 or risk_score >= 70:
             verdict = "MALICIOUS"
-        elif risk_score >= 30:
+            confidence = 75
+            summary = f"High-confidence malicious classification. Detected {critical_risk} critical and {high_risk} high-risk indicators."
+        elif high_risk >= 2 or risk_score >= 40:
             verdict = "SUSPICIOUS"
-        else:
+            confidence = 70
+            summary = f"Suspicious patterns detected. Found {high_risk} high-risk and {medium_risk} medium-risk indicators."
+        elif risk_score <= 15 and high_risk == 0 and critical_risk == 0:
             verdict = "SAFE"
+            confidence = 65
+            summary = f"No significant threats detected. Analysis found {total_indicators} minor indicators."
+        else:
+            # Edge case: some risk but not enough to be suspicious
+            verdict = "MANUAL_REVIEW_REQUIRED"
+            confidence = 50
+            summary = f"Mixed signals detected. {risk_score} risk score requires expert review."
 
         return {
             "verdict": verdict,
-            "confidence": 70,
+            "confidence": confidence,
             "primary_category": "unknown",
             "risk_score": risk_score,
-            "summary": f"Automated analysis detected {high_risk} high-risk and {medium_risk} medium-risk indicators.",
-            "detailed_rationale": "This is a basic automated analysis. For detailed AI-powered analysis, please configure an AI API key.",
+            "summary": summary,
+            "detailed_rationale": f"Basic automated analysis (AI unavailable). Risk indicators: {critical_risk} critical, {high_risk} high, {medium_risk} medium. Data sources: {data_sources_available}/3 available. For comprehensive AI-powered analysis with reasoning, configure OpenAI API key.",
             "key_findings": [
                 {
-                    "finding": r["indicator"],
-                    "evidence": r["risk"],
-                    "severity": r["type"],
-                    "citation": r["category"]
+                    "finding": r.get("indicator", "Unknown indicator"),
+                    "evidence": r.get("risk", ""),
+                    "severity": r.get("type", "unknown"),
+                    "citation": r.get("category", "technical")
                 }
                 for r in risk_indicators
             ],
-            "recommendations": ["Manual review recommended", "Configure AI API for deep analysis"],
-            "threat_indicators": [r["indicator"] for r in risk_indicators],
-            "timestamp": datetime.utcnow().isoformat()
+            "recommendations": [
+                "Expert manual review recommended" if verdict == "MANUAL_REVIEW_REQUIRED" else "Review findings and take appropriate action",
+                "Configure AI API (OpenAI GPT-5) for deep investigation and reasoning"
+            ],
+            "threat_indicators": [r.get("indicator", "") for r in risk_indicators if r.get("indicator")],
+            "timestamp": datetime.utcnow().isoformat(),
+            "analyst_notes": f"Fallback classification based on rule-based heuristics. Verdict: {verdict} requires human verification."
         }
 
     async def answer_followup(
