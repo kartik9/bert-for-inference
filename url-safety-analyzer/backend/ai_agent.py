@@ -869,6 +869,20 @@ Generate a comprehensive final report in JSON format with the following structur
       "citation": "Reference to data source"
     }}
   ],
+  "campaign_indicators": {{
+    "broader_campaign_detected": true/false,
+    "confidence": 0-100,
+    "pivot_points": [
+      {{
+        "type": "domain_pattern|ip_address|ssl_cert|registrar|nameserver|asn|advertiser_id|content_signature|phishing_kit",
+        "indicator": "Specific value or pattern to search for",
+        "description": "How this can be used to find related threats",
+        "evidence": "Why we believe this is part of a campaign",
+        "recommended_action": "Specific search query or action to take"
+      }}
+    ],
+    "campaign_assessment": "Explanation of campaign scope and patterns"
+  }},
   "recommendations": [
     "Specific action item 1",
     "Specific action item 2"
@@ -942,6 +956,111 @@ VERDICT CLASSIFICATION SYSTEM (for human security researchers with expert manual
 4. MALICIOUS: High confidence that the URL is actively engaged in fraud, phishing, malware, or scams
    - Use when: Strong evidence of malicious activity (scam reports, phishing indicators, malware hosting)
    - Confidence threshold: >80 for malicious classification
+
+CAMPAIGN INDICATORS & PIVOT POINT DETECTION:
+
+When verdict is SUSPICIOUS or MALICIOUS, analyze evidence to identify if this URL is part of a BROADER MALICIOUS CAMPAIGN.
+
+CRITICAL RULES:
+- Only set broader_campaign_detected=true when confidence >70% based on STRONG evidence
+- Be conservative - do NOT speculate without evidence
+- Pivot points must be ACTIONABLE - users will scan for these patterns
+- If no clear campaign patterns exist, set broader_campaign_detected=false with empty pivot_points array
+
+EVIDENCE TO ANALYZE FOR CAMPAIGN PATTERNS:
+
+1. **Domain Patterns** (typosquatting, similar naming):
+   - Multiple domains with similar names (paypa1.com, paypa|.com, paypai.com)
+   - Same domain structure pattern (login-[brand].com, secure-[brand].com)
+   - Sequential numbering or variations
+   Example pivot: {{"type": "domain_pattern", "indicator": "paypa[l|1|i].com or pay-pal-*.com", "description": "Typosquatting pattern targeting PayPal brand"}}
+
+2. **Shared Infrastructure** (IP, ASN, hosting):
+   - Same IP address across multiple suspicious indicators
+   - Same ASN/hosting provider with malicious tags from Shodan
+   - Disposable infrastructure pattern (cheap VPS, frequently changing)
+   Example pivot: {{"type": "ip_address", "indicator": "1.2.3.4", "description": "IP hosts multiple phishing domains"}}
+   Example pivot: {{"type": "asn", "indicator": "AS12345 (Cheap Host Inc)", "description": "ASN shows pattern of hosting short-lived scam sites"}}
+
+3. **SSL/TLS Certificate Patterns**:
+   - Same SSL certificate across multiple domains
+   - Same certificate issuer with unusual pattern
+   - Self-signed certificates with similar attributes
+   Example pivot: {{"type": "ssl_cert", "indicator": "SHA1: abc123...", "description": "Certificate shared across 5+ domains in investigation"}}
+
+4. **Registration Patterns** (WHOIS data):
+   - Same registrar with bulk registration pattern
+   - Registration dates within same week/month
+   - Same privacy service (common but note if suspicious context)
+   - Similar contact information
+   Example pivot: {{"type": "registrar", "indicator": "ScamRegistrar LLC, registered 2024-10-15 to 2024-10-22", "description": "Bulk registration pattern"}}
+
+5. **Advertiser Patterns** (from ad platform data):
+   - Same advertiser ID across multiple suspicious domains
+   - Similar advertiser names with variations
+   - Ad content patterns (same images, same copy structure)
+   Example pivot: {{"type": "advertiser_id", "indicator": "Meta Page ID: 123456789", "description": "Advertiser running ads for multiple suspicious domains"}}
+
+6. **Content Signatures** (phishing kits, malware families):
+   - Identical page structure/HTML
+   - Same external scripts/resources loaded
+   - Same form action URLs
+   - Known phishing kit signature
+   Example pivot: {{"type": "phishing_kit", "indicator": "Login form posts to hxxp://attacker.com/log.php", "description": "Standard phishing kit signature"}}
+   Example pivot: {{"type": "content_signature", "indicator": "Loads script from cdn.malicious.com/track.js", "description": "Same tracking script across campaign"}}
+
+7. **Nameserver Patterns**:
+   - Same DNS nameservers across domains
+   - Nameservers associated with malicious activity
+   Example pivot: {{"type": "nameserver", "indicator": "ns1.scamhost.ru, ns2.scamhost.ru", "description": "Nameservers used by multiple fraud domains"}}
+
+RECOMMENDED ACTIONS FOR PIVOT POINTS:
+- Make them SPECIFIC and ACTIONABLE
+- Provide exact search queries when possible
+- Examples:
+  - "Search Shodan for IP: 1.2.3.4"
+  - "Search domain registrations for pattern: secure-[brand]-*.com in last 30 days"
+  - "Search ad libraries for Meta Advertiser ID: 123456789"
+  - "Scan SSL certificates with SHA1: abc123..."
+
+WHEN TO SET broader_campaign_detected=false:
+- Isolated domain with no pattern connections
+- Generic shared hosting (DigitalOcean/AWS without other indicators)
+- Common registrar with no bulk registration pattern
+- No evidence of related infrastructure or domains
+
+EXAMPLES:
+
+Good campaign detection:
+{{
+  "broader_campaign_detected": true,
+  "confidence": 85,
+  "pivot_points": [
+    {{
+      "type": "domain_pattern",
+      "indicator": "paypa[l|1|i].com, pay-pal-*.com, paypal-*.com",
+      "description": "Typosquatting campaign targeting PayPal users with multiple domain variations",
+      "evidence": "DNS shows 3 similar domains (paypa1.com, paypai.com, paypal-login.com) all registered 2024-10-15, same IP, same SSL cert",
+      "recommended_action": "Search domain registrations for 'paypa*' pattern in last 60 days; monitor similar typosquats"
+    }},
+    {{
+      "type": "ip_address",
+      "indicator": "192.0.2.45",
+      "description": "Shared hosting IP for phishing campaign infrastructure",
+      "evidence": "Shodan shows IP hosts 12 domains, tagged as 'phishing', all domains use same phishing kit signature",
+      "recommended_action": "Search Shodan for IP 192.0.2.45; investigate all hosted domains for phishing content"
+    }}
+  ],
+  "campaign_assessment": "This appears to be a coordinated PayPal phishing campaign using typosquatted domains, shared infrastructure, and identical phishing kit. Evidence suggests campaign involves 10+ domains based on IP hosting and domain patterns. Recommend proactive blocking of domain pattern and IP-based detection."
+}}
+
+No campaign detected:
+{{
+  "broader_campaign_detected": false,
+  "confidence": 0,
+  "pivot_points": [],
+  "campaign_assessment": "No evidence of broader campaign. URL appears to be isolated incident with no infrastructure or pattern connections to other threats."
+}}
 
 Be decisive based on available evidence. Use MANUAL_REVIEW_REQUIRED only when you genuinely lack sufficient data to classify, NOT as a safety net for uncertain cases where you have evidence pointing one way or another.
 
@@ -1042,6 +1161,12 @@ Return ONLY valid JSON, no markdown formatting."""
                 }
                 for r in risk_indicators
             ],
+            "campaign_indicators": {
+                "broader_campaign_detected": False,
+                "confidence": 0,
+                "pivot_points": [],
+                "campaign_assessment": "Campaign analysis requires AI (GPT-5). Configure OpenAI API key for advanced threat intelligence."
+            },
             "recommendations": [
                 "Expert manual review recommended" if verdict == "MANUAL_REVIEW_REQUIRED" else "Review findings and take appropriate action",
                 "Configure AI API (OpenAI GPT-5) for deep investigation and reasoning"

@@ -171,6 +171,18 @@ For all non-SAFE verdicts, the system generates **specific, descriptive risk cat
 - Clear chain of evidence for all conclusions
 - Auditable decision-making process
 
+### Campaign Detection & Pivot Points
+- Identifies broader malicious campaigns beyond single URLs
+- **Pivot Points:** Actionable indicators to find related threats
+  - Domain patterns (typosquatting variations)
+  - Shared infrastructure (IP addresses, ASN, nameservers)
+  - SSL certificate patterns
+  - Advertiser ID patterns across platforms
+  - Phishing kit signatures
+- **Conservative Approach:** Only flags campaigns with >70% confidence and strong evidence
+- **Proactive Defense:** Users can scan for patterns to block entire campaigns preemptively
+- **Example:** Detects PayPal phishing campaign across 10+ typosquatted domains with shared IP
+
 ---
 
 ## Use Cases
@@ -222,6 +234,24 @@ For all non-SAFE verdicts, the system generates **specific, descriptive risk cat
 4. System cross-references and identifies discrepancies
 
 **Outcome:** Detect fraudulent advertiser impersonation
+
+### 5. Campaign-Wide Threat Detection
+**Scenario:** Single malicious URL detected, need to find related threats
+
+**Workflow:**
+1. AURORA analyzes suspicious URL (e.g., paypa1.com)
+2. System detects campaign indicators with 85% confidence:
+   - **Domain Pattern:** `paypa[l|1|i].com, pay-pal-*.com` (typosquatting pattern)
+   - **Shared IP:** 192.0.2.45 hosts 12 domains with same phishing kit
+   - **SSL Certificate:** Same cert across 5+ domains
+   - **Registrar Pattern:** All registered within 1 week at ScamRegistrar LLC
+3. Security team receives actionable pivot points:
+   - "Search domain registrations for 'paypa*' pattern in last 60 days"
+   - "Search Shodan for IP 192.0.2.45; investigate all hosted domains"
+   - "Block all domains matching pattern: secure-paypal-*.com"
+4. Team proactively blocks 15 related domains before they're used in ads
+
+**Outcome:** Prevent campaign-scale fraud with 15x efficiency vs. reactive blocking
 
 ---
 
