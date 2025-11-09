@@ -857,6 +857,7 @@ Generate a comprehensive final report in JSON format with the following structur
   "confidence": 0-100,
   "primary_category": "phishing|malware|scam|fraud|legitimate|unknown",
   "secondary_categories": ["list", "of", "relevant", "categories"],
+  "descriptive_risk_category": "Intelligent description of specific risk type (only if verdict is not SAFE)",
   "risk_score": 0-100,
   "summary": "2-3 sentence crisp summary of findings",
   "detailed_rationale": "Comprehensive explanation with specific evidence",
@@ -878,6 +879,48 @@ Generate a comprehensive final report in JSON format with the following structur
   "timestamp": "{datetime.utcnow().isoformat()}",
   "analyst_notes": "Additional context or observations"
 }}
+
+DESCRIPTIVE RISK CATEGORY GENERATION (for non-SAFE verdicts):
+When verdict is MANUAL_REVIEW_REQUIRED, SUSPICIOUS, or MALICIOUS, generate an intelligent, specific descriptive_risk_category based on the evidence:
+
+Guidelines for descriptive_risk_category:
+- Be SPECIFIC and DESCRIPTIVE based on actual findings, not generic labels
+- Describe the EXACT type of threat or concern identified
+- Use evidence-based language that helps manual reviewers understand the risk
+
+Examples of GOOD descriptive risk categories:
+- "PayPal credential phishing impersonating official login page"
+- "Tech support scam using fake Microsoft security warnings"
+- "Cryptocurrency investment fraud with testimonial manipulation"
+- "Romance scam operation with stolen profile photos"
+- "Counterfeit luxury goods seller with trademark infringement"
+- "Malware distribution disguised as software update"
+- "Brand impersonation using typosquatted domain"
+- "Fake invoice phishing targeting business accounts"
+- "Get-rich-quick pyramid scheme with unrealistic returns"
+- "Compromised legitimate website hosting malicious redirects"
+- "Disposable hosting infrastructure for serial fraud operations"
+- "Clickbait content farm with misleading advertising"
+
+Examples of BAD (too generic) descriptive risk categories:
+- "Phishing" (too broad - what kind of phishing?)
+- "Scam" (too vague - what type of scam?)
+- "Fraud" (not specific enough)
+- "Malicious website" (doesn't explain what it does)
+
+The descriptive_risk_category should:
+1. Capture the SPECIFIC modus operandi based on evidence
+2. Include relevant brand/entity if impersonation is involved
+3. Describe the attack vector or deception method
+4. Be immediately actionable for manual reviewers
+5. Reflect technical findings (e.g., "compromised infrastructure" if Shodan shows malware tags)
+
+For SAFE verdict: Set descriptive_risk_category to null or omit it entirely.
+
+For MANUAL_REVIEW_REQUIRED: Describe the ambiguity/concern that requires human review:
+- "New domain with no reputation history - requires baseline establishment"
+- "Conflicting signals between positive SSL and poor content quality"
+- "Limited technical data due to access restrictions"
 
 VERDICT CLASSIFICATION SYSTEM (for human security researchers with expert manual reviewers):
 
@@ -975,10 +1018,18 @@ Return ONLY valid JSON, no markdown formatting."""
             confidence = 50
             summary = f"Mixed signals detected. {risk_score} risk score requires expert review."
 
+        # Generate descriptive risk category for non-SAFE verdicts
+        descriptive_risk_category = None
+        if verdict != "SAFE":
+            descriptive_risk_category = self._generate_basic_risk_category(
+                verdict, risk_indicators, technical_data
+            )
+
         return {
             "verdict": verdict,
             "confidence": confidence,
             "primary_category": "unknown",
+            "descriptive_risk_category": descriptive_risk_category,
             "risk_score": risk_score,
             "summary": summary,
             "detailed_rationale": f"Basic automated analysis (AI unavailable). Risk indicators: {critical_risk} critical, {high_risk} high, {medium_risk} medium. Data sources: {data_sources_available}/3 available. For comprehensive AI-powered analysis with reasoning, configure OpenAI API key.",
@@ -999,6 +1050,104 @@ Return ONLY valid JSON, no markdown formatting."""
             "timestamp": datetime.utcnow().isoformat(),
             "analyst_notes": f"Fallback classification based on rule-based heuristics. Verdict: {verdict} requires human verification."
         }
+
+    def _generate_basic_risk_category(
+        self,
+        verdict: str,
+        risk_indicators: List[Dict[str, Any]],
+        technical_data: Dict[str, Any]
+    ) -> str:
+        """
+        Generate a basic descriptive risk category when AI is unavailable
+        This is a simplified version - GPT-5 provides much better categorization
+        """
+        if verdict == "MANUAL_REVIEW_REQUIRED":
+            return "Insufficient data for risk classification - manual investigation required"
+
+        # Analyze risk indicators to determine primary risk type
+        categories = [r.get("category", "") for r in risk_indicators]
+        indicators_text = [r.get("indicator", "").lower() for r in risk_indicators]
+
+        # Check for specific threat patterns
+        web_rep = technical_data.get("web_reputation", {})
+        scam_indicators = web_rep.get("scam_indicators", [])
+        shodan = technical_data.get("shodan_infrastructure", {})
+        ad_platforms = technical_data.get("ad_platforms", {})
+
+        # Priority-based classification
+        # 1. Check Shodan for infrastructure threats
+        if shodan.get("checked"):
+            shodan_risks = shodan.get("risk_indicators", [])
+            malicious_tags = [r for r in shodan_risks if r.get("type") == "malicious_tag"]
+            if malicious_tags:
+                tag_desc = malicious_tags[0].get("description", "")
+                if "malware" in tag_desc.lower():
+                    return "Malware hosting infrastructure detected"
+                elif "phishing" in tag_desc.lower():
+                    return "Phishing operation infrastructure"
+                elif "botnet" in tag_desc.lower() or "c2" in tag_desc.lower():
+                    return "Botnet or command-and-control infrastructure"
+                elif "compromised" in tag_desc.lower():
+                    return "Compromised server infrastructure"
+
+        # 2. Check web reputation for specific scam types
+        if scam_indicators:
+            high_severity_scams = [s for s in scam_indicators if s.get("severity") == "high"]
+            if high_severity_scams:
+                # Try to extract specific scam type from indicators
+                for scam in high_severity_scams[:2]:
+                    indicator_lower = scam.get("indicator", "").lower()
+                    if "phishing" in indicator_lower or "credential" in indicator_lower:
+                        return "Credential phishing operation"
+                    elif "investment" in indicator_lower or "crypto" in indicator_lower:
+                        return "Investment fraud or cryptocurrency scam"
+                    elif "romance" in indicator_lower or "dating" in indicator_lower:
+                        return "Romance scam operation"
+                    elif "tech support" in indicator_lower or "refund" in indicator_lower:
+                        return "Tech support or refund scam"
+                    elif "fake" in indicator_lower and "product" in indicator_lower:
+                        return "Counterfeit product sales operation"
+
+                return "Online scam operation with multiple user reports"
+
+        # 3. Check URL structure indicators
+        url_struct_indicators = [i for i in indicators_text if any(
+            pattern in i for pattern in ["phishing", "typosquat", "impersonat", "suspicious_keywords"]
+        )]
+        if url_struct_indicators:
+            if any("paypal" in i or "bank" in i or "login" in i for i in indicators_text):
+                return "Potential financial credential phishing"
+            return "Brand impersonation or typosquatting attempt"
+
+        # 4. Check content-based indicators
+        content_indicators = [r for r in risk_indicators if r.get("category") == "content"]
+        if content_indicators:
+            for ind in content_indicators:
+                indicator = ind.get("indicator", "").lower()
+                if "form" in indicator and "external" in indicator:
+                    return "Suspicious form submission to external domain"
+                elif "iframe" in indicator:
+                    return "Hidden iframe content injection"
+
+        # 5. Check for advertising fraud patterns
+        if ad_platforms.get("google_ads", {}).get("found_ads") or ad_platforms.get("meta", {}).get("found_ads"):
+            return "Active advertising with suspicious indicators"
+
+        # 6. Generic categorization based on risk level
+        if "infrastructure" in categories:
+            return "Suspicious hosting infrastructure patterns"
+        elif "web_reputation" in categories:
+            return "Poor online reputation with concerning user reports"
+        elif "security" in categories:
+            return "Security configuration concerns"
+
+        # Default fallback
+        if verdict == "MALICIOUS":
+            return "Malicious activity detected - specific type requires analysis"
+        elif verdict == "SUSPICIOUS":
+            return "Suspicious patterns detected - manual review recommended"
+
+        return "Unclassified threat - expert review required"
 
     async def answer_followup(
         self,
