@@ -137,6 +137,8 @@ For all non-SAFE verdicts, the system generates **specific, descriptive risk cat
 - **Infrastructure Fingerprinting:** Link multiple fraud domains via shared servers
 
 ### 5. Content Security Analysis (Malware Detection)
+
+#### Static Analysis (Code-Level Detection)
 - **Malicious JavaScript Detection:** Static analysis for malware patterns
   - Obfuscation techniques (eval chains, Base64 encoding, hex encoding)
   - Cryptominers (Coinhive, Monero miners)
@@ -145,12 +147,39 @@ For all non-SAFE verdicts, the system generates **specific, descriptive risk cat
 - **Exploit Kit Signatures:** RIG, Angler, Magnitude, Neutrino, BlackHole detection
 - **Obfuscation Detection:** High-entropy code analysis, encoding pattern recognition
 - **Suspicious External Resources:** Analyzes loaded scripts, iframes, links
-- **Threat Intelligence Integration:**
-  - **DomainTools API:** Domain reputation and risk scoring
-  - **VirusTotal API:** Multi-engine malware scanning for domains/resources
-  - **URLhaus Database:** Known malware URL detection
 - **Link Analysis:** Identifies suspicious download links, malware distribution sites
 - **Compromised Site Detection:** Recognizes legitimate sites with injected malware
+
+#### Dynamic Analysis (Browser-Based Execution)
+- **URLScan.io Integration:** Real Chromium browser rendering and execution
+  - **Behavioral Detection:** Catches threats that only activate in real browsers
+    - Automatic downloads without user interaction
+    - JavaScript-triggered redirects (invisible to static analysis)
+    - Time-delayed malicious behavior
+    - Client-side cloaking (fingerprint-based evasion)
+  - **Complete Network Chain:** Captures ALL requests during page load
+    - Dynamic JavaScript-triggered requests
+    - Third-party trackers and analytics
+    - Redirect chains (client-side and server-side)
+    - Iframe and embedded content loading
+  - **Certificate Analysis:** SSL/TLS validation, self-signed certificate detection
+  - **Technology Fingerprinting:** Outdated/vulnerable technologies (Flash, Java applets)
+  - **Community Verdicts:** Automated and human verdicts from URLScan.io community
+
+#### Visual Phishing Detection (AI-Powered)
+- **Screenshot Analysis with GPT-4o:** Multimodal AI visual inspection
+  - **Brand Impersonation:** Detects visual spoofing of legitimate brands (PayPal, Amazon, banks, etc.)
+  - **Fake Login Forms:** Identifies credential harvesting pages by visual layout
+  - **Scam Patterns:** Recognizes "you've won", fake virus warnings, tech support scams
+  - **URL-Visual Mismatch:** Flags sites where visual branding doesn't match actual domain
+  - **Confidence Scoring:** AI provides confidence level (0-100%) for each detection
+  - **Explanation:** Detailed reasoning behind visual threat assessment
+
+#### Threat Intelligence Integration
+- **DomainTools API:** Domain reputation and risk scoring
+- **VirusTotal API:** Multi-engine malware scanning for domains/resources
+- **URLhaus Database:** Known malware URL detection (public database)
+- **URLScan.io Historical Data:** Previous scans, community reports, temporal analysis
 
 ### 6. Follow-Up Investigation
 - **Generic AI System:** Handles ANY follow-up question type
@@ -398,13 +427,14 @@ For all non-SAFE verdicts, the system generates **specific, descriptive risk cat
 ## Configuration & Setup
 
 ### Required API Keys
-- **OPENAI_API_KEY** (Required): GPT-5 for AI reasoning and investigation
+- **OPENAI_API_KEY** (Required): GPT-5 for AI reasoning and investigation, GPT-4o for visual screenshot analysis
 
 ### Optional API Keys (Enhanced Intelligence)
 - **BRAVE_SEARCH_API_KEY** or **SERPAPI_KEY** or **GOOGLE_CSE_API_KEY**: Web reputation search
 - **SHODAN_API_KEY**: Infrastructure intelligence
 - **DOMAINTOOLS_API_KEY** + **DOMAINTOOLS_USERNAME**: Domain reputation and malware detection
 - **VIRUSTOTAL_API_KEY**: Multi-engine malware scanning for URLs and domains
+- **URLSCAN_API_KEY**: Dynamic browser-based analysis, behavioral detection, screenshot capture, and visual phishing detection
 - **Meta/Google Ad Transparency**: Built-in, no API key needed (public access)
 - **URLhaus**: Built-in, no API key needed (public malware database)
 

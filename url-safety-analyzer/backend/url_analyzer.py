@@ -605,6 +605,80 @@ class URLAnalyzer:
                     "source": "Link Analysis"
                 })
 
+            # URLScan.io dynamic analysis indicators
+            dynamic = content_sec.get("dynamic_analysis", {})
+            if dynamic.get("urlscan_performed"):
+                # Critical behavioral indicators (automatic downloads, etc.)
+                behavioral = dynamic.get("behavioral_indicators", [])
+                critical_behaviors = [b for b in behavioral if b.get("severity") == "critical"]
+                if critical_behaviors:
+                    for behavior in critical_behaviors:
+                        indicators.append({
+                            "type": "critical",
+                            "category": "dynamic_analysis",
+                            "indicator": f"Critical behavior: {behavior.get('type', 'unknown')}",
+                            "risk": behavior.get("description", "Malicious behavior detected during browser execution"),
+                            "source": "URLScan.io (Dynamic Analysis)"
+                        })
+
+                # High severity behavioral indicators (multiple redirects, etc.)
+                high_behaviors = [b for b in behavioral if b.get("severity") == "high"]
+                if high_behaviors:
+                    for behavior in high_behaviors[:3]:  # Limit to 3
+                        indicators.append({
+                            "type": "high",
+                            "category": "dynamic_analysis",
+                            "indicator": f"Suspicious behavior: {behavior.get('type', 'unknown')}",
+                            "risk": behavior.get("description", "Suspicious behavior during execution"),
+                            "source": "URLScan.io (Browser Analysis)"
+                        })
+
+                # Screenshot-based visual phishing detection
+                screenshot_analysis = dynamic.get("screenshot_analysis", {})
+                if screenshot_analysis.get("is_suspicious") and screenshot_analysis.get("confidence", 0) > 60:
+                    risk_level_ss = screenshot_analysis.get("risk_level", "MEDIUM")
+                    threat_type = screenshot_analysis.get("threat_type", "unknown")
+                    brand = screenshot_analysis.get("impersonated_brand")
+
+                    indicator_type = "critical" if risk_level_ss == "CRITICAL" else "high" if risk_level_ss == "HIGH" else "medium"
+
+                    risk_msg = screenshot_analysis.get("explanation", "Visual analysis indicates potential threat")
+                    if brand:
+                        risk_msg = f"Possible {brand} impersonation detected. {risk_msg}"
+
+                    indicators.append({
+                        "type": indicator_type,
+                        "category": "visual_phishing",
+                        "indicator": f"Visual {threat_type} detected (Confidence: {screenshot_analysis.get('confidence')}%)",
+                        "risk": risk_msg,
+                        "source": "GPT-4o Visual Analysis",
+                        "visual_indicators": screenshot_analysis.get("visual_indicators", [])
+                    })
+
+                # URLScan.io community/automated verdicts
+                verdicts = dynamic.get("verdicts", [])
+                for verdict in verdicts:
+                    if verdict.get("malicious") or verdict.get("verdict", 0) > 70:
+                        indicators.append({
+                            "type": "high",
+                            "category": "threat_intelligence",
+                            "indicator": f"Flagged as malicious by {verdict.get('source', 'URLScan.io')}",
+                            "risk": "Community and automated analysis flagged this site as malicious",
+                            "source": "URLScan.io Verdict",
+                            "verdict_score": verdict.get("verdict", 0)
+                        })
+
+                # Network analysis - suspicious domains contacted
+                domains_contacted = dynamic.get("all_domains_contacted", [])
+                if len(domains_contacted) > 20:
+                    indicators.append({
+                        "type": "medium",
+                        "category": "dynamic_analysis",
+                        "indicator": f"Website contacts {len(domains_contacted)} different domains during load",
+                        "risk": "High number of third-party domains may indicate ad fraud, tracking, or malicious redirects",
+                        "source": "URLScan.io Network Analysis"
+                    })
+
             # Overall high risk level
             if risk_level in ["CRITICAL", "HIGH"] and content_sec.get("risk_score", 0) >= 50:
                 indicators.append({

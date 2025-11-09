@@ -1,13 +1,14 @@
 """
 Content Security Analyzer Module
 Detects malicious JavaScript, suspicious links, and compromised website indicators
-Integrates with DomainTools, VirusTotal, and URLhaus for comprehensive malware detection
+Integrates with DomainTools, VirusTotal, URLhaus, and URLScan.io for comprehensive malware detection
 """
 
 import os
 import re
 import logging
 import hashlib
+import asyncio
 from typing import Dict, Any, Optional, List, Set
 from urllib.parse import urlparse, urljoin
 import base64
@@ -34,12 +35,17 @@ class ContentSecurityAnalyzer:
         self.domaintools_api_key = os.getenv('DOMAINTOOLS_API_KEY')
         self.domaintools_username = os.getenv('DOMAINTOOLS_USERNAME')
         self.virustotal_api_key = os.getenv('VIRUSTOTAL_API_KEY')
+        self.urlscan_api_key = os.getenv('URLSCAN_API_KEY')
+        self.openai_api_key = os.getenv('OPENAI_API_KEY')
 
         # HTTP client
         self.client = httpx.AsyncClient(timeout=30.0)
 
         # URLhaus API (public, no key needed)
         self.urlhaus_api = "https://urlhaus-api.abuse.ch/v1/url/"
+
+        # URLScan.io API
+        self.urlscan_api = "https://urlscan.io/api/v1/"
 
         # Malicious pattern signatures
         self._load_malware_signatures()
@@ -142,7 +148,15 @@ class ContentSecurityAnalyzer:
             "threat_intelligence": {
                 "domaintools": {},
                 "virustotal": {},
-                "urlhaus": {}
+                "urlhaus": {},
+                "urlscan_io": {}
+            },
+            "dynamic_analysis": {
+                "urlscan_performed": False,
+                "behavioral_indicators": [],
+                "all_domains_contacted": [],
+                "screenshot_analysis": {},
+                "verdicts": []
             },
             "risk_score": 0,
             "risk_level": "UNKNOWN",
@@ -196,7 +210,35 @@ class ContentSecurityAnalyzer:
                     list(suspicious_domains)[:5]  # Check top 5 suspicious domains
                 )
 
-            # 9. Calculate risk score
+            # 9. Dynamic analysis with URLScan.io (browser-based rendering)
+            if self.urlscan_api_key:
+                urlscan_result = await self._check_urlscan_io(url)
+                if urlscan_result:
+                    results["threat_intelligence"]["urlscan_io"] = urlscan_result
+                    results["dynamic_analysis"]["urlscan_performed"] = True
+
+                    # Extract behavioral indicators
+                    if urlscan_result.get("behavioral_indicators"):
+                        results["dynamic_analysis"]["behavioral_indicators"] = urlscan_result["behavioral_indicators"]
+
+                    # Extract all domains contacted
+                    if urlscan_result.get("domains_contacted"):
+                        results["dynamic_analysis"]["all_domains_contacted"] = urlscan_result["domains_contacted"]
+
+                    # Screenshot analysis with GPT-5 (visual phishing detection)
+                    if urlscan_result.get("screenshot_url") and self.openai_api_key:
+                        screenshot_analysis = await self._analyze_screenshot_with_gpt5(
+                            urlscan_result["screenshot_url"],
+                            url
+                        )
+                        if screenshot_analysis:
+                            results["dynamic_analysis"]["screenshot_analysis"] = screenshot_analysis
+
+                    # Extract verdicts
+                    if urlscan_result.get("verdicts"):
+                        results["dynamic_analysis"]["verdicts"] = urlscan_result["verdicts"]
+
+            # 10. Calculate risk score
             results["risk_score"] = self._calculate_risk_score(results)
             results["risk_level"] = self._determine_risk_level(results["risk_score"])
             results["summary"] = self._generate_summary(results)
@@ -597,6 +639,314 @@ class ContentSecurityAnalyzer:
             logger.error(f"URLhaus check error for {domain}: {str(e)}")
             return None
 
+    async def _check_urlscan_io(self, url: str) -> Optional[Dict[str, Any]]:
+        """
+        Submit URL to URLScan.io for dynamic browser-based analysis
+
+        Returns:
+        - Screenshot URL
+        - All network requests (domains contacted)
+        - Behavioral indicators (downloads, redirects, etc.)
+        - Community verdicts
+        - Technologies detected
+        """
+
+        try:
+            # Step 1: Submit scan
+            submit_url = f"{self.urlscan_api}scan/"
+
+            headers = {
+                'API-Key': self.urlscan_api_key,
+                'Content-Type': 'application/json'
+            }
+
+            data = {
+                'url': url,
+                'visibility': 'unlisted'  # Use 'unlisted' to avoid public listing
+            }
+
+            logger.info(f"Submitting URL to URLScan.io: {url}")
+            submit_response = await self.client.post(submit_url, json=data, headers=headers)
+
+            if submit_response.status_code != 200:
+                logger.warning(f"URLScan.io submission failed: {submit_response.status_code}")
+                return None
+
+            submission = submit_response.json()
+            scan_uuid = submission.get('uuid')
+            result_url = submission.get('result')
+
+            if not scan_uuid:
+                logger.warning("URLScan.io did not return scan UUID")
+                return None
+
+            # Step 2: Poll for results (URLScan.io typically takes 10-30 seconds)
+            max_attempts = 12  # 12 attempts * 5 seconds = 60 seconds max wait
+            attempt = 0
+
+            while attempt < max_attempts:
+                await asyncio.sleep(5)  # Wait 5 seconds between polls
+                attempt += 1
+
+                logger.info(f"Polling URLScan.io results (attempt {attempt}/{max_attempts})")
+
+                result_response = await self.client.get(
+                    f"{self.urlscan_api}result/{scan_uuid}/",
+                    headers={'API-Key': self.urlscan_api_key}
+                )
+
+                if result_response.status_code == 200:
+                    # Scan complete
+                    result_data = result_response.json()
+                    return self._parse_urlscan_results(result_data, url)
+
+                elif result_response.status_code == 404:
+                    # Still processing
+                    continue
+
+                else:
+                    logger.warning(f"URLScan.io result error: {result_response.status_code}")
+                    return None
+
+            logger.warning("URLScan.io scan timed out after 60 seconds")
+            return None
+
+        except Exception as e:
+            logger.error(f"URLScan.io check error: {str(e)}")
+            return None
+
+    def _parse_urlscan_results(self, data: Dict[str, Any], original_url: str) -> Dict[str, Any]:
+        """Parse URLScan.io results and extract key indicators"""
+
+        try:
+            page = data.get('page', {})
+            stats = data.get('stats', {})
+            lists = data.get('lists', {})
+            verdicts = data.get('verdicts', {})
+            task = data.get('task', {})
+
+            # Extract screenshot
+            screenshot_url = task.get('screenshotURL') or f"https://urlscan.io/screenshots/{data.get('task', {}).get('uuid')}.png"
+
+            # Extract all domains contacted
+            domains = []
+            if stats.get('domainStats'):
+                domains = [d.get('domain') for d in stats['domainStats'] if d.get('domain')]
+
+            # Extract behavioral indicators
+            behavioral_indicators = []
+
+            # Check for downloads
+            if lists.get('urls'):
+                download_exts = ['.exe', '.zip', '.rar', '.dmg', '.apk', '.msi', '.deb', '.pkg']
+                for url_entry in lists['urls']:
+                    url_str = url_entry.get('url', '')
+                    if any(url_str.lower().endswith(ext) for ext in download_exts):
+                        behavioral_indicators.append({
+                            "type": "automatic_download",
+                            "severity": "critical",
+                            "description": f"Potential malware download detected: {url_str[:100]}"
+                        })
+
+            # Check for redirects
+            redirect_count = len(lists.get('redirects', []))
+            if redirect_count > 0:
+                behavioral_indicators.append({
+                    "type": "redirect_chain",
+                    "severity": "medium" if redirect_count < 3 else "high",
+                    "description": f"{redirect_count} redirects detected",
+                    "redirect_chain": lists.get('redirects', [])[:5]
+                })
+
+            # Check for suspicious technologies
+            if stats.get('resourceStats'):
+                for resource in stats['resourceStats']:
+                    mime_type = resource.get('mimeType', '')
+                    if 'application/x-shockwave-flash' in mime_type:
+                        behavioral_indicators.append({
+                            "type": "outdated_technology",
+                            "severity": "medium",
+                            "description": "Uses Flash (outdated, often exploited)"
+                        })
+
+            # Extract verdicts from URLScan.io community/automated analysis
+            verdict_list = []
+            if verdicts:
+                overall_verdict = verdicts.get('overall', {})
+                if overall_verdict:
+                    verdict_list.append({
+                        "source": "urlscan_overall",
+                        "verdict": overall_verdict.get('score', 0),
+                        "malicious": overall_verdict.get('malicious', False),
+                        "categories": overall_verdict.get('categories', [])
+                    })
+
+                # Community verdicts
+                if verdicts.get('community'):
+                    community_verdict = verdicts['community']
+                    verdict_list.append({
+                        "source": "urlscan_community",
+                        "verdict": community_verdict.get('score', 0),
+                        "votes_malicious": community_verdict.get('votesMalicious', 0),
+                        "votes_benign": community_verdict.get('votesBenign', 0)
+                    })
+
+            # Extract additional network information
+            ip_addresses = []
+            if stats.get('ipStats'):
+                ip_addresses = [ip.get('ip') for ip in stats['ipStats'] if ip.get('ip')]
+
+            # Check for certificate issues
+            cert_issues = []
+            if lists.get('certificates'):
+                for cert in lists['certificates']:
+                    if cert.get('validFrom') and cert.get('validTo'):
+                        # Could check for self-signed, expired, etc.
+                        subject = cert.get('subjectName', '')
+                        issuer = cert.get('issuerName', '')
+                        if subject == issuer:
+                            cert_issues.append({
+                                "type": "self_signed_certificate",
+                                "severity": "medium",
+                                "description": "Self-signed SSL certificate detected"
+                            })
+
+            if cert_issues:
+                behavioral_indicators.extend(cert_issues)
+
+            return {
+                "checked": True,
+                "scan_uuid": data.get('task', {}).get('uuid'),
+                "screenshot_url": screenshot_url,
+                "domains_contacted": domains[:50],  # Limit to first 50
+                "domain_count": len(domains),
+                "ip_addresses": ip_addresses[:20],
+                "behavioral_indicators": behavioral_indicators,
+                "verdicts": verdict_list,
+                "redirect_count": redirect_count,
+                "page_info": {
+                    "status": page.get('status'),
+                    "domain": page.get('domain'),
+                    "ip": page.get('ip'),
+                    "country": page.get('country'),
+                    "asn": page.get('asn'),
+                    "asnname": page.get('asnname')
+                },
+                "stats": {
+                    "total_requests": stats.get('totalRequests', 0),
+                    "malicious_requests": stats.get('malicious', 0),
+                    "ad_blocked": stats.get('adBlocked', 0)
+                }
+            }
+
+        except Exception as e:
+            logger.error(f"Error parsing URLScan.io results: {str(e)}")
+            return {"checked": False, "error": str(e)}
+
+    async def _analyze_screenshot_with_gpt5(
+        self,
+        screenshot_url: str,
+        original_url: str
+    ) -> Optional[Dict[str, Any]]:
+        """
+        Analyze screenshot with GPT-5 for visual phishing detection
+
+        Uses GPT-5's multimodal capabilities to detect:
+        - Brand impersonation
+        - Fake login forms
+        - Scam page layouts
+        - Visual spoofing techniques
+        """
+
+        try:
+            # Use OpenAI API to analyze screenshot
+            headers = {
+                'Authorization': f'Bearer {self.openai_api_key}',
+                'Content-Type': 'application/json'
+            }
+
+            prompt = f"""Analyze this screenshot of the website: {original_url}
+
+You are a security expert analyzing this webpage for potential threats. Look for:
+
+1. **Brand Impersonation**: Does this appear to impersonate a legitimate brand (PayPal, Amazon, Apple, Microsoft, banking sites, etc.)? Check logos, color schemes, layout.
+
+2. **Phishing Indicators**: Look for:
+   - Fake login forms asking for credentials
+   - Urgency messages ("account suspended", "verify now", "limited time")
+   - Requests for sensitive information (SSN, credit cards, passwords)
+   - Poor quality graphics or typos (sign of rushed phishing site)
+
+3. **Scam Patterns**: Check for:
+   - "You've won a prize" schemes
+   - Fake tech support warnings
+   - Fake virus/malware alerts
+   - Too-good-to-be-true offers
+
+4. **Visual Legitimacy**: Assess if the page looks professionally made or hastily constructed.
+
+5. **URL Mismatch**: The actual URL is {original_url}. Does the visual branding match this domain, or is it pretending to be a different site?
+
+Respond in JSON format:
+{{
+    "is_suspicious": true/false,
+    "confidence": 0-100,
+    "impersonated_brand": "Brand name if impersonating, otherwise null",
+    "threat_type": "phishing|scam|brand_impersonation|fake_login|malware_warning|legitimate",
+    "risk_level": "CRITICAL|HIGH|MEDIUM|LOW",
+    "visual_indicators": ["list", "of", "suspicious", "visual", "elements"],
+    "explanation": "Detailed explanation of findings"
+}}"""
+
+            payload = {
+                "model": "gpt-4o",  # GPT-4o with vision (latest multimodal)
+                "messages": [
+                    {
+                        "role": "user",
+                        "content": [
+                            {"type": "text", "text": prompt},
+                            {
+                                "type": "image_url",
+                                "image_url": {
+                                    "url": screenshot_url,
+                                    "detail": "high"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "max_tokens": 1000,
+                "response_format": {"type": "json_object"}
+            }
+
+            logger.info(f"Analyzing screenshot with GPT-4o: {screenshot_url}")
+            response = await self.client.post(
+                "https://api.openai.com/v1/chat/completions",
+                headers=headers,
+                json=payload,
+                timeout=60.0
+            )
+
+            if response.status_code == 200:
+                result = response.json()
+                content = result.get('choices', [{}])[0].get('message', {}).get('content', '{}')
+
+                import json
+                analysis = json.loads(content)
+
+                analysis['analyzed'] = True
+                analysis['screenshot_url'] = screenshot_url
+
+                logger.info(f"Screenshot analysis complete: {analysis.get('threat_type', 'unknown')}")
+                return analysis
+            else:
+                logger.warning(f"GPT-4o screenshot analysis failed: {response.status_code}")
+                return None
+
+        except Exception as e:
+            logger.error(f"Screenshot analysis error: {str(e)}")
+            return None
+
     def _calculate_risk_score(self, results: Dict[str, Any]) -> int:
         """Calculate overall content security risk score"""
 
@@ -634,6 +984,40 @@ class ContentSecurityAnalyzer:
         )
         score += vt_malicious * 30
 
+        # URLScan.io dynamic analysis indicators
+        dynamic = results.get("dynamic_analysis", {})
+        if dynamic.get("urlscan_performed"):
+            # Behavioral indicators from browser execution
+            behavioral = dynamic.get("behavioral_indicators", [])
+            for indicator in behavioral:
+                if indicator.get("severity") == "critical":
+                    score += 35  # Automatic downloads, etc.
+                elif indicator.get("severity") == "high":
+                    score += 20  # Multiple redirects, etc.
+                elif indicator.get("severity") == "medium":
+                    score += 10
+
+            # Screenshot analysis (visual phishing detection)
+            screenshot_analysis = dynamic.get("screenshot_analysis", {})
+            if screenshot_analysis.get("is_suspicious"):
+                confidence = screenshot_analysis.get("confidence", 0)
+                risk_level = screenshot_analysis.get("risk_level", "LOW")
+
+                if risk_level == "CRITICAL":
+                    score += 40
+                elif risk_level == "HIGH":
+                    score += 30
+                elif risk_level == "MEDIUM":
+                    score += 15
+
+            # URLScan.io verdicts
+            verdicts = dynamic.get("verdicts", [])
+            for verdict in verdicts:
+                if verdict.get("malicious"):
+                    score += 25
+                elif verdict.get("verdict", 0) > 50:  # High score = suspicious
+                    score += 15
+
         return min(score, 100)
 
     def _determine_risk_level(self, risk_score: int) -> str:
@@ -669,6 +1053,19 @@ class ContentSecurityAnalyzer:
 
         if results["suspicious_links"]:
             parts.append(f"{len(results['suspicious_links'])} suspicious links")
+
+        # URLScan.io dynamic analysis findings
+        dynamic = results.get("dynamic_analysis", {})
+        if dynamic.get("urlscan_performed"):
+            behavioral = dynamic.get("behavioral_indicators", [])
+            critical_behaviors = [b for b in behavioral if b.get("severity") == "critical"]
+            if critical_behaviors:
+                parts.append(f"{len(critical_behaviors)} critical behavioral indicators (URLScan.io)")
+
+            screenshot_analysis = dynamic.get("screenshot_analysis", {})
+            if screenshot_analysis.get("is_suspicious"):
+                threat_type = screenshot_analysis.get("threat_type", "unknown")
+                parts.append(f"Visual {threat_type} detected (GPT-4o analysis)")
 
         if not parts:
             return "No significant malware indicators detected"
