@@ -1,0 +1,154 @@
+{
+  "dataset_name": "URL Safety Analysis - Example Test Dataset",
+  "version": "1.0",
+  "created": "2024-11-09",
+  "description": "Example test dataset with diverse URLs for evaluation",
+  "test_cases": [
+    {
+      "url": "https://www.google.com",
+      "ground_truth_label": "SAFE",
+      "expected_category": "legitimate",
+      "description": "Major search engine - clearly legitimate",
+      "metadata": {
+        "source": "known_safe",
+        "test_type": "baseline"
+      }
+    },
+    {
+      "url": "https://www.microsoft.com",
+      "ground_truth_label": "SAFE",
+      "expected_category": "legitimate",
+      "description": "Major technology company",
+      "metadata": {
+        "source": "known_safe",
+        "test_type": "baseline"
+      }
+    },
+    {
+      "url": "https://www.paypal.com",
+      "ground_truth_label": "SAFE",
+      "expected_category": "legitimate",
+      "description": "Legitimate payment processor",
+      "metadata": {
+        "source": "known_safe",
+        "test_type": "baseline"
+      }
+    },
+    {
+      "url": "https://paypa1.com-security-verify.net",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Typosquatting PayPal with suspicious subdomain structure",
+      "metadata": {
+        "source": "synthetic",
+        "test_type": "phishing",
+        "threat_indicators": ["typosquatting", "suspicious_tld", "misleading_subdomain"]
+      }
+    },
+    {
+      "url": "https://secure-login-paypa1.com",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Credential harvesting site mimicking PayPal",
+      "metadata": {
+        "source": "synthetic",
+        "test_type": "phishing",
+        "threat_indicators": ["typosquatting", "credential_phishing"]
+      }
+    },
+    {
+      "url": "https://amazon-prize-winner.net",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "scam",
+      "description": "Fake prize scam impersonating Amazon",
+      "metadata": {
+        "source": "synthetic",
+        "test_type": "scam",
+        "threat_indicators": ["brand_abuse", "prize_scam"]
+      }
+    },
+    {
+      "url": "https://support-microsoft-technical.com",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "scam",
+      "description": "Tech support scam impersonating Microsoft",
+      "metadata": {
+        "source": "synthetic",
+        "test_type": "scam",
+        "threat_indicators": ["tech_support_scam", "brand_impersonation"]
+      }
+    },
+    {
+      "url": "https://free-crypto-airdrop-limited.com",
+      "ground_truth_label": "SUSPICIOUS",
+      "expected_category": "fraud",
+      "description": "Cryptocurrency scam with urgency tactics",
+      "metadata": {
+        "source": "synthetic",
+        "test_type": "fraud",
+        "threat_indicators": ["crypto_scam", "urgency_tactics"]
+      }
+    },
+    {
+      "url": "https://new-startup-beta-test.io",
+      "ground_truth_label": "MANUAL_REVIEW_REQUIRED",
+      "expected_category": "unknown",
+      "description": "New domain with limited reputation data - ambiguous case",
+      "metadata": {
+        "source": "synthetic",
+        "test_type": "edge_case",
+        "note": "Could be legitimate startup or phishing infrastructure"
+      }
+    },
+    {
+      "url": "https://investment-opportunity-guaranteed-returns.biz",
+      "ground_truth_label": "SUSPICIOUS",
+      "expected_category": "fraud",
+      "description": "Investment fraud with unrealistic promises",
+      "metadata": {
+        "source": "synthetic",
+        "test_type": "fraud",
+        "threat_indicators": ["investment_scam", "unrealistic_promises"]
+      }
+    },
+    {
+      "url": "https://verify-your-account-now-urgent.com",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Generic phishing with urgency keywords",
+      "metadata": {
+        "source": "synthetic",
+        "test_type": "phishing",
+        "threat_indicators": ["urgency_keywords", "generic_phishing"]
+      }
+    },
+    {
+      "url": "https://download-free-software-cracked.site",
+      "ground_truth_label": "SUSPICIOUS",
+      "expected_category": "malware",
+      "description": "Potential malware distribution via cracked software",
+      "metadata": {
+        "source": "synthetic",
+        "test_type": "malware",
+        "threat_indicators": ["piracy", "potential_malware"]
+      }
+    }
+  ],
+  "statistics": {
+    "total_cases": 12,
+    "by_label": {
+      "SAFE": 3,
+      "MANUAL_REVIEW_REQUIRED": 1,
+      "SUSPICIOUS": 3,
+      "MALICIOUS": 5
+    },
+    "by_category": {
+      "legitimate": 3,
+      "phishing": 3,
+      "scam": 2,
+      "fraud": 2,
+      "malware": 1,
+      "unknown": 1
+    }
+  }
+}
