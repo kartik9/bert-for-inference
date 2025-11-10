@@ -1,0 +1,20 @@
+{
+  "url": "https://gleam.xenonridge.ru/n8toawpq",
+  "cache_id": "28ec81e642c83ed4b8c1596c32f131e4",
+  "cached_at": "2025-11-10T07:34:03.183794",
+  "status_code": 403,
+  "headers": {
+    "date": "Mon, 10 Nov 2025 07:34:03 GMT",
+    "content-type": "text/html; charset=UTF-8",
+    "server": "cloudflare",
+    "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+    "cf-cache-status": "DYNAMIC",
+    "speculation-rules": "\"/cdn-cgi/speculation\"",
+    "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=mx0t8SFpXc81UXIVbJ3CFL8bw4qBoJ%2BnMKm4Gtlufa4a7IguGvHlhNi92vhHXpMY%2FbuAtGVnFRcNQvXTXmQD%2Fhv%2FVVXAfpj9LffldMUpyUko9Sw%3D\"}]}",
+    "content-encoding": "gzip",
+    "cf-ray": "99c3dd7beec7d836-ORD",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "transfer-encoding": "chunked"
+  },
+  "content_length": 0
+}

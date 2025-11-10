@@ -1,0 +1,16 @@
+{
+  "url": "http://196.251.87.155/morte.arc",
+  "cache_id": "69de40d7bfb4a9e51a52662033a049af",
+  "cached_at": "2025-11-10T07:33:50.328546",
+  "status_code": 200,
+  "headers": {
+    "date": "Mon, 10 Nov 2025 07:33:50 GMT",
+    "server": "envoy",
+    "last-modified": "Sun, 09 Nov 2025 13:44:23 GMT",
+    "etag": "\"26648-643299cd1df72\"",
+    "accept-ranges": "bytes",
+    "content-length": "157256",
+    "x-envoy-upstream-service-time": "111"
+  },
+  "content_length": 155740
+}

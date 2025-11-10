@@ -1,0 +1,15 @@
+{
+  "url": "http://178.16.54.200/files/1824233174/xqQTMND.exe",
+  "cache_id": "99ea131fb432fd97a6baf4405705d4e4",
+  "cached_at": "2025-11-10T07:31:15.229252",
+  "status_code": 404,
+  "headers": {
+    "server": "envoy",
+    "date": "Mon, 10 Nov 2025 07:31:15 GMT",
+    "content-type": "text/html",
+    "content-encoding": "gzip",
+    "x-envoy-upstream-service-time": "308",
+    "transfer-encoding": "chunked"
+  },
+  "content_length": 564
+}

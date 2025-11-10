@@ -1,0 +1,14 @@
+{
+  "url": "http://61.53.75.147:51860/i",
+  "cache_id": "dc0c1fd9774a7b82f28efa3d82faab80",
+  "cached_at": "2025-11-10T07:31:13.702960",
+  "status_code": 200,
+  "headers": {
+    "server": "envoy",
+    "content-length": "135784",
+    "content-type": "application/zip",
+    "date": "Mon, 10 Nov 2025 07:31:12 GMT",
+    "x-envoy-upstream-service-time": "522"
+  },
+  "content_length": 130886
+}

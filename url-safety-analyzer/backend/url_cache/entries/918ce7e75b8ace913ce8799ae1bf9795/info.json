@@ -1,0 +1,16 @@
+{
+  "url": "http://196.251.87.155/debug",
+  "cache_id": "918ce7e75b8ace913ce8799ae1bf9795",
+  "cached_at": "2025-11-10T07:33:50.486917",
+  "status_code": 200,
+  "headers": {
+    "date": "Mon, 10 Nov 2025 07:33:50 GMT",
+    "server": "envoy",
+    "last-modified": "Sun, 09 Nov 2025 13:44:23 GMT",
+    "etag": "\"c21c-643299cd1cfd2\"",
+    "accept-ranges": "bytes",
+    "content-length": "49692",
+    "x-envoy-upstream-service-time": "111"
+  },
+  "content_length": 47144
+}

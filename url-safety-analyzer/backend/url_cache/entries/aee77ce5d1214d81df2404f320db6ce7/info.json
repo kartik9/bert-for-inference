@@ -1,0 +1,20 @@
+{
+  "url": "https://eiche.ibexweald.ru/6xqboma8",
+  "cache_id": "aee77ce5d1214d81df2404f320db6ce7",
+  "cached_at": "2025-11-10T07:31:53.305460",
+  "status_code": 403,
+  "headers": {
+    "date": "Mon, 10 Nov 2025 07:31:53 GMT",
+    "content-type": "text/html; charset=UTF-8",
+    "server": "cloudflare",
+    "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+    "cf-cache-status": "DYNAMIC",
+    "speculation-rules": "\"/cdn-cgi/speculation\"",
+    "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=1BiPOD0qYV5FPVMVxxMkg7CcrsgsDEQRcbpsPI%2FRPnaiRSjJwcOJWaVUku9kyqLv7%2BVml4ScQrY8%2BIVAfQnnYfFnINB6gw252s6pbjIp86sc%2Bw%3D%3D\"}]}",
+    "content-encoding": "gzip",
+    "cf-ray": "99c3da501901fa25-ORD",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "transfer-encoding": "chunked"
+  },
+  "content_length": 0
+}

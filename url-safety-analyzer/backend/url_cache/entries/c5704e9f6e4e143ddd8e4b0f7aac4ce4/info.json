@@ -1,0 +1,16 @@
+{
+  "url": "http://196.251.87.155/morte.x86_64",
+  "cache_id": "c5704e9f6e4e143ddd8e4b0f7aac4ce4",
+  "cached_at": "2025-11-10T07:33:49.237636",
+  "status_code": 200,
+  "headers": {
+    "date": "Mon, 10 Nov 2025 07:33:49 GMT",
+    "server": "envoy",
+    "last-modified": "Sun, 09 Nov 2025 13:44:23 GMT",
+    "etag": "\"c628-643299cd21df2\"",
+    "accept-ranges": "bytes",
+    "content-length": "50728",
+    "x-envoy-upstream-service-time": "112"
+  },
+  "content_length": 48142
+}

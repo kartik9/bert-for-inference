@@ -1,0 +1,14 @@
+{
+  "url": "http://123.129.128.58:45077/bin.sh",
+  "cache_id": "f677e185745a05141c1ed8191a70950f",
+  "cached_at": "2025-11-10T07:32:08.350755",
+  "status_code": 200,
+  "headers": {
+    "server": "envoy",
+    "content-length": "135784",
+    "content-type": "application/zip",
+    "date": "Mon, 10 Nov 2025 07:32:07 GMT",
+    "x-envoy-upstream-service-time": "504"
+  },
+  "content_length": 130886
+}

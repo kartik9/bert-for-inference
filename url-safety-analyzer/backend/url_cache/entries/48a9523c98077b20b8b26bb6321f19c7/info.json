@@ -1,0 +1,16 @@
+{
+  "url": "http://196.251.87.155/morte.mips",
+  "cache_id": "48a9523c98077b20b8b26bb6321f19c7",
+  "cached_at": "2025-11-10T07:33:49.976559",
+  "status_code": 200,
+  "headers": {
+    "date": "Mon, 10 Nov 2025 07:33:49 GMT",
+    "server": "envoy",
+    "last-modified": "Sun, 09 Nov 2025 13:44:23 GMT",
+    "etag": "\"caac-643299cd1feb2\"",
+    "accept-ranges": "bytes",
+    "content-length": "51884",
+    "x-envoy-upstream-service-time": "114"
+  },
+  "content_length": 49305
+}

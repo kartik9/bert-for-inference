@@ -1,0 +1,15 @@
+{
+  "url": "http://178.16.54.200/files/1824233174/8Krvsf8.exe",
+  "cache_id": "3b50b24365b6758de5afd797f854f06a",
+  "cached_at": "2025-11-10T07:31:27.611559",
+  "status_code": 404,
+  "headers": {
+    "server": "envoy",
+    "date": "Mon, 10 Nov 2025 07:31:27 GMT",
+    "content-type": "text/html",
+    "content-encoding": "gzip",
+    "x-envoy-upstream-service-time": "302",
+    "transfer-encoding": "chunked"
+  },
+  "content_length": 564
+}

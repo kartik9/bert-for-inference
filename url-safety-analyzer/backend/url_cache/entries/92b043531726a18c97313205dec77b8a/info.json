@@ -1,0 +1,16 @@
+{
+  "url": "http://196.251.87.155/morte.arm7",
+  "cache_id": "92b043531726a18c97313205dec77b8a",
+  "cached_at": "2025-11-10T07:33:49.587840",
+  "status_code": 200,
+  "headers": {
+    "date": "Mon, 10 Nov 2025 07:33:49 GMT",
+    "server": "envoy",
+    "last-modified": "Sun, 09 Nov 2025 13:44:23 GMT",
+    "etag": "\"e53c-643299cd1df72\"",
+    "accept-ranges": "bytes",
+    "content-length": "58684",
+    "x-envoy-upstream-service-time": "113"
+  },
+  "content_length": 55588
+}

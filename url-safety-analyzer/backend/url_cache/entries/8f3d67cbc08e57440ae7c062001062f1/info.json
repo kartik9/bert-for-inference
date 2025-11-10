@@ -1,0 +1,20 @@
+{
+  "url": "https://pfad.elmquarry.ru/wshff1b3",
+  "cache_id": "8f3d67cbc08e57440ae7c062001062f1",
+  "cached_at": "2025-11-10T07:32:03.774488",
+  "status_code": 403,
+  "headers": {
+    "date": "Mon, 10 Nov 2025 07:32:03 GMT",
+    "content-type": "text/html; charset=UTF-8",
+    "server": "cloudflare",
+    "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+    "cf-cache-status": "DYNAMIC",
+    "speculation-rules": "\"/cdn-cgi/speculation\"",
+    "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=jdw8lHwam15%2Bq3tP60oNo5dL1hBRueg%2FfHXMu%2FGu%2FEMz2jRpjSlTHa7%2FXb5SbeWa4LeS58ECmqNcokIpXL9qd5wQrvEj%2BQy4Dri8c0AQ7SOW\"}]}",
+    "content-encoding": "gzip",
+    "cf-ray": "99c3da915eae027b-ORD",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "transfer-encoding": "chunked"
+  },
+  "content_length": 0
+}

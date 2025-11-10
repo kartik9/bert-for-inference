@@ -1,0 +1,16 @@
+{
+  "url": "http://196.251.87.155/morte.mpsl",
+  "cache_id": "429688fe142c4b74491ad291426af91c",
+  "cached_at": "2025-11-10T07:33:47.631698",
+  "status_code": 200,
+  "headers": {
+    "date": "Mon, 10 Nov 2025 07:33:47 GMT",
+    "server": "envoy",
+    "last-modified": "Sun, 09 Nov 2025 13:44:23 GMT",
+    "etag": "\"cf90-643299cd1feb2\"",
+    "accept-ranges": "bytes",
+    "content-length": "53136",
+    "x-envoy-upstream-service-time": "226"
+  },
+  "content_length": 50472
+}

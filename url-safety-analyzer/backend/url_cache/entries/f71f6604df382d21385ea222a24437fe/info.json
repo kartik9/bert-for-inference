@@ -1,0 +1,16 @@
+{
+  "url": "http://196.251.87.155/morte.ppc",
+  "cache_id": "f71f6604df382d21385ea222a24437fe",
+  "cached_at": "2025-11-10T07:33:50.613223",
+  "status_code": 200,
+  "headers": {
+    "date": "Mon, 10 Nov 2025 07:33:50 GMT",
+    "server": "envoy",
+    "last-modified": "Sun, 09 Nov 2025 13:44:23 GMT",
+    "etag": "\"bc1c-643299cd1feb2\"",
+    "accept-ranges": "bytes",
+    "content-length": "48156",
+    "x-envoy-upstream-service-time": "111"
+  },
+  "content_length": 45717
+}
