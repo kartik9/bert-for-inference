@@ -71,137 +71,110 @@ class RealDatasetBuilder:
 
         return urls
 
-    def get_known_phishing_patterns(self, limit=80) -> List[Dict]:
-        """Get URLs with known phishing patterns and domains."""
-        print("Adding known phishing patterns...")
+    def get_real_phishing_urls(self, limit=80) -> List[Dict]:
+        """Fetch real active phishing URLs from Phishing-Database GitHub repository."""
+        print("Fetching REAL active phishing URLs from Phishing-Database...")
 
-        # These are real phishing patterns observed in the wild
-        phishing_urls = [
-            # Microsoft/Office 365 phishing
-            "https://outlook-office365-auth.azurewebsites.net",
-            "https://office365-login.herokuapp.com",
-            "https://microsoft-account-verify.netlify.app",
+        import requests
 
-            # PayPal phishing
-            "https://paypal-secure-login.herokuapp.com",
-            "https://paypal-resolution-center.netlify.app",
+        url = "https://raw.githubusercontent.com/Phishing-Database/Phishing.Database/master/phishing-links-ACTIVE.txt"
 
-            # Banking phishing
-            "https://chase-secure-login.herokuapp.com",
-            "https://wellsfargo-verify-account.netlify.app",
-            "https://bankofamerica-alerts.herokuapp.com",
+        try:
+            response = requests.get(url, timeout=30)
+            if response.status_code == 200:
+                lines = response.text.strip().split('\n')
+                phishing_urls = []
 
-            # Google/Gmail phishing
-            "https://google-account-recovery.herokuapp.com",
-            "https://gmail-security-alert.netlify.app",
+                for line in lines[:limit]:
+                    line = line.strip()
+                    if line and not line.startswith('#'):
+                        # Determine the target brand from URL patterns
+                        brand, category = self._detect_phishing_target(line)
 
-            # Adobe phishing
-            "https://adobe-document-share.herokuapp.com",
-            "https://adobe-sign-verify.netlify.app",
+                        phishing_urls.append({
+                            "url": line,
+                            "ground_truth_label": "MALICIOUS",
+                            "expected_category": "phishing",
+                            "description": f"Active phishing site targeting {brand}",
+                            "metadata": {
+                                "source": "Phishing-Database",
+                                "impersonated_brand": brand,
+                                "phishing_type": category,
+                                "difficulty": "medium",
+                                "test_purpose": "real_phishing_detection",
+                                "threat_indicators": ["phishing", "brand_impersonation", "credential_theft"],
+                                "verified_active": True
+                            }
+                        })
 
-            # Shipping/delivery phishing
-            "https://usps-redelivery-request.herokuapp.com",
-            "https://dhl-delivery-update.netlify.app",
-            "https://fedex-tracking-info.herokuapp.com",
-
-            # Cryptocurrency phishing
-            "https://metamask-wallet-connect.netlify.app",
-            "https://coinbase-security-verify.herokuapp.com",
-            "https://trust-wallet-verify.netlify.app",
-
-            # Social media phishing
-            "https://facebook-account-verify.netlify.app",
-            "https://instagram-copyright-notice.herokuapp.com",
-            "https://linkedin-message-alert.netlify.app",
-
-            # Tech support scams
-            "https://windows-defender-alert.netlify.app",
-            "https://apple-support-case.herokuapp.com",
-            "https://norton-renewal-notice.netlify.app",
-        ]
-
-        urls = []
-        for url in phishing_urls[:limit]:
-            # Extract target brand from URL
-            if "microsoft" in url or "office365" in url or "outlook" in url:
-                brand = "Microsoft"
-                service = "Office 365"
-            elif "paypal" in url:
-                brand = "PayPal"
-                service = "PayPal"
-            elif "chase" in url:
-                brand = "Chase Bank"
-                service = "Banking"
-            elif "wellsfargo" in url:
-                brand = "Wells Fargo"
-                service = "Banking"
-            elif "bankofamerica" in url:
-                brand = "Bank of America"
-                service = "Banking"
-            elif "google" in url or "gmail" in url:
-                brand = "Google"
-                service = "Gmail"
-            elif "adobe" in url:
-                brand = "Adobe"
-                service = "Document sharing"
-            elif "usps" in url:
-                brand = "USPS"
-                service = "Delivery"
-            elif "dhl" in url:
-                brand = "DHL"
-                service = "Delivery"
-            elif "fedex" in url:
-                brand = "FedEx"
-                service = "Delivery"
-            elif "metamask" in url:
-                brand = "MetaMask"
-                service = "Crypto wallet"
-            elif "coinbase" in url:
-                brand = "Coinbase"
-                service = "Cryptocurrency"
-            elif "trust-wallet" in url:
-                brand = "Trust Wallet"
-                service = "Crypto wallet"
-            elif "facebook" in url:
-                brand = "Facebook"
-                service = "Social media"
-            elif "instagram" in url:
-                brand = "Instagram"
-                service = "Social media"
-            elif "linkedin" in url:
-                brand = "LinkedIn"
-                service = "Social media"
-            elif "windows-defender" in url:
-                brand = "Microsoft"
-                service = "Antivirus"
-            elif "apple-support" in url:
-                brand = "Apple"
-                service = "Tech support"
-            elif "norton" in url:
-                brand = "Norton"
-                service = "Antivirus"
+                print(f"✓ Fetched {len(phishing_urls)} REAL active phishing URLs")
+                return phishing_urls
             else:
-                brand = "Unknown"
-                service = "Unknown"
+                print(f"✗ Failed to fetch real phishing URLs: HTTP {response.status_code}")
+                return []
 
-            urls.append({
-                "url": url,
-                "ground_truth_label": "MALICIOUS",
-                "expected_category": "phishing",
-                "description": f"Phishing site impersonating {brand}",
-                "metadata": {
-                    "source": "known_patterns",
-                    "impersonated_brand": brand,
-                    "target_service": service,
-                    "phishing_type": "credential_harvesting",
-                    "difficulty": "medium",
-                    "test_purpose": "phishing_detection",
-                    "threat_indicators": ["brand_impersonation", "credential_phishing"]
-                }
-            })
+        except Exception as e:
+            print(f"✗ Error fetching real phishing URLs: {e}")
+            return []
 
-        print(f"✓ Added {len(urls)} known phishing patterns")
-        return urls
+    def _detect_phishing_target(self, url: str) -> tuple:
+        """Detect target brand and phishing category from URL patterns."""
+        url_lower = url.lower()
+
+        # Banking/Financial
+        if any(x in url_lower for x in ['paypal', 'pp-', 'ppal']):
+            return ("PayPal", "payment_processor")
+        elif any(x in url_lower for x in ['chase', 'jpmchase']):
+            return ("Chase Bank", "banking")
+        elif any(x in url_lower for x in ['wellsfargo', 'wf-', 'wells']):
+            return ("Wells Fargo", "banking")
+        elif any(x in url_lower for x in ['bankofamerica', 'bofa', 'boa']):
+            return ("Bank of America", "banking")
+        elif any(x in url_lower for x in ['cibc', 'rbc', 'td-', 'tangerine', 'scotiabank', 'desjardins', 'simplii']):
+            return ("Canadian Bank", "banking")
+        elif any(x in url_lower for x in ['bank', 'banking', 'citibank']):
+            return ("Generic Bank", "banking")
+        # Tech Companies
+        elif any(x in url_lower for x in ['microsoft', 'ms-', 'msn', 'outlook', 'office365', 'o365', 'azure']):
+            return ("Microsoft", "tech_company")
+        elif any(x in url_lower for x in ['google', 'gmail', 'goog-', 'drive']):
+            return ("Google", "tech_company")
+        elif any(x in url_lower for x in ['apple', 'icloud', 'itunes', 'appstore']):
+            return ("Apple", "tech_company")
+        elif any(x in url_lower for x in ['facebook', 'fb-', 'meta']):
+            return ("Facebook/Meta", "social_media")
+        elif any(x in url_lower for x in ['instagram', 'ig-', 'insta']):
+            return ("Instagram", "social_media")
+        elif any(x in url_lower for x in ['linkedin', 'lnkd']):
+            return ("LinkedIn", "social_media")
+        elif any(x in url_lower for x in ['yahoo', 'ymail']):
+            return ("Yahoo", "email_provider")
+        # E-commerce
+        elif any(x in url_lower for x in ['amazon', 'amzn']):
+            return ("Amazon", "ecommerce")
+        elif any(x in url_lower for x in ['ebay']):
+            return ("eBay", "ecommerce")
+        # Shipping
+        elif any(x in url_lower for x in ['usps', 'postal']):
+            return ("USPS", "shipping")
+        elif any(x in url_lower for x in ['fedex']):
+            return ("FedEx", "shipping")
+        elif any(x in url_lower for x in ['dhl']):
+            return ("DHL", "shipping")
+        # Cryptocurrency
+        elif any(x in url_lower for x in ['coinbase']):
+            return ("Coinbase", "cryptocurrency")
+        elif any(x in url_lower for x in ['binance']):
+            return ("Binance", "cryptocurrency")
+        elif any(x in url_lower for x in ['metamask']):
+            return ("MetaMask", "crypto_wallet")
+        elif any(x in url_lower for x in ['blockchain', 'crypto', 'bitcoin', 'wallet']):
+            return ("Cryptocurrency Service", "cryptocurrency")
+        # Generic
+        elif any(x in url_lower for x in ['login', 'signin', 'auth', 'verify', 'confirm', 'update', 'secure']):
+            return ("Generic Service", "credential_harvesting")
+        else:
+            return ("Unknown Target", "generic_phishing")
 
     def get_scam_and_fraud_urls(self, limit=40) -> List[Dict]:
         """Get real scam and fraud URLs."""
@@ -719,7 +692,7 @@ class RealDatasetBuilder:
         all_urls.extend(urlhaus_urls)
         time.sleep(1)  # Rate limiting
 
-        phishing_urls = self.get_known_phishing_patterns(limit=80)  # All phishing patterns
+        phishing_urls = self.get_real_phishing_urls(limit=80)  # Real active phishing URLs
         all_urls.extend(phishing_urls)
 
         scam_urls = self.get_scam_and_fraud_urls(limit=40)  # All scams

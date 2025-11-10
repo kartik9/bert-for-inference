@@ -1,19 +1,19 @@
 {
   "dataset_name": "URL Safety Analysis - Real-World Evaluation Dataset",
   "version": "2.0",
-  "created": "2025-11-10T07:30:22.192108",
-  "total_urls": 452,
+  "created": "2025-11-10T08:02:19.075570",
+  "total_urls": 508,
   "statistics": {
-    "total": 452,
+    "total": 508,
     "by_label": {
-      "MALICIOUS": 182,
+      "MALICIOUS": 238,
       "SUSPICIOUS": 66,
       "SAFE": 170,
       "MANUAL_REVIEW_REQUIRED": 34
     },
     "by_category": {
       "malware": 150,
-      "phishing": 24,
+      "phishing": 80,
       "fraud": 2,
       "scam": 6,
       "gray_area": 15,
@@ -24,7 +24,7 @@
     },
     "by_source": {
       "URLhaus": 150,
-      "known_patterns": 24,
+      "Phishing-Database": 80,
       "known_scams": 8,
       "known_suspicious": 66,
       "verified_legitimate": 170,
@@ -39,6 +39,1249 @@
     "Suspicious/borderline sites"
   ],
   "test_cases": [
+    {
+      "url": "http://111.59.254.165:8084/20180102/Video.scr",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://37.80.115.15/photo.scr",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://37.80.115.15/info.zip",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://37.85.198.102/photo.scr",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://37.85.198.102/video.scr",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://37.85.198.102/info.zip",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://113.249.16.172:81/photo.scr",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://113.249.16.172:81/av.scr",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://218.95.50.120:81/info.zip",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://113.249.16.172:81/video.scr",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://111.59.254.165:8084/20140730/Video.scr",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://80.125.190.158/info.zip",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://193.56.135.130/uploads/6904a6e81f0c5_crypted.exe",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "exe"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://80.125.190.158/av.scr",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://37.80.84.98/info.zip",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://80.125.190.158/video.scr",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://80.125.190.158/video.lnk",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://37.81.139.70/info.zip",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://37.80.84.98/photo.scr",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://80.125.190.158/photo.lnk",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://80.125.190.158/av.lnk",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://37.81.139.70/photo.scr",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://83.43.85.37:100/av.scr",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://113.249.16.172:81/info.zip",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://83.43.85.37:100/video.scr",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://42.114.65.159/info.zip",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://196.251.88.204/bins/Space.spc",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "mirai"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://111.59.254.165:8084/20180102/Video.lnk",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "None"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://111.59.254.165:8084/20180102/AV.lnk",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "None"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://196.251.88.204/bins/Space.mips",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "mirai"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "https://www.planner5dl.com/0inst2.exe",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "exe"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://196.251.88.204/bins/Space.arm",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "mirai"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://196.251.88.204/bins/Space.m68k",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "mirai"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://196.251.88.204/bins/Space.arm7",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "mirai"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://196.251.88.204/bins/Space.x86_64",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "mirai"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://94.99.15.31/dev_hdd0/tmp/info.zip",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "None"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://94.99.15.31/mount.ps3/dev_hdd0/tmp/friendtrophy/info.zip",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "None"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://94.99.15.31/mount.ps3/dev_hdd0/tmp/downloader/info.zip",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "None"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://94.99.15.31/mount.ps3/dev_hdd0/info.zip",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "None"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://196.251.88.204/bins/Space.arm6",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "mirai"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://37.84.219.120/info.zip",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://37.84.219.120/photo.scr",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://83.43.85.37:100/info.zip",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://178.16.54.200/files/5878897896/nJtWqnm.bat",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "c2-monitor-auto",
+          "dropped-by-amadey"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://83.43.85.37:100/photo.scr",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://110.39.224.42:42343/Mozi.m",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "Mozi"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://83.43.85.37:100/av.lnk",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://196.251.88.204/bins/Space.sh4",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "mirai"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://94.99.15.31/mount.ps3/dev_hdd0/tmp/wm_icons/info.zip",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "None"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://94.99.15.31/mount.ps3/dev_hdd0/packages/info.zip",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "None"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://94.99.15.31/mount.ps3/dev_hdd0/tmp/wm_res/setup/info.zip",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "None"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://196.251.88.204/bins/Space.mpsl",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "mirai"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://196.251.88.204/bins/Space.arm5",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "mirai"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://83.43.85.37:100/video.lnk",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://196.251.88.204/bins/Space.arc",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "mirai"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://196.251.88.204/bins/x86",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "mirai"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://113.249.16.172:81/video.lnk",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://113.249.16.172:81/av.lnk",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://83.43.85.37:100/photo.lnk",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://113.249.16.172:81/photo.lnk",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://196.251.88.204/bins/Space.i686",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "mirai"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://196.251.88.204/bins/Space.ppc",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "mirai"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://94.99.15.31/dev_hdd0/tmp/wm_res/info.zip",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "None"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://94.99.15.31/mount.ps3/dev_hdd0/tmp/info.zip",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "None"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://94.99.15.31/mount.ps3/dev_hdd0/tmp/wm_combo/info.zip",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "None"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://94.99.15.31/dev_hdd0/info.zip",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "None"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://94.99.15.31/mount.ps3/dev_hdd0/tmp/fimcross/info.zip",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "None"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://37.81.174.39/photo.scr",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://178.16.54.200/files/5878897896/XHTmjkl.bat",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "c2-monitor-auto",
+          "dropped-by-amadey"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://37.81.174.39/av.scr",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://37.81.174.39/info.zip",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://37.81.174.39/video.scr",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "CoinMiner"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "https://x1.m1dnightr0ad.ru/m022rj17",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "ClearFake"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://60.18.120.238:55216/bin.sh",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "32-bit",
+          "elf",
+          "mips",
+          "Mozi"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://123.12.152.110:34691/bin.sh",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "32-bit",
+          "elf",
+          "mips",
+          "Mozi"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "http://221.1.148.205:57605/bin.sh",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "online",
+        "threat_type": "malware_download",
+        "tags": [
+          "32-bit",
+          "elf",
+          "mips",
+          "Mozi"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
+    {
+      "url": "https://mica.frostwilder.ru/mkq8r6cc",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "malware",
+      "description": "Malware distribution - malware_download",
+      "metadata": {
+        "source": "URLhaus",
+        "status": "offline",
+        "threat_type": "malware_download",
+        "tags": [
+          "ClearFake"
+        ],
+        "difficulty": "medium",
+        "test_purpose": "malware_detection"
+      }
+    },
     {
       "url": "http://182.123.143.66:37499/bin.sh",
       "ground_truth_label": "MALICIOUS",
@@ -1167,7 +2410,7 @@
       "description": "Malware distribution - malware_download",
       "metadata": {
         "source": "URLhaus",
-        "status": "online",
+        "status": "offline",
         "threat_type": "malware_download",
         "tags": [
           "elf",
@@ -1357,7 +2600,7 @@
       "description": "Malware distribution - malware_download",
       "metadata": {
         "source": "URLhaus",
-        "status": "online",
+        "status": "offline",
         "threat_type": "malware_download",
         "tags": [
           "elf",
@@ -1427,1865 +2670,1523 @@
       }
     },
     {
-      "url": "http://115.49.248.152:52145/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://222.141.47.188:55464/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://221.1.244.249:42515/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://27.215.84.47:52057/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://124.230.164.87:42302/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "arm",
-          "elf",
-          "mirai",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "https://birch.sparrowdock.ru/cqpxc0a8",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "offline",
-        "threat_type": "malware_download",
-        "tags": [
-          "ClearFake"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://113.229.190.32:48108/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://42.4.23.129:49270/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://178.16.54.200/files/5917492177/9t3D4G8.exe",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "c2-monitor-auto",
-          "dropped-by-amadey",
-          "Stealc"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://113.229.190.32:48108/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://115.49.211.34:45798/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://182.113.212.130:54464/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://123.12.171.112:57198/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "https://ufer.anvilklee.ru/y5yjvkgq",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "offline",
-        "threat_type": "malware_download",
-        "tags": [
-          "ClearFake"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://221.15.79.79:34484/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://176.77.46.87:20681/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "https://stein.anvilklee.ru/9cpxz7af",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "offline",
-        "threat_type": "malware_download",
-        "tags": [
-          "ClearFake"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://123.5.173.131:37289/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://123.12.171.112:57198/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://182.124.252.171:33043/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://61.52.225.247:43356/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://182.113.25.122:53090/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://175.174.102.203:37944/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://110.37.6.58:45701/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://112.248.231.139:44816/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://115.61.239.63:42485/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://76.72.238.107:53638/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://42.232.84.111:38840/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://182.113.25.122:53090/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "https://moor.sageufer.ru/eyo212ig",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "offline",
-        "threat_type": "malware_download",
-        "tags": [
-          "ClearFake"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://182.121.144.223:35535/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://123.188.95.201:42482/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://117.242.232.209:42786/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://123.11.243.240:59775/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://61.163.138.33:38867/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://182.123.239.134:42838/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://112.248.231.139:44816/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://219.156.40.61:47610/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://182.114.255.36:57323/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://110.37.6.58:45701/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "offline",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "https://bach.echohang.ru/k12k6y5g",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "offline",
-        "threat_type": "malware_download",
-        "tags": [
-          "ClearFake"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://113.239.81.102:41758/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://42.232.84.111:38840/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://182.121.144.223:35535/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://123.11.243.240:59775/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "https://krone.echohang.ru/wo2ppa90",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "offline",
-        "threat_type": "malware_download",
-        "tags": [
-          "ClearFake"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://182.116.49.140:35065/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://182.124.252.171:33043/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://182.126.127.164:51808/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://182.126.87.62:50800/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://110.39.226.65:55366/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://110.37.113.135:39268/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "offline",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "arm",
-          "elf",
-          "mirai",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "https://ufer.shadowtal.ru/sp9z9jug",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "offline",
-        "threat_type": "malware_download",
-        "tags": [
-          "ClearFake"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://178.16.54.200/files/814870813/8aCq1Rp.exe",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "c2-monitor-auto",
-          "dropped-by-amadey"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://182.126.127.164:51808/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://24.54.95.49:55616/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://42.54.9.223:33002/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://182.126.87.62:50800/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://110.39.226.65:55366/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "offline",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://115.48.160.51:49984/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://182.117.48.98:44888/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://117.209.27.156:35019/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "offline",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://117.204.166.206:37566/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "offline",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://110.39.227.19:49496/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "https://grat.crimsonwald.ru/iypwyz0g",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "offline",
-        "threat_type": "malware_download",
-        "tags": [
-          "ClearFake"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://182.113.197.183:38018/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://39.74.38.39:38770/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://42.224.198.111:35128/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://115.48.160.51:49984/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "https://eis.crimsonwald.ru/pp4fjj40",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "offline",
-        "threat_type": "malware_download",
-        "tags": [
-          "ClearFake"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://110.37.113.135:39268/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "offline",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "arm",
-          "elf",
-          "mirai",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://123.8.21.232:45905/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "offline",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "https://stern.quartzhain.ru/v89mbh4d",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "offline",
-        "threat_type": "malware_download",
-        "tags": [
-          "ClearFake"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "https://eiche.quartzhain.ru/g1bam104",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "offline",
-        "threat_type": "malware_download",
-        "tags": [
-          "ClearFake"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://42.230.46.1:36554/i",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://117.204.166.206:37566/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "offline",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "http://182.113.197.183:38018/bin.sh",
-      "ground_truth_label": "MALICIOUS",
-      "expected_category": "malware",
-      "description": "Malware distribution - malware_download",
-      "metadata": {
-        "source": "URLhaus",
-        "status": "online",
-        "threat_type": "malware_download",
-        "tags": [
-          "32-bit",
-          "elf",
-          "mips",
-          "Mozi"
-        ],
-        "difficulty": "medium",
-        "test_purpose": "malware_detection"
-      }
-    },
-    {
-      "url": "https://outlook-office365-auth.azurewebsites.net",
+      "url": "ftp://188.128.111.33/iptv/tv1324/view.html",
       "ground_truth_label": "MALICIOUS",
       "expected_category": "phishing",
-      "description": "Phishing site impersonating Microsoft",
+      "description": "Active phishing site targeting Unknown Target",
       "metadata": {
-        "source": "known_patterns",
-        "impersonated_brand": "Microsoft",
-        "target_service": "Office 365",
-        "phishing_type": "credential_harvesting",
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
         "difficulty": "medium",
-        "test_purpose": "phishing_detection",
+        "test_purpose": "real_phishing_detection",
         "threat_indicators": [
+          "phishing",
           "brand_impersonation",
-          "credential_phishing"
-        ]
+          "credential_theft"
+        ],
+        "verified_active": true
       }
     },
     {
-      "url": "https://office365-login.herokuapp.com",
+      "url": "ftp://me@createkindlebooks.org:noobasshole@createkindlebooks.org/index.html",
       "ground_truth_label": "MALICIOUS",
       "expected_category": "phishing",
-      "description": "Phishing site impersonating Microsoft",
+      "description": "Active phishing site targeting Unknown Target",
       "metadata": {
-        "source": "known_patterns",
-        "impersonated_brand": "Microsoft",
-        "target_service": "Office 365",
-        "phishing_type": "credential_harvesting",
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
         "difficulty": "medium",
-        "test_purpose": "phishing_detection",
+        "test_purpose": "real_phishing_detection",
         "threat_indicators": [
+          "phishing",
           "brand_impersonation",
-          "credential_phishing"
-        ]
+          "credential_theft"
+        ],
+        "verified_active": true
       }
     },
     {
-      "url": "https://microsoft-account-verify.netlify.app",
+      "url": "http://00000000000000000000000000000000000000dfjjjhv.000webhostapp.com/yahoo/yahooattt/global/attverzon/login.php?.intl=us&.lang=en-us&https://login.yahoo.com/?.src=ym",
       "ground_truth_label": "MALICIOUS",
       "expected_category": "phishing",
-      "description": "Phishing site impersonating Microsoft",
+      "description": "Active phishing site targeting Yahoo",
       "metadata": {
-        "source": "known_patterns",
-        "impersonated_brand": "Microsoft",
-        "target_service": "Office 365",
-        "phishing_type": "credential_harvesting",
+        "source": "Phishing-Database",
+        "impersonated_brand": "Yahoo",
+        "phishing_type": "email_provider",
         "difficulty": "medium",
-        "test_purpose": "phishing_detection",
+        "test_purpose": "real_phishing_detection",
         "threat_indicators": [
+          "phishing",
           "brand_impersonation",
-          "credential_phishing"
-        ]
+          "credential_theft"
+        ],
+        "verified_active": true
       }
     },
     {
-      "url": "https://paypal-secure-login.herokuapp.com",
+      "url": "http://000000000000000000000000000000000000dbscrfg.000webhostapp.com/yahoo/yahooattt/global/attverzon/login.php?https%3a//login.yahoo.com/?.src=ym&.intl=us&.lang=en-us",
       "ground_truth_label": "MALICIOUS",
       "expected_category": "phishing",
-      "description": "Phishing site impersonating PayPal",
+      "description": "Active phishing site targeting Yahoo",
       "metadata": {
-        "source": "known_patterns",
-        "impersonated_brand": "PayPal",
-        "target_service": "PayPal",
-        "phishing_type": "credential_harvesting",
+        "source": "Phishing-Database",
+        "impersonated_brand": "Yahoo",
+        "phishing_type": "email_provider",
         "difficulty": "medium",
-        "test_purpose": "phishing_detection",
+        "test_purpose": "real_phishing_detection",
         "threat_indicators": [
+          "phishing",
           "brand_impersonation",
-          "credential_phishing"
-        ]
+          "credential_theft"
+        ],
+        "verified_active": true
       }
     },
     {
-      "url": "https://paypal-resolution-center.netlify.app",
+      "url": "http://000000000000000000000000000yteyeuya.000webhostapp.com/yahoo/yahooattt/global/attverzon/login.php",
       "ground_truth_label": "MALICIOUS",
       "expected_category": "phishing",
-      "description": "Phishing site impersonating PayPal",
+      "description": "Active phishing site targeting Yahoo",
       "metadata": {
-        "source": "known_patterns",
-        "impersonated_brand": "PayPal",
-        "target_service": "PayPal",
-        "phishing_type": "credential_harvesting",
+        "source": "Phishing-Database",
+        "impersonated_brand": "Yahoo",
+        "phishing_type": "email_provider",
         "difficulty": "medium",
-        "test_purpose": "phishing_detection",
+        "test_purpose": "real_phishing_detection",
         "threat_indicators": [
+          "phishing",
           "brand_impersonation",
-          "credential_phishing"
-        ]
+          "credential_theft"
+        ],
+        "verified_active": true
       }
     },
     {
-      "url": "https://chase-secure-login.herokuapp.com",
+      "url": "http://0000000000000000000000000.findyourjacket.com",
       "ground_truth_label": "MALICIOUS",
       "expected_category": "phishing",
-      "description": "Phishing site impersonating Chase Bank",
+      "description": "Active phishing site targeting Unknown Target",
       "metadata": {
-        "source": "known_patterns",
-        "impersonated_brand": "Chase Bank",
-        "target_service": "Banking",
-        "phishing_type": "credential_harvesting",
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
         "difficulty": "medium",
-        "test_purpose": "phishing_detection",
+        "test_purpose": "real_phishing_detection",
         "threat_indicators": [
+          "phishing",
           "brand_impersonation",
-          "credential_phishing"
-        ]
+          "credential_theft"
+        ],
+        "verified_active": true
       }
     },
     {
-      "url": "https://wellsfargo-verify-account.netlify.app",
+      "url": "http://00000000000000000000000.fielty.mx",
       "ground_truth_label": "MALICIOUS",
       "expected_category": "phishing",
-      "description": "Phishing site impersonating Wells Fargo",
+      "description": "Active phishing site targeting Unknown Target",
       "metadata": {
-        "source": "known_patterns",
-        "impersonated_brand": "Wells Fargo",
-        "target_service": "Banking",
-        "phishing_type": "credential_harvesting",
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
         "difficulty": "medium",
-        "test_purpose": "phishing_detection",
+        "test_purpose": "real_phishing_detection",
         "threat_indicators": [
+          "phishing",
           "brand_impersonation",
-          "credential_phishing"
-        ]
+          "credential_theft"
+        ],
+        "verified_active": true
       }
     },
     {
-      "url": "https://bankofamerica-alerts.herokuapp.com",
+      "url": "http://00000000000000000update.emy.ba",
       "ground_truth_label": "MALICIOUS",
       "expected_category": "phishing",
-      "description": "Phishing site impersonating Bank of America",
+      "description": "Active phishing site targeting Generic Service",
       "metadata": {
-        "source": "known_patterns",
-        "impersonated_brand": "Bank of America",
-        "target_service": "Banking",
+        "source": "Phishing-Database",
+        "impersonated_brand": "Generic Service",
         "phishing_type": "credential_harvesting",
         "difficulty": "medium",
-        "test_purpose": "phishing_detection",
+        "test_purpose": "real_phishing_detection",
         "threat_indicators": [
+          "phishing",
           "brand_impersonation",
-          "credential_phishing"
-        ]
+          "credential_theft"
+        ],
+        "verified_active": true
       }
     },
     {
-      "url": "https://google-account-recovery.herokuapp.com",
+      "url": "http://0000000000c0.x9xcax2a.workers.dev",
       "ground_truth_label": "MALICIOUS",
       "expected_category": "phishing",
-      "description": "Phishing site impersonating Google",
+      "description": "Active phishing site targeting Unknown Target",
       "metadata": {
-        "source": "known_patterns",
-        "impersonated_brand": "Google",
-        "target_service": "Gmail",
-        "phishing_type": "credential_harvesting",
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
         "difficulty": "medium",
-        "test_purpose": "phishing_detection",
+        "test_purpose": "real_phishing_detection",
         "threat_indicators": [
+          "phishing",
           "brand_impersonation",
-          "credential_phishing"
-        ]
+          "credential_theft"
+        ],
+        "verified_active": true
       }
     },
     {
-      "url": "https://gmail-security-alert.netlify.app",
+      "url": "http://000000000a0uutlook.weebly.com",
       "ground_truth_label": "MALICIOUS",
       "expected_category": "phishing",
-      "description": "Phishing site impersonating Google",
+      "description": "Active phishing site targeting Unknown Target",
       "metadata": {
-        "source": "known_patterns",
-        "impersonated_brand": "Google",
-        "target_service": "Gmail",
-        "phishing_type": "credential_harvesting",
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
         "difficulty": "medium",
-        "test_purpose": "phishing_detection",
+        "test_purpose": "real_phishing_detection",
         "threat_indicators": [
+          "phishing",
           "brand_impersonation",
-          "credential_phishing"
-        ]
+          "credential_theft"
+        ],
+        "verified_active": true
       }
     },
     {
-      "url": "https://adobe-document-share.herokuapp.com",
+      "url": "http://00000002.c1.biz",
       "ground_truth_label": "MALICIOUS",
       "expected_category": "phishing",
-      "description": "Phishing site impersonating Adobe",
+      "description": "Active phishing site targeting Unknown Target",
       "metadata": {
-        "source": "known_patterns",
-        "impersonated_brand": "Adobe",
-        "target_service": "Document sharing",
-        "phishing_type": "credential_harvesting",
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
         "difficulty": "medium",
-        "test_purpose": "phishing_detection",
+        "test_purpose": "real_phishing_detection",
         "threat_indicators": [
+          "phishing",
           "brand_impersonation",
-          "credential_phishing"
-        ]
+          "credential_theft"
+        ],
+        "verified_active": true
       }
     },
     {
-      "url": "https://adobe-sign-verify.netlify.app",
+      "url": "http://0000-1t8.pages.dev",
       "ground_truth_label": "MALICIOUS",
       "expected_category": "phishing",
-      "description": "Phishing site impersonating Adobe",
+      "description": "Active phishing site targeting Unknown Target",
       "metadata": {
-        "source": "known_patterns",
-        "impersonated_brand": "Adobe",
-        "target_service": "Document sharing",
-        "phishing_type": "credential_harvesting",
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
         "difficulty": "medium",
-        "test_purpose": "phishing_detection",
+        "test_purpose": "real_phishing_detection",
         "threat_indicators": [
+          "phishing",
           "brand_impersonation",
-          "credential_phishing"
-        ]
+          "credential_theft"
+        ],
+        "verified_active": true
       }
     },
     {
-      "url": "https://usps-redelivery-request.herokuapp.com",
+      "url": "http://000025123.com/banks/cibc",
       "ground_truth_label": "MALICIOUS",
       "expected_category": "phishing",
-      "description": "Phishing site impersonating USPS",
+      "description": "Active phishing site targeting Canadian Bank",
       "metadata": {
-        "source": "known_patterns",
-        "impersonated_brand": "USPS",
-        "target_service": "Delivery",
-        "phishing_type": "credential_harvesting",
+        "source": "Phishing-Database",
+        "impersonated_brand": "Canadian Bank",
+        "phishing_type": "banking",
         "difficulty": "medium",
-        "test_purpose": "phishing_detection",
+        "test_purpose": "real_phishing_detection",
         "threat_indicators": [
+          "phishing",
           "brand_impersonation",
-          "credential_phishing"
-        ]
+          "credential_theft"
+        ],
+        "verified_active": true
       }
     },
     {
-      "url": "https://dhl-delivery-update.netlify.app",
+      "url": "http://000025123.com/banks/desjardins",
       "ground_truth_label": "MALICIOUS",
       "expected_category": "phishing",
-      "description": "Phishing site impersonating DHL",
+      "description": "Active phishing site targeting Canadian Bank",
       "metadata": {
-        "source": "known_patterns",
-        "impersonated_brand": "DHL",
-        "target_service": "Delivery",
-        "phishing_type": "credential_harvesting",
+        "source": "Phishing-Database",
+        "impersonated_brand": "Canadian Bank",
+        "phishing_type": "banking",
         "difficulty": "medium",
-        "test_purpose": "phishing_detection",
+        "test_purpose": "real_phishing_detection",
         "threat_indicators": [
+          "phishing",
           "brand_impersonation",
-          "credential_phishing"
-        ]
+          "credential_theft"
+        ],
+        "verified_active": true
       }
     },
     {
-      "url": "https://fedex-tracking-info.herokuapp.com",
+      "url": "http://000025123.com/banks/scotia",
       "ground_truth_label": "MALICIOUS",
       "expected_category": "phishing",
-      "description": "Phishing site impersonating FedEx",
+      "description": "Active phishing site targeting Generic Bank",
       "metadata": {
-        "source": "known_patterns",
-        "impersonated_brand": "FedEx",
-        "target_service": "Delivery",
-        "phishing_type": "credential_harvesting",
+        "source": "Phishing-Database",
+        "impersonated_brand": "Generic Bank",
+        "phishing_type": "banking",
         "difficulty": "medium",
-        "test_purpose": "phishing_detection",
+        "test_purpose": "real_phishing_detection",
         "threat_indicators": [
+          "phishing",
           "brand_impersonation",
-          "credential_phishing"
-        ]
+          "credential_theft"
+        ],
+        "verified_active": true
       }
     },
     {
-      "url": "https://metamask-wallet-connect.netlify.app",
+      "url": "http://000025123.com/banks/simplii",
       "ground_truth_label": "MALICIOUS",
       "expected_category": "phishing",
-      "description": "Phishing site impersonating MetaMask",
+      "description": "Active phishing site targeting Canadian Bank",
       "metadata": {
-        "source": "known_patterns",
-        "impersonated_brand": "MetaMask",
-        "target_service": "Crypto wallet",
-        "phishing_type": "credential_harvesting",
+        "source": "Phishing-Database",
+        "impersonated_brand": "Canadian Bank",
+        "phishing_type": "banking",
         "difficulty": "medium",
-        "test_purpose": "phishing_detection",
+        "test_purpose": "real_phishing_detection",
         "threat_indicators": [
+          "phishing",
           "brand_impersonation",
-          "credential_phishing"
-        ]
+          "credential_theft"
+        ],
+        "verified_active": true
       }
     },
     {
-      "url": "https://coinbase-security-verify.herokuapp.com",
+      "url": "http://00003485.com/banks/tangerine",
       "ground_truth_label": "MALICIOUS",
       "expected_category": "phishing",
-      "description": "Phishing site impersonating Coinbase",
+      "description": "Active phishing site targeting Canadian Bank",
       "metadata": {
-        "source": "known_patterns",
-        "impersonated_brand": "Coinbase",
-        "target_service": "Cryptocurrency",
-        "phishing_type": "credential_harvesting",
+        "source": "Phishing-Database",
+        "impersonated_brand": "Canadian Bank",
+        "phishing_type": "banking",
         "difficulty": "medium",
-        "test_purpose": "phishing_detection",
+        "test_purpose": "real_phishing_detection",
         "threat_indicators": [
+          "phishing",
           "brand_impersonation",
-          "credential_phishing"
-        ]
+          "credential_theft"
+        ],
+        "verified_active": true
       }
     },
     {
-      "url": "https://trust-wallet-verify.netlify.app",
+      "url": "http://00003485.com/banks/td",
       "ground_truth_label": "MALICIOUS",
       "expected_category": "phishing",
-      "description": "Phishing site impersonating Trust Wallet",
+      "description": "Active phishing site targeting Generic Bank",
       "metadata": {
-        "source": "known_patterns",
-        "impersonated_brand": "Trust Wallet",
-        "target_service": "Crypto wallet",
-        "phishing_type": "credential_harvesting",
+        "source": "Phishing-Database",
+        "impersonated_brand": "Generic Bank",
+        "phishing_type": "banking",
         "difficulty": "medium",
-        "test_purpose": "phishing_detection",
+        "test_purpose": "real_phishing_detection",
         "threat_indicators": [
+          "phishing",
           "brand_impersonation",
-          "credential_phishing"
-        ]
+          "credential_theft"
+        ],
+        "verified_active": true
       }
     },
     {
-      "url": "https://facebook-account-verify.netlify.app",
+      "url": "http://0.0.0.0forum.cryptonight.net",
       "ground_truth_label": "MALICIOUS",
       "expected_category": "phishing",
-      "description": "Phishing site impersonating Facebook",
+      "description": "Active phishing site targeting Cryptocurrency Service",
       "metadata": {
-        "source": "known_patterns",
-        "impersonated_brand": "Facebook",
-        "target_service": "Social media",
-        "phishing_type": "credential_harvesting",
+        "source": "Phishing-Database",
+        "impersonated_brand": "Cryptocurrency Service",
+        "phishing_type": "cryptocurrency",
         "difficulty": "medium",
-        "test_purpose": "phishing_detection",
+        "test_purpose": "real_phishing_detection",
         "threat_indicators": [
+          "phishing",
           "brand_impersonation",
-          "credential_phishing"
-        ]
+          "credential_theft"
+        ],
+        "verified_active": true
       }
     },
     {
-      "url": "https://instagram-copyright-notice.herokuapp.com",
+      "url": "http://0000h00003.byethost7.com/?i=1",
       "ground_truth_label": "MALICIOUS",
       "expected_category": "phishing",
-      "description": "Phishing site impersonating Instagram",
+      "description": "Active phishing site targeting Unknown Target",
       "metadata": {
-        "source": "known_patterns",
-        "impersonated_brand": "Instagram",
-        "target_service": "Social media",
-        "phishing_type": "credential_harvesting",
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
         "difficulty": "medium",
-        "test_purpose": "phishing_detection",
+        "test_purpose": "real_phishing_detection",
         "threat_indicators": [
+          "phishing",
           "brand_impersonation",
-          "credential_phishing"
-        ]
+          "credential_theft"
+        ],
+        "verified_active": true
       }
     },
     {
-      "url": "https://linkedin-message-alert.netlify.app",
+      "url": "http://0.0.0.0mailgate.cryptonight.net",
       "ground_truth_label": "MALICIOUS",
       "expected_category": "phishing",
-      "description": "Phishing site impersonating LinkedIn",
+      "description": "Active phishing site targeting Cryptocurrency Service",
       "metadata": {
-        "source": "known_patterns",
-        "impersonated_brand": "LinkedIn",
-        "target_service": "Social media",
-        "phishing_type": "credential_harvesting",
+        "source": "Phishing-Database",
+        "impersonated_brand": "Cryptocurrency Service",
+        "phishing_type": "cryptocurrency",
         "difficulty": "medium",
-        "test_purpose": "phishing_detection",
+        "test_purpose": "real_phishing_detection",
         "threat_indicators": [
+          "phishing",
           "brand_impersonation",
-          "credential_phishing"
-        ]
+          "credential_theft"
+        ],
+        "verified_active": true
       }
     },
     {
-      "url": "https://windows-defender-alert.netlify.app",
+      "url": "http://0.0.0.0ns10.cryptonight.net",
       "ground_truth_label": "MALICIOUS",
       "expected_category": "phishing",
-      "description": "Phishing site impersonating Microsoft",
+      "description": "Active phishing site targeting Cryptocurrency Service",
       "metadata": {
-        "source": "known_patterns",
-        "impersonated_brand": "Microsoft",
-        "target_service": "Antivirus",
-        "phishing_type": "credential_harvesting",
+        "source": "Phishing-Database",
+        "impersonated_brand": "Cryptocurrency Service",
+        "phishing_type": "cryptocurrency",
         "difficulty": "medium",
-        "test_purpose": "phishing_detection",
+        "test_purpose": "real_phishing_detection",
         "threat_indicators": [
+          "phishing",
           "brand_impersonation",
-          "credential_phishing"
-        ]
+          "credential_theft"
+        ],
+        "verified_active": true
       }
     },
     {
-      "url": "https://apple-support-case.herokuapp.com",
+      "url": "http://0.0.0.0ssl.cryptonight.net",
       "ground_truth_label": "MALICIOUS",
       "expected_category": "phishing",
-      "description": "Phishing site impersonating Apple",
+      "description": "Active phishing site targeting Cryptocurrency Service",
       "metadata": {
-        "source": "known_patterns",
-        "impersonated_brand": "Apple",
-        "target_service": "Tech support",
-        "phishing_type": "credential_harvesting",
+        "source": "Phishing-Database",
+        "impersonated_brand": "Cryptocurrency Service",
+        "phishing_type": "cryptocurrency",
         "difficulty": "medium",
-        "test_purpose": "phishing_detection",
+        "test_purpose": "real_phishing_detection",
         "threat_indicators": [
+          "phishing",
           "brand_impersonation",
-          "credential_phishing"
-        ]
+          "credential_theft"
+        ],
+        "verified_active": true
       }
     },
     {
-      "url": "https://norton-renewal-notice.netlify.app",
+      "url": "http://0001.353527440.workers.dev",
       "ground_truth_label": "MALICIOUS",
       "expected_category": "phishing",
-      "description": "Phishing site impersonating Norton",
+      "description": "Active phishing site targeting Unknown Target",
       "metadata": {
-        "source": "known_patterns",
-        "impersonated_brand": "Norton",
-        "target_service": "Antivirus",
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://0001home.webflow.io",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://0007854.atwebpages.com/desk/index.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000811893962007154932393170597959432.hanefra7bikiemta.com",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000-845int283-000.xyz/directing/meridian/?&sessionid=5e639134cbdf89db4243214a433b2426&securessl=true",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Generic Service",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Generic Service",
         "phishing_type": "credential_harvesting",
         "difficulty": "medium",
-        "test_purpose": "phishing_detection",
+        "test_purpose": "real_phishing_detection",
         "threat_indicators": [
+          "phishing",
           "brand_impersonation",
-          "credential_phishing"
-        ]
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000-845int283-000.xyz/directing/www.atbonline.com/atb/details.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000-845int283-000.xyz/directing/www.atbonline.com/atb/login.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Generic Service",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Generic Service",
+        "phishing_type": "credential_harvesting",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000-845int283-000.xyz/directing/www.atbonline.com/atb/question.php",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000-845int283-000.xyz/directing/www.cibc.mobi/ebm-mobile-anp/accountconfirm.php",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Canadian Bank",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Canadian Bank",
+        "phishing_type": "banking",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://0009aak.pages.dev",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000agreementmail.weebly.com",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://0.0.0assets.cryptonight.net",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Cryptocurrency Service",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Cryptocurrency Service",
+        "phishing_type": "cryptocurrency",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000chgojhd78jhvbwreuvk.webnode.com",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://0.0.0dbs.cryptonight.net",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Cryptocurrency Service",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Cryptocurrency Service",
+        "phishing_type": "cryptocurrency",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000dmobilt9034.com/finance/atb/details.php",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000dmobilt9034.com/finance/atb/finishmsg.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000dmobilt9034.com/finance/atb/secquestions.php",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000dmobilt9034.com/finance/desj",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000dmobilt9034.com/finance/desj/index91484101498.php?08eaba1418ff27509e0ddc6c519199ed=",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000ficohs99onli22.125mb.com",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://0.0.0fileserver.cryptonight.net",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Cryptocurrency Service",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Cryptocurrency Service",
+        "phishing_type": "cryptocurrency",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000-hidro-1.info/finance/desj",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000-hidro-1.info/finance/desj/index91484101498.php",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000l34e.wcomhost.com/?fbclid=iwar0btlkrzzoi5ou7l2jy29nipaepitsvtkggmxltlwh8x-wn6yj6mmfqrru",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000l34e.wcomhost.com/?fbclid=IwAR0bTLKRzZoi5OU7l2Jy29nIPaepITsvtkgGMXlTLwh8x-wn6Yj6mmFqRRU",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000m8ih.wcomhost.com/mama/0f78b/index_2.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000m8ih.wcomhost.com/mama/23a2c/index_2.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000m8ih.wcomhost.com/mama/53c3e/index_2.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000m8ih.wcomhost.com/mama/adee9/index_2.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000m8ih.wcomhost.com/mama/c4fce/index_2.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000m8ih.wcomhost.com/nass1/072b7/index_2.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000m8ih.wcomhost.com/nass1/0dde4/index_2.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000m8ih.wcomhost.com/nass1/19423/index_2.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000m8ih.wcomhost.com/nass1/288f1/index_2.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000m8ih.wcomhost.com/nass1/36388/index_2.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000m8ih.wcomhost.com/nass1/44739/index_2.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000m8ih.wcomhost.com/nass1/575bd/index_2.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000m8ih.wcomhost.com/nass1/a2554/index_2.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000m8ih.wcomhost.com/nass1/b412b/index_2.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000m8ih.wcomhost.com/nass1/bec05/index_2.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000m8ih.wcomhost.com/nass1/c5487/index_2.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000m8ih.wcomhost.com/nass1/c6b64/index_2.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000m8ih.wcomhost.com/nass1/fe249/index_2.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000m8ih.wcomhost.com/papa/24083/index_2.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000m8ih.wcomhost.com/papa/3d7bf/index_2.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000m8ih.wcomhost.com/papa/98ed0/index_2.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000m8ih.wcomhost.com/papa/b6f27/index_2.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000m8ih.wcomhost.com/papa/c12e7/index_2.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000m8ih.wcomhost.com/papa/c4eed/index_2.html",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://0.0.0mail3.cryptonight.net",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Cryptocurrency Service",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Cryptocurrency Service",
+        "phishing_type": "cryptocurrency",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://0.0.0ns6.cryptonight.net",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Cryptocurrency Service",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Cryptocurrency Service",
+        "phishing_type": "cryptocurrency",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000nt6r.wcomhost.com/suspension/home/check/valid/access",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Unknown Target",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Unknown Target",
+        "phishing_type": "generic_phishing",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000o2ba.wcomhost.com/mail/good/customer_center/customer-idpp00c435/myaccount/signin",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Generic Service",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Generic Service",
+        "phishing_type": "credential_harvesting",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000o2ba.wcomhost.com/mail/good/customer_center/customer-IDPP00C435/myaccount/signin",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Generic Service",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Generic Service",
+        "phishing_type": "credential_harvesting",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000o2ba.wcomhost.com/mail/good/customer_center/customer-idpp00c443/myaccount/signin",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Generic Service",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Generic Service",
+        "phishing_type": "credential_harvesting",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000o2ba.wcomhost.com/mail/good/customer_center/customer-IDPP00C443/myaccount/signin",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Generic Service",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Generic Service",
+        "phishing_type": "credential_harvesting",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
+      }
+    },
+    {
+      "url": "http://000o5eh.wcomhost.com/admin/customer_center/customer-idpp00c352/myaccount/signin/?locale.x=en_",
+      "ground_truth_label": "MALICIOUS",
+      "expected_category": "phishing",
+      "description": "Active phishing site targeting Generic Service",
+      "metadata": {
+        "source": "Phishing-Database",
+        "impersonated_brand": "Generic Service",
+        "phishing_type": "credential_harvesting",
+        "difficulty": "medium",
+        "test_purpose": "real_phishing_detection",
+        "threat_indicators": [
+          "phishing",
+          "brand_impersonation",
+          "credential_theft"
+        ],
+        "verified_active": true
       }
     },
     {
