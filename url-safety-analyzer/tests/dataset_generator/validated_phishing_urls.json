@@ -1,0 +1,1289 @@
+{
+  "generated_at": "2024-12-04",
+  "validated_at": "2025-12-04 22:10:12",
+  "statistics": {
+    "total_checked": 58,
+    "live_urls": 0,
+    "dead_urls": 58,
+    "success_rate": 0.0
+  },
+  "live_urls": [],
+  "dead_urls": [
+    {
+      "url": "http://00-lhvpromt.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 13.333333333333334,
+      "validation": {
+        "url": "http://00-lhvpromt.com",
+        "timestamp": 1764886207.4373276,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "00-lhvpromt.com"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://007research.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 20.0,
+      "validation": {
+        "url": "http://007research.com",
+        "timestamp": 1764886207.4380047,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "007research.com"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://00e56.subskrypcje.homes",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 17.391304347826086,
+      "validation": {
+        "url": "http://00e56.subskrypcje.homes",
+        "timestamp": 1764886207.4388099,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "00e56.subskrypcje.homes"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://00media.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 18.181818181818183,
+      "validation": {
+        "url": "http://00media.com",
+        "timestamp": 1764886207.4396026,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "00media.com"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://02review-at0.online",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 15.789473684210526,
+      "validation": {
+        "url": "http://02review-at0.online",
+        "timestamp": 1764886207.4401028,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "02review-at0.online"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://04nethubfast.online",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 10.526315789473683,
+      "validation": {
+        "url": "http://04nethubfast.online",
+        "timestamp": 1764886207.4401948,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "04nethubfast.online"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://0855t.netflix-subscription-uae.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 11.76470588235294,
+      "validation": {
+        "url": "http://0855t.netflix-subscription-uae.com",
+        "timestamp": 1764886207.4405,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "0855t.netflix-subscription-uae.com"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://092384.idsecurityportal.com.es",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 20.0,
+      "validation": {
+        "url": "http://092384.idsecurityportal.com.es",
+        "timestamp": 1764886207.4411566,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "092384.idsecurityportal.com.es"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://0aksj7s.icu",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 18.181818181818183,
+      "validation": {
+        "url": "http://0aksj7s.icu",
+        "timestamp": 1764886207.4412172,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "0aksj7s.icu"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://0auth2.1mb.site",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 20.0,
+      "validation": {
+        "url": "http://0auth2.1mb.site",
+        "timestamp": 1764886207.4420035,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "0auth2.1mb.site"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://0bncm0ejy6qs9nahgyfgcyzgiknagtved6z.ip-ddns.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 10.638297872340425,
+      "validation": {
+        "url": "http://0bncm0ejy6qs9nahgyfgcyzgiknagtved6z.ip-ddns.com",
+        "timestamp": 1764886207.442112,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "0bncm0ejy6qs9nahgyfgcyzgiknagtved6z.ip-ddns.com"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://0btu8g.icu",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 20.0,
+      "validation": {
+        "url": "http://0btu8g.icu",
+        "timestamp": 1764886207.442258,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "0btu8g.icu"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://0dveg1.xyz",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 20.0,
+      "validation": {
+        "url": "http://0dveg1.xyz",
+        "timestamp": 1764886207.4423373,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "0dveg1.xyz"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://0ejnh4.icu",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 20.0,
+      "validation": {
+        "url": "http://0ejnh4.icu",
+        "timestamp": 1764886207.4423854,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "0ejnh4.icu"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://0fir0eb.top",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 18.181818181818183,
+      "validation": {
+        "url": "http://0fir0eb.top",
+        "timestamp": 1764886207.4428802,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "0fir0eb.top"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://0g3lux.sbs",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 20.0,
+      "validation": {
+        "url": "http://0g3lux.sbs",
+        "timestamp": 1764886207.4429522,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "0g3lux.sbs"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://0jnabshj.lat",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 8.333333333333332,
+      "validation": {
+        "url": "http://0jnabshj.lat",
+        "timestamp": 1764886207.44304,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "0jnabshj.lat"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://0lxpo.dsw23.shop",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 18.75,
+      "validation": {
+        "url": "http://0lxpo.dsw23.shop",
+        "timestamp": 1764886207.4439015,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "0lxpo.dsw23.shop"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://0m0e9.annaantonsson.se",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 13.636363636363635,
+      "validation": {
+        "url": "http://0m0e9.annaantonsson.se",
+        "timestamp": 1764886207.4440143,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "0m0e9.annaantonsson.se"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://0pnsepro.live",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 7.6923076923076925,
+      "validation": {
+        "url": "http://0pnsepro.live",
+        "timestamp": 1764886207.4441414,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "0pnsepro.live"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://0rlentalme.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 7.142857142857142,
+      "validation": {
+        "url": "http://0rlentalme.com",
+        "timestamp": 1764886207.4442317,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "0rlentalme.com"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://0s7yqw.cfd",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 20.0,
+      "validation": {
+        "url": "http://0s7yqw.cfd",
+        "timestamp": 1764886207.4443967,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "0s7yqw.cfd"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://0vb8cy.cfd",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 20.0,
+      "validation": {
+        "url": "http://0vb8cy.cfd",
+        "timestamp": 1764886207.4446833,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "0vb8cy.cfd"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://0vwf2b.cfd",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 20.0,
+      "validation": {
+        "url": "http://0vwf2b.cfd",
+        "timestamp": 1764886207.4455845,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "0vwf2b.cfd"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://0wnt1c.cfd",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 20.0,
+      "validation": {
+        "url": "http://0wnt1c.cfd",
+        "timestamp": 1764886207.4457233,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "0wnt1c.cfd"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://0wnvd5.icu",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 20.0,
+      "validation": {
+        "url": "http://0wnvd5.icu",
+        "timestamp": 1764886207.445857,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "0wnvd5.icu"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://0xeconomist.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 6.666666666666667,
+      "validation": {
+        "url": "http://0xeconomist.com",
+        "timestamp": 1764886207.44594,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "0xeconomist.com"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://0xlo.g7roxs.icu",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 13.333333333333334,
+      "validation": {
+        "url": "http://0xlo.g7roxs.icu",
+        "timestamp": 1764886207.446684,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "0xlo.g7roxs.icu"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://0xlo.sn9ast.top",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 13.333333333333334,
+      "validation": {
+        "url": "http://0xlo.sn9ast.top",
+        "timestamp": 1764886207.4468882,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "0xlo.sn9ast.top"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://0zs.vaiyiofrou.ru",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 5.88235294117647,
+      "validation": {
+        "url": "http://0zs.vaiyiofrou.ru",
+        "timestamp": 1764886207.446985,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "0zs.vaiyiofrou.ru"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://1-bdmbet.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 8.333333333333332,
+      "validation": {
+        "url": "http://1-bdmbet.com",
+        "timestamp": 1764886207.447038,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "1-bdmbet.com"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://1.newshubme.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 6.666666666666667,
+      "validation": {
+        "url": "http://1.newshubme.com",
+        "timestamp": 1764886207.4471633,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "1.newshubme.com"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://10-fold.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 18.181818181818183,
+      "validation": {
+        "url": "http://10-fold.com",
+        "timestamp": 1764886207.4475086,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "10-fold.com"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://1000-sign-up-bonus-casino-download.shop",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 10.256410256410255,
+      "validation": {
+        "url": "http://1000-sign-up-bonus-casino-download.shop",
+        "timestamp": 1764886207.4475734,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "1000-sign-up-bonus-casino-download.shop"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://1000lifelessons.shop",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 20.0,
+      "validation": {
+        "url": "http://1000lifelessons.shop",
+        "timestamp": 1764886207.4481063,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "1000lifelessons.shop"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://100affirmations.online",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 13.636363636363635,
+      "validation": {
+        "url": "http://100affirmations.online",
+        "timestamp": 1764886207.4481707,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "100affirmations.online"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://105368.livreur-aide-contact.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 19.35483870967742,
+      "validation": {
+        "url": "http://105368.livreur-aide-contact.com",
+        "timestamp": 1764886207.4483006,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "105368.livreur-aide-contact.com"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://1068.www-zaloguj.hair",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 19.047619047619047,
+      "validation": {
+        "url": "http://1068.www-zaloguj.hair",
+        "timestamp": 1764886207.4485326,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "1068.www-zaloguj.hair"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://10callsadaywhf.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 11.11111111111111,
+      "validation": {
+        "url": "http://10callsadaywhf.com",
+        "timestamp": 1764886207.4486644,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "10callsadaywhf.com"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://10forum.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 18.181818181818183,
+      "validation": {
+        "url": "http://10forum.com",
+        "timestamp": 1764886207.4489937,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "10forum.com"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://10inchsynths.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 12.5,
+      "validation": {
+        "url": "http://10inchsynths.com",
+        "timestamp": 1764886207.449364,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "10inchsynths.com"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://10kappa-app.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 13.333333333333334,
+      "validation": {
+        "url": "http://10kappa-app.com",
+        "timestamp": 1764886207.4499662,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "10kappa-app.com"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://10saxv.sbs",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 20.0,
+      "validation": {
+        "url": "http://10saxv.sbs",
+        "timestamp": 1764886207.4504063,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "10saxv.sbs"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://10x-capital-app.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 10.526315789473683,
+      "validation": {
+        "url": "http://10x-capital-app.com",
+        "timestamp": 1764886207.4509406,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "10x-capital-app.com"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://10xcapitalapp.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 11.76470588235294,
+      "validation": {
+        "url": "http://10xcapitalapp.com",
+        "timestamp": 1764886207.4515433,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "10xcapitalapp.com"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://10xpergola.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 14.285714285714285,
+      "validation": {
+        "url": "http://10xpergola.com",
+        "timestamp": 1764886207.4520168,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "10xpergola.com"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://110stepstoexcellence.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 12.5,
+      "validation": {
+        "url": "http://110stepstoexcellence.com",
+        "timestamp": 1764886207.4525585,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "110stepstoexcellence.com"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://11teamsports-en.club",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 10.0,
+      "validation": {
+        "url": "http://11teamsports-en.club",
+        "timestamp": 1764886207.45312,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "11teamsports-en.club"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://11teamsportsaa.top",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 11.11111111111111,
+      "validation": {
+        "url": "http://11teamsportsaa.top",
+        "timestamp": 1764886212.448815,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "11teamsportsaa.top"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://11teamsportshop.club",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 10.0,
+      "validation": {
+        "url": "http://11teamsportshop.club",
+        "timestamp": 1764886212.449005,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "11teamsportshop.club"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://11teamsportskn.top",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 11.11111111111111,
+      "validation": {
+        "url": "http://11teamsportskn.top",
+        "timestamp": 1764886212.449128,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "11teamsportskn.top"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://11teamsportslsk.top",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 10.526315789473683,
+      "validation": {
+        "url": "http://11teamsportslsk.top",
+        "timestamp": 1764886212.4491985,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "11teamsportslsk.top"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://11teamsportsonline.club",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 8.695652173913043,
+      "validation": {
+        "url": "http://11teamsportsonline.club",
+        "timestamp": 1764886212.4493856,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "11teamsportsonline.club"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://11teamsportstore.club",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 9.523809523809524,
+      "validation": {
+        "url": "http://11teamsportstore.club",
+        "timestamp": 1764886212.4495094,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "11teamsportstore.club"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://11teamsportsxh.top",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 11.11111111111111,
+      "validation": {
+        "url": "http://11teamsportsxh.top",
+        "timestamp": 1764886212.4495535,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "11teamsportsxh.top"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://11teamzo.club",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 15.384615384615385,
+      "validation": {
+        "url": "http://11teamzo.club",
+        "timestamp": 1764886212.4496615,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "11teamzo.club"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://11thhouse.net",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 15.384615384615385,
+      "validation": {
+        "url": "http://11thhouse.net",
+        "timestamp": 1764886212.449824,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "11thhouse.net"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    },
+    {
+      "url": "http://11thhouse.org",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 15.384615384615385,
+      "validation": {
+        "url": "http://11thhouse.org",
+        "timestamp": 1764886212.44999,
+        "dns": {
+          "resolved": false,
+          "error": "DNS resolution failed",
+          "hostname": "11thhouse.org"
+        },
+        "is_live": false,
+        "http": {
+          "responding": false,
+          "error": "DNS failed"
+        }
+      },
+      "is_live": false
+    }
+  ]
+}
