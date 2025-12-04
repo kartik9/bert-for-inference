@@ -1,0 +1,182 @@
+{
+  "fetched_at": "2024-12-04",
+  "sources": {
+    "cached_phishing": [
+      {
+        "url": "ftp://188.128.111.33/iptv/tv1324/view.html",
+        "ground_truth_label": "MALICIOUS",
+        "expected_category": "phishing",
+        "description": "Active phishing site targeting Unknown Target",
+        "metadata": {
+          "source": "Phishing-Database",
+          "impersonated_brand": "Unknown Target",
+          "phishing_type": "generic_phishing",
+          "difficulty": "medium",
+          "test_purpose": "real_phishing_detection",
+          "threat_indicators": [
+            "phishing",
+            "brand_impersonation",
+            "credential_theft"
+          ],
+          "verified_active": true,
+          "fetch_date": "2025-11-10T08:01:16.362816"
+        }
+      },
+      {
+        "url": "ftp://me@createkindlebooks.org:noobasshole@createkindlebooks.org/index.html",
+        "ground_truth_label": "MALICIOUS",
+        "expected_category": "phishing",
+        "description": "Active phishing site targeting Unknown Target",
+        "metadata": {
+          "source": "Phishing-Database",
+          "impersonated_brand": "Unknown Target",
+          "phishing_type": "generic_phishing",
+          "difficulty": "medium",
+          "test_purpose": "real_phishing_detection",
+          "threat_indicators": [
+            "phishing",
+            "brand_impersonation",
+            "credential_theft"
+          ],
+          "verified_active": true,
+          "fetch_date": "2025-11-10T08:01:16.362870"
+        }
+      },
+      {
+        "url": "http://00000000000000000000000000000000000000dfjjjhv.000webhostapp.com/yahoo/yahooattt/global/attverzon/login.php?.intl=us&.lang=en-us&https://login.yahoo.com/?.src=ym",
+        "ground_truth_label": "MALICIOUS",
+        "expected_category": "phishing",
+        "description": "Active phishing site targeting Yahoo",
+        "metadata": {
+          "source": "Phishing-Database",
+          "impersonated_brand": "Yahoo",
+          "phishing_type": "email_provider",
+          "difficulty": "medium",
+          "test_purpose": "real_phishing_detection",
+          "threat_indicators": [
+            "phishing",
+            "brand_impersonation",
+            "credential_theft"
+          ],
+          "verified_active": true,
+          "fetch_date": "2025-11-10T08:01:16.362891"
+        }
+      },
+      {
+        "url": "http://000000000000000000000000000000000000dbscrfg.000webhostapp.com/yahoo/yahooattt/global/attverzon/login.php?https%3a//login.yahoo.com/?.src=ym&.intl=us&.lang=en-us",
+        "ground_truth_label": "MALICIOUS",
+        "expected_category": "phishing",
+        "description": "Active phishing site targeting Yahoo",
+        "metadata": {
+          "source": "Phishing-Database",
+          "impersonated_brand": "Yahoo",
+          "phishing_type": "email_provider",
+          "difficulty": "medium",
+          "test_purpose": "real_phishing_detection",
+          "threat_indicators": [
+            "phishing",
+            "brand_impersonation",
+            "credential_theft"
+          ],
+          "verified_active": true,
+          "fetch_date": "2025-11-10T08:01:16.362912"
+        }
+      },
+      {
+        "url": "http://000000000000000000000000000yteyeuya.000webhostapp.com/yahoo/yahooattt/global/attverzon/login.php",
+        "ground_truth_label": "MALICIOUS",
+        "expected_category": "phishing",
+        "description": "Active phishing site targeting Yahoo",
+        "metadata": {
+          "source": "Phishing-Database",
+          "impersonated_brand": "Yahoo",
+          "phishing_type": "email_provider",
+          "difficulty": "medium",
+          "test_purpose": "real_phishing_detection",
+          "threat_indicators": [
+            "phishing",
+            "brand_impersonation",
+            "credential_theft"
+          ],
+          "verified_active": true,
+          "fetch_date": "2025-11-10T08:01:16.362928"
+        }
+      }
+    ],
+    "urlhaus": [
+      {
+        "url": "http://115.63.131.39:42278/i",
+        "urlhaus_id": "\"3725089\"",
+        "threat": "2025-12-04 17:31:13",
+        "tags": "malware_download",
+        "dateadded": "\"2025-12-04 17:31:13\"",
+        "status": "online"
+      },
+      {
+        "url": "http://117.223.23.254:59057/i",
+        "urlhaus_id": "\"3725088\"",
+        "threat": "2025-12-04 17:15:08",
+        "tags": "malware_download",
+        "dateadded": "\"2025-12-04 17:15:08\"",
+        "status": "online"
+      },
+      {
+        "url": "http://182.127.44.118:58530/bin.sh",
+        "urlhaus_id": "\"3725087\"",
+        "threat": "2025-12-04 17:14:13",
+        "tags": "malware_download",
+        "dateadded": "\"2025-12-04 17:14:13\"",
+        "status": "online"
+      },
+      {
+        "url": "http://42.85.180.228:57861/i",
+        "urlhaus_id": "\"3725086\"",
+        "threat": "2025-12-04 17:12:16",
+        "tags": "malware_download",
+        "dateadded": "\"2025-12-04 17:12:16\"",
+        "status": "online"
+      },
+      {
+        "url": "http://110.36.0.205:35315/bin.sh",
+        "urlhaus_id": "\"3725085\"",
+        "threat": "2025-12-04 17:08:08",
+        "tags": "malware_download",
+        "dateadded": "\"2025-12-04 17:08:08\"",
+        "status": "online"
+      }
+    ],
+    "phishing_army": [
+      {
+        "url": "http://0-230-23.rest",
+        "source": "phishing_army",
+        "type": "phishing"
+      },
+      {
+        "url": "http://00-coopb144.com",
+        "source": "phishing_army",
+        "type": "phishing"
+      },
+      {
+        "url": "http://00-coopban523.com",
+        "source": "phishing_army",
+        "type": "phishing"
+      },
+      {
+        "url": "http://00-lhvpromt.com",
+        "source": "phishing_army",
+        "type": "phishing"
+      },
+      {
+        "url": "http://000-000-37645t2783296323fn2.calibrescientifics.com",
+        "source": "phishing_army",
+        "type": "phishing"
+      }
+    ]
+  },
+  "summary": {
+    "cached_phishing_count": 5,
+    "urlhaus_count": 5,
+    "phishing_army_count": 5,
+    "total_count": 15
+  }
+}
