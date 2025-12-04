@@ -117,8 +117,25 @@ class PhishingArmyFetcher:
             return []
 
 
-def filter_urls(urls: List[Dict[str, Any]], threshold: float = 75.0) -> tuple:
-    """Filter URLs by numeric percentage."""
+def is_ip_based_url(url: str) -> bool:
+    """Check if URL uses IP address instead of domain name."""
+    # Remove protocol
+    url_without_protocol = re.sub(r'^[a-z]+://', '', url, flags=re.IGNORECASE)
+    # Get the host part (before first / or :)
+    host = url_without_protocol.split('/')[0].split(':')[0]
+
+    # Check if it looks like an IP address (has dots and is mostly numeric)
+    if '.' in host:
+        parts = host.split('.')
+        # IPv4 check: 4 parts, all numeric
+        if len(parts) == 4 and all(part.isdigit() for part in parts):
+            return True
+
+    return False
+
+
+def filter_urls(urls: List[Dict[str, Any]], threshold: float = 20.0) -> tuple:
+    """Filter URLs by numeric percentage and other criteria."""
     kept = []
     filtered = []
 
@@ -127,11 +144,20 @@ def filter_urls(urls: List[Dict[str, Any]], threshold: float = 75.0) -> tuple:
         numeric_pct = calculate_numeric_percentage(url)
         entry['numeric_percentage'] = numeric_pct
 
+        # Filter by numeric percentage
         if numeric_pct > threshold:
-            entry['filter_reason'] = f"Too many numbers: {numeric_pct:.1f}% numeric"
+            entry['filter_reason'] = f"Too many numbers: {numeric_pct:.1f}% numeric (threshold: {threshold}%)"
             filtered.append(entry)
-        else:
-            kept.append(entry)
+            continue
+
+        # Filter URLhaus malware URLs that are IP-based
+        if entry.get('source') == 'urlhaus' and is_ip_based_url(url):
+            entry['filter_reason'] = f"IP-based URL (malware URLs should use domain names)"
+            filtered.append(entry)
+            continue
+
+        # Keep this URL
+        kept.append(entry)
 
     return kept, filtered
 
@@ -151,10 +177,11 @@ def main():
     urlhaus_fetcher = URLhausFetcher()
     phishing_army_fetcher = PhishingArmyFetcher()
 
-    # Fetch more than we need to account for filtering
+    # Fetch more than we need to account for stricter filtering (20% threshold + IP filtering)
+    # With 78% filter rate, need ~227 total URLs to get 50 kept, so fetch 150 from each
     print("\n--- FETCHING PHASE ---\n")
-    urlhaus_urls = urlhaus_fetcher.fetch(count=30)
-    phishing_army_urls = phishing_army_fetcher.fetch(count=30)
+    urlhaus_urls = urlhaus_fetcher.fetch(count=150)  # Fetch more due to IP filtering
+    phishing_army_urls = phishing_army_fetcher.fetch(count=150)  # Fetch more due to 20% threshold
 
     all_urls = urlhaus_urls + phishing_army_urls
 
@@ -165,10 +192,10 @@ def main():
 
     # Filter URLs
     print(f"\n\n{'=' * 100}")
-    print("FILTERING PHASE (>75% numeric characters)")
+    print("FILTERING PHASE (>20% numeric characters + IP-based URLhaus)")
     print(f"{'=' * 100}\n")
 
-    kept_urls, filtered_urls = filter_urls(all_urls, threshold=75.0)
+    kept_urls, filtered_urls = filter_urls(all_urls, threshold=20.0)
 
     print(f"✓ Kept: {len(kept_urls)} URLs")
     print(f"✗ Filtered: {len(filtered_urls)} URLs")
@@ -185,7 +212,7 @@ def main():
     print("NUMERIC PERCENTAGE DISTRIBUTION")
     print(f"{'=' * 100}")
 
-    ranges = [(0, 10), (10, 25), (25, 50), (50, 75), (75, 90), (90, 100)]
+    ranges = [(0, 5), (5, 10), (10, 15), (15, 20), (20, 30), (30, 50), (50, 75), (75, 100)]
     for min_pct, max_pct in ranges:
         count = sum(1 for u in kept_urls if min_pct <= u['numeric_percentage'] < max_pct)
         print(f"{min_pct:3d}% - {max_pct:3d}%: {count:3d} URLs")
@@ -220,8 +247,8 @@ def main():
         "description": "Fresh malicious URLs from live sources only",
         "sources": ["urlhaus", "phishing_army"],
         "filter_criteria": {
-            "numeric_threshold": 75.0,
-            "description": "URLs with >75% numeric characters filtered"
+            "numeric_threshold": 20.0,
+            "description": "URLs with >20% numeric characters filtered, IP-based URLhaus malware URLs filtered"
         },
         "statistics": {
             "total_fetched": len(all_urls),

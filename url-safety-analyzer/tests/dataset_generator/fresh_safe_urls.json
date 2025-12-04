@@ -1,0 +1,367 @@
+{
+  "generated_at": "2025-12-04 18:25:09",
+  "description": "Fresh safe URLs including YC startups as hard negatives",
+  "sources": [
+    "yc_startups",
+    "top_websites"
+  ],
+  "statistics": {
+    "total_urls": 35,
+    "yc_startups_count": 20,
+    "top_websites_count": 15,
+    "hard_negatives": 20,
+    "easy_negatives": 15
+  },
+  "urls": [
+    {
+      "url": "https://cursor.sh",
+      "source": "yc_startups",
+      "category": "safe",
+      "name": "Cursor",
+      "yc_batch": "S23",
+      "startup_category": "AI code editor",
+      "numeric_percentage": 0.0,
+      "hard_negative": true
+    },
+    {
+      "url": "https://cal.com",
+      "source": "yc_startups",
+      "category": "safe",
+      "name": "Cal.com",
+      "yc_batch": "S21",
+      "startup_category": "Scheduling",
+      "numeric_percentage": 0.0,
+      "hard_negative": true
+    },
+    {
+      "url": "https://vercel.com",
+      "source": "yc_startups",
+      "category": "safe",
+      "name": "Vercel",
+      "yc_batch": "S15",
+      "startup_category": "Web hosting",
+      "numeric_percentage": 0.0,
+      "hard_negative": true
+    },
+    {
+      "url": "https://retool.com",
+      "source": "yc_startups",
+      "category": "safe",
+      "name": "Retool",
+      "yc_batch": "W17",
+      "startup_category": "Internal tools",
+      "numeric_percentage": 0.0,
+      "hard_negative": true
+    },
+    {
+      "url": "https://posthog.com",
+      "source": "yc_startups",
+      "category": "safe",
+      "name": "PostHog",
+      "yc_batch": "W20",
+      "startup_category": "Analytics",
+      "numeric_percentage": 0.0,
+      "hard_negative": true
+    },
+    {
+      "url": "https://zapier.com",
+      "source": "yc_startups",
+      "category": "safe",
+      "name": "Zapier",
+      "yc_batch": "S12",
+      "startup_category": "Automation",
+      "numeric_percentage": 0.0,
+      "hard_negative": true
+    },
+    {
+      "url": "https://linear.app",
+      "source": "yc_startups",
+      "category": "safe",
+      "name": "Linear",
+      "yc_batch": "S19",
+      "startup_category": "Project management",
+      "numeric_percentage": 0.0,
+      "hard_negative": true
+    },
+    {
+      "url": "https://supabase.com",
+      "source": "yc_startups",
+      "category": "safe",
+      "name": "Supabase",
+      "yc_batch": "S20",
+      "startup_category": "Backend as a service",
+      "numeric_percentage": 0.0,
+      "hard_negative": true
+    },
+    {
+      "url": "https://algolia.com",
+      "source": "yc_startups",
+      "category": "safe",
+      "name": "Algolia",
+      "yc_batch": "S14",
+      "startup_category": "Search API",
+      "numeric_percentage": 0.0,
+      "hard_negative": true
+    },
+    {
+      "url": "https://segment.com",
+      "source": "yc_startups",
+      "category": "safe",
+      "name": "Segment",
+      "yc_batch": "S11",
+      "startup_category": "Data platform",
+      "numeric_percentage": 0.0,
+      "hard_negative": true
+    },
+    {
+      "url": "https://replicate.com",
+      "source": "yc_startups",
+      "category": "safe",
+      "name": "Replicate",
+      "yc_batch": "W23",
+      "startup_category": "ML infrastructure",
+      "numeric_percentage": 0.0,
+      "hard_negative": true
+    },
+    {
+      "url": "https://modal.com",
+      "source": "yc_startups",
+      "category": "safe",
+      "name": "Modal",
+      "yc_batch": "S21",
+      "startup_category": "Cloud compute",
+      "numeric_percentage": 0.0,
+      "hard_negative": true
+    },
+    {
+      "url": "https://resend.com",
+      "source": "yc_startups",
+      "category": "safe",
+      "name": "Resend",
+      "yc_batch": "W23",
+      "startup_category": "Email API",
+      "numeric_percentage": 0.0,
+      "hard_negative": true
+    },
+    {
+      "url": "https://liveblocks.io",
+      "source": "yc_startups",
+      "category": "safe",
+      "name": "Liveblocks",
+      "yc_batch": "W21",
+      "startup_category": "Real-time collaboration",
+      "numeric_percentage": 0.0,
+      "hard_negative": true
+    },
+    {
+      "url": "https://clerk.dev",
+      "source": "yc_startups",
+      "category": "safe",
+      "name": "Clerk",
+      "yc_batch": "S20",
+      "startup_category": "Authentication",
+      "numeric_percentage": 0.0,
+      "hard_negative": true
+    },
+    {
+      "url": "https://upstash.com",
+      "source": "yc_startups",
+      "category": "safe",
+      "name": "Upstash",
+      "yc_batch": "S21",
+      "startup_category": "Serverless database",
+      "numeric_percentage": 0.0,
+      "hard_negative": true
+    },
+    {
+      "url": "https://inngest.com",
+      "source": "yc_startups",
+      "category": "safe",
+      "name": "Inngest",
+      "yc_batch": "S22",
+      "startup_category": "Workflow engine",
+      "numeric_percentage": 0.0,
+      "hard_negative": true
+    },
+    {
+      "url": "https://fal.ai",
+      "source": "yc_startups",
+      "category": "safe",
+      "name": "Fal",
+      "yc_batch": "W23",
+      "startup_category": "AI inference",
+      "numeric_percentage": 0.0,
+      "hard_negative": true
+    },
+    {
+      "url": "https://axiom.co",
+      "source": "yc_startups",
+      "category": "safe",
+      "name": "Axiom",
+      "yc_batch": "S20",
+      "startup_category": "Observability",
+      "numeric_percentage": 0.0,
+      "hard_negative": true
+    },
+    {
+      "url": "https://trigger.dev",
+      "source": "yc_startups",
+      "category": "safe",
+      "name": "Trigger.dev",
+      "yc_batch": "S23",
+      "startup_category": "Background jobs",
+      "numeric_percentage": 0.0,
+      "hard_negative": true
+    },
+    {
+      "url": "https://google.com",
+      "source": "top_websites",
+      "category": "safe",
+      "name": "Google",
+      "site_category": "Search engine",
+      "alexa_rank": 1,
+      "numeric_percentage": 0.0,
+      "hard_negative": false
+    },
+    {
+      "url": "https://youtube.com",
+      "source": "top_websites",
+      "category": "safe",
+      "name": "YouTube",
+      "site_category": "Video platform",
+      "alexa_rank": 2,
+      "numeric_percentage": 0.0,
+      "hard_negative": false
+    },
+    {
+      "url": "https://facebook.com",
+      "source": "top_websites",
+      "category": "safe",
+      "name": "Facebook",
+      "site_category": "Social media",
+      "alexa_rank": 3,
+      "numeric_percentage": 0.0,
+      "hard_negative": false
+    },
+    {
+      "url": "https://amazon.com",
+      "source": "top_websites",
+      "category": "safe",
+      "name": "Amazon",
+      "site_category": "E-commerce",
+      "alexa_rank": 4,
+      "numeric_percentage": 0.0,
+      "hard_negative": false
+    },
+    {
+      "url": "https://wikipedia.org",
+      "source": "top_websites",
+      "category": "safe",
+      "name": "Wikipedia",
+      "site_category": "Encyclopedia",
+      "alexa_rank": 5,
+      "numeric_percentage": 0.0,
+      "hard_negative": false
+    },
+    {
+      "url": "https://twitter.com",
+      "source": "top_websites",
+      "category": "safe",
+      "name": "Twitter",
+      "site_category": "Social media",
+      "alexa_rank": 6,
+      "numeric_percentage": 0.0,
+      "hard_negative": false
+    },
+    {
+      "url": "https://instagram.com",
+      "source": "top_websites",
+      "category": "safe",
+      "name": "Instagram",
+      "site_category": "Social media",
+      "alexa_rank": 7,
+      "numeric_percentage": 0.0,
+      "hard_negative": false
+    },
+    {
+      "url": "https://linkedin.com",
+      "source": "top_websites",
+      "category": "safe",
+      "name": "LinkedIn",
+      "site_category": "Professional network",
+      "alexa_rank": 8,
+      "numeric_percentage": 0.0,
+      "hard_negative": false
+    },
+    {
+      "url": "https://reddit.com",
+      "source": "top_websites",
+      "category": "safe",
+      "name": "Reddit",
+      "site_category": "Forum",
+      "alexa_rank": 9,
+      "numeric_percentage": 0.0,
+      "hard_negative": false
+    },
+    {
+      "url": "https://netflix.com",
+      "source": "top_websites",
+      "category": "safe",
+      "name": "Netflix",
+      "site_category": "Streaming",
+      "alexa_rank": 10,
+      "numeric_percentage": 0.0,
+      "hard_negative": false
+    },
+    {
+      "url": "https://github.com",
+      "source": "top_websites",
+      "category": "safe",
+      "name": "GitHub",
+      "site_category": "Code hosting",
+      "alexa_rank": 15,
+      "numeric_percentage": 0.0,
+      "hard_negative": false
+    },
+    {
+      "url": "https://microsoft.com",
+      "source": "top_websites",
+      "category": "safe",
+      "name": "Microsoft",
+      "site_category": "Technology",
+      "alexa_rank": 20,
+      "numeric_percentage": 0.0,
+      "hard_negative": false
+    },
+    {
+      "url": "https://apple.com",
+      "source": "top_websites",
+      "category": "safe",
+      "name": "Apple",
+      "site_category": "Technology",
+      "alexa_rank": 25,
+      "numeric_percentage": 0.0,
+      "hard_negative": false
+    },
+    {
+      "url": "https://stackoverflow.com",
+      "source": "top_websites",
+      "category": "safe",
+      "name": "Stack Overflow",
+      "site_category": "Q&A forum",
+      "alexa_rank": 30,
+      "numeric_percentage": 0.0,
+      "hard_negative": false
+    },
+    {
+      "url": "https://nytimes.com",
+      "source": "top_websites",
+      "category": "safe",
+      "name": "New York Times",
+      "site_category": "News",
+      "alexa_rank": 35,
+      "numeric_percentage": 0.0,
+      "hard_negative": false
+    }
+  ]
+}
