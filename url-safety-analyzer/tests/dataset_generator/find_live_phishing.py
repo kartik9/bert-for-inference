@@ -113,18 +113,21 @@ def fetch_phishing_army_urls(count: int = 1000) -> List[str]:
 def main():
     """Find 10 live Phishing Army URLs."""
     import warnings
+    import random
     warnings.filterwarnings('ignore', message='Unverified HTTPS request')
 
     print("=" * 100)
     print("FINDING LIVE PHISHING ARMY URLs")
     print("=" * 100)
     print("\nTarget: 10 live URLs with ≤20% numeric content")
+    print("Strategy: Fetch large list, randomly sample for validation")
     print("⚠️  WARNING: Validating potentially malicious URLs\n")
 
-    # Fetch large batch
-    all_urls = fetch_phishing_army_urls(count=2000)
+    # Fetch HUGE batch (all available URLs)
+    all_urls = fetch_phishing_army_urls(count=100000)
 
-    print(f"\nStarting validation of {len(all_urls)} URLs...")
+    print(f"\nTotal URLs available: {len(all_urls)}")
+    print(f"Randomly sampling URLs for validation...")
     print("Validating in parallel batches...\n")
 
     live_urls = []
@@ -132,14 +135,18 @@ def main():
     batch_size = 100
     max_workers = 30
 
+    # Create a shuffled copy for random sampling
+    shuffled_urls = all_urls.copy()
+    random.shuffle(shuffled_urls)
+
     start_time = time.time()
 
-    for i in range(0, len(all_urls), batch_size):
+    for i in range(0, len(shuffled_urls), batch_size):
         if len(live_urls) >= 10:
             break
 
-        batch = all_urls[i:i + batch_size]
-        print(f"Validating batch {i//batch_size + 1} ({len(batch)} URLs)...", end=" ")
+        batch = shuffled_urls[i:i + batch_size]
+        print(f"Validating random batch {i//batch_size + 1} ({len(batch)} URLs)...", end=" ")
 
         batch_start = time.time()
 
