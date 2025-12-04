@@ -1,0 +1,42 @@
+{
+  "fetched_at": "2025-12-04 17:56:44 UTC",
+  "source": "phishtank_scrape",
+  "count": 5,
+  "urls": [
+    {
+      "url": "phish_detail.php?phish_id=9283779",
+      "phish_id": "9283779",
+      "source": "phishtank_scrape",
+      "verified": true,
+      "active": true
+    },
+    {
+      "url": "user.php?username=prodigyabuse",
+      "phish_id": "9283779",
+      "source": "phishtank_scrape",
+      "verified": true,
+      "active": true
+    },
+    {
+      "url": "phish_detail.php?phish_id=9283776",
+      "phish_id": "9283776",
+      "source": "phishtank_scrape",
+      "verified": true,
+      "active": true
+    },
+    {
+      "url": "user.php?username=D3Lab",
+      "phish_id": "9283776",
+      "source": "phishtank_scrape",
+      "verified": true,
+      "active": true
+    },
+    {
+      "url": "phish_detail.php?phish_id=9283775",
+      "phish_id": "9283775",
+      "source": "phishtank_scrape",
+      "verified": true,
+      "active": true
+    }
+  ]
+}
