@@ -1,0 +1,222 @@
+{
+  "filtered_at": "2024-12-04",
+  "filter_criteria": {
+    "numeric_threshold": 75.0,
+    "description": "URLs with >75% numeric characters are filtered as obviously suspicious"
+  },
+  "sources": {
+    "cached_phishing": {
+      "urls": [
+        {
+          "url": "ftp://188.128.111.33/iptv/tv1324/view.html",
+          "ground_truth_label": "MALICIOUS",
+          "expected_category": "phishing",
+          "description": "Active phishing site targeting Unknown Target",
+          "metadata": {
+            "source": "Phishing-Database",
+            "impersonated_brand": "Unknown Target",
+            "phishing_type": "generic_phishing",
+            "difficulty": "medium",
+            "test_purpose": "real_phishing_detection",
+            "threat_indicators": [
+              "phishing",
+              "brand_impersonation",
+              "credential_theft"
+            ],
+            "verified_active": true,
+            "fetch_date": "2025-11-10T08:01:16.362816"
+          },
+          "numeric_percentage": 41.66666666666667
+        },
+        {
+          "url": "ftp://me@createkindlebooks.org:noobasshole@createkindlebooks.org/index.html",
+          "ground_truth_label": "MALICIOUS",
+          "expected_category": "phishing",
+          "description": "Active phishing site targeting Unknown Target",
+          "metadata": {
+            "source": "Phishing-Database",
+            "impersonated_brand": "Unknown Target",
+            "phishing_type": "generic_phishing",
+            "difficulty": "medium",
+            "test_purpose": "real_phishing_detection",
+            "threat_indicators": [
+              "phishing",
+              "brand_impersonation",
+              "credential_theft"
+            ],
+            "verified_active": true,
+            "fetch_date": "2025-11-10T08:01:16.362870"
+          },
+          "numeric_percentage": 0.0
+        },
+        {
+          "url": "http://00000000000000000000000000000000000000dfjjjhv.000webhostapp.com/yahoo/yahooattt/global/attverzon/login.php?.intl=us&.lang=en-us&https://login.yahoo.com/?.src=ym",
+          "ground_truth_label": "MALICIOUS",
+          "expected_category": "phishing",
+          "description": "Active phishing site targeting Yahoo",
+          "metadata": {
+            "source": "Phishing-Database",
+            "impersonated_brand": "Yahoo",
+            "phishing_type": "email_provider",
+            "difficulty": "medium",
+            "test_purpose": "real_phishing_detection",
+            "threat_indicators": [
+              "phishing",
+              "brand_impersonation",
+              "credential_theft"
+            ],
+            "verified_active": true,
+            "fetch_date": "2025-11-10T08:01:16.362891"
+          },
+          "numeric_percentage": 25.624999999999996
+        },
+        {
+          "url": "http://000000000000000000000000000000000000dbscrfg.000webhostapp.com/yahoo/yahooattt/global/attverzon/login.php?https%3a//login.yahoo.com/?.src=ym&.intl=us&.lang=en-us",
+          "ground_truth_label": "MALICIOUS",
+          "expected_category": "phishing",
+          "description": "Active phishing site targeting Yahoo",
+          "metadata": {
+            "source": "Phishing-Database",
+            "impersonated_brand": "Yahoo",
+            "phishing_type": "email_provider",
+            "difficulty": "medium",
+            "test_purpose": "real_phishing_detection",
+            "threat_indicators": [
+              "phishing",
+              "brand_impersonation",
+              "credential_theft"
+            ],
+            "verified_active": true,
+            "fetch_date": "2025-11-10T08:01:16.362912"
+          },
+          "numeric_percentage": 25.0
+        },
+        {
+          "url": "http://000000000000000000000000000yteyeuya.000webhostapp.com/yahoo/yahooattt/global/attverzon/login.php",
+          "ground_truth_label": "MALICIOUS",
+          "expected_category": "phishing",
+          "description": "Active phishing site targeting Yahoo",
+          "metadata": {
+            "source": "Phishing-Database",
+            "impersonated_brand": "Yahoo",
+            "phishing_type": "email_provider",
+            "difficulty": "medium",
+            "test_purpose": "real_phishing_detection",
+            "threat_indicators": [
+              "phishing",
+              "brand_impersonation",
+              "credential_theft"
+            ],
+            "verified_active": true,
+            "fetch_date": "2025-11-10T08:01:16.362928"
+          },
+          "numeric_percentage": 31.25
+        }
+      ],
+      "stats": {
+        "original": 5,
+        "kept": 5,
+        "filtered": 0,
+        "filter_rate": 0.0
+      },
+      "filtered_urls": []
+    },
+    "urlhaus": {
+      "urls": [
+        {
+          "url": "http://115.63.131.39:42278/i",
+          "urlhaus_id": "\"3725089\"",
+          "threat": "2025-12-04 17:31:13",
+          "tags": "malware_download",
+          "dateadded": "\"2025-12-04 17:31:13\"",
+          "status": "online",
+          "numeric_percentage": 71.42857142857143
+        },
+        {
+          "url": "http://117.223.23.254:59057/i",
+          "urlhaus_id": "\"3725088\"",
+          "threat": "2025-12-04 17:15:08",
+          "tags": "malware_download",
+          "dateadded": "\"2025-12-04 17:15:08\"",
+          "status": "online",
+          "numeric_percentage": 72.72727272727273
+        },
+        {
+          "url": "http://182.127.44.118:58530/bin.sh",
+          "urlhaus_id": "\"3725087\"",
+          "threat": "2025-12-04 17:14:13",
+          "tags": "malware_download",
+          "dateadded": "\"2025-12-04 17:14:13\"",
+          "status": "online",
+          "numeric_percentage": 59.25925925925925
+        },
+        {
+          "url": "http://42.85.180.228:57861/i",
+          "urlhaus_id": "\"3725086\"",
+          "threat": "2025-12-04 17:12:16",
+          "tags": "malware_download",
+          "dateadded": "\"2025-12-04 17:12:16\"",
+          "status": "online",
+          "numeric_percentage": 71.42857142857143
+        },
+        {
+          "url": "http://110.36.0.205:35315/bin.sh",
+          "urlhaus_id": "\"3725085\"",
+          "threat": "2025-12-04 17:08:08",
+          "tags": "malware_download",
+          "dateadded": "\"2025-12-04 17:08:08\"",
+          "status": "online",
+          "numeric_percentage": 56.00000000000001
+        }
+      ],
+      "stats": {
+        "original": 5,
+        "kept": 5,
+        "filtered": 0,
+        "filter_rate": 0.0
+      },
+      "filtered_urls": []
+    },
+    "phishing_army": {
+      "urls": [
+        {
+          "url": "http://0-230-23.rest",
+          "source": "phishing_army",
+          "type": "phishing",
+          "numeric_percentage": 46.15384615384615
+        },
+        {
+          "url": "http://00-coopb144.com",
+          "source": "phishing_army",
+          "type": "phishing",
+          "numeric_percentage": 33.33333333333333
+        },
+        {
+          "url": "http://00-coopban523.com",
+          "source": "phishing_army",
+          "type": "phishing",
+          "numeric_percentage": 29.411764705882355
+        },
+        {
+          "url": "http://00-lhvpromt.com",
+          "source": "phishing_army",
+          "type": "phishing",
+          "numeric_percentage": 13.333333333333334
+        },
+        {
+          "url": "http://000-000-37645t2783296323fn2.calibrescientifics.com",
+          "source": "phishing_army",
+          "type": "phishing",
+          "numeric_percentage": 44.0
+        }
+      ],
+      "stats": {
+        "original": 5,
+        "kept": 5,
+        "filtered": 0,
+        "filter_rate": 0.0
+      },
+      "filtered_urls": []
+    }
+  }
+}

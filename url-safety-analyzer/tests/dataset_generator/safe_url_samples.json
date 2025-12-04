@@ -1,0 +1,257 @@
+{
+  "fetched_at": "2024-12-04",
+  "sources": {
+    "top_websites": [
+      {
+        "url": "https://google.com",
+        "domain": "google.com",
+        "rank": 1,
+        "category": "search_engine",
+        "source": "top_websites",
+        "is_hard_negative": false
+      },
+      {
+        "url": "https://youtube.com",
+        "domain": "youtube.com",
+        "rank": 2,
+        "category": "video",
+        "source": "top_websites",
+        "is_hard_negative": false
+      },
+      {
+        "url": "https://facebook.com",
+        "domain": "facebook.com",
+        "rank": 3,
+        "category": "social_media",
+        "source": "top_websites",
+        "is_hard_negative": false
+      },
+      {
+        "url": "https://twitter.com",
+        "domain": "twitter.com",
+        "rank": 4,
+        "category": "social_media",
+        "source": "top_websites",
+        "is_hard_negative": false
+      },
+      {
+        "url": "https://wikipedia.org",
+        "domain": "wikipedia.org",
+        "rank": 5,
+        "category": "knowledge",
+        "source": "top_websites",
+        "is_hard_negative": false
+      }
+    ],
+    "ycombinator": [
+      {
+        "url": "https://cursor.sh",
+        "company_name": "Cursor",
+        "yc_batch": "S22",
+        "description": "AI-first code editor",
+        "source": "ycombinator",
+        "is_hard_negative": true,
+        "why_hard": "Relatively new startup, may have minimal web presence"
+      },
+      {
+        "url": "https://cal.com",
+        "company_name": "Cal.com",
+        "yc_batch": "W21",
+        "description": "Open source scheduling",
+        "source": "ycombinator",
+        "is_hard_negative": true,
+        "why_hard": "Relatively new startup, may have minimal web presence"
+      },
+      {
+        "url": "https://vercel.com",
+        "company_name": "Vercel",
+        "yc_batch": "S15",
+        "description": "Frontend cloud platform",
+        "source": "ycombinator",
+        "is_hard_negative": true,
+        "why_hard": "Relatively new startup, may have minimal web presence"
+      },
+      {
+        "url": "https://retool.com",
+        "company_name": "Retool",
+        "yc_batch": "W17",
+        "description": "Internal tools platform",
+        "source": "ycombinator",
+        "is_hard_negative": true,
+        "why_hard": "Relatively new startup, may have minimal web presence"
+      },
+      {
+        "url": "https://posthog.com",
+        "company_name": "Posthog",
+        "yc_batch": "W20",
+        "description": "Product analytics",
+        "source": "ycombinator",
+        "is_hard_negative": true,
+        "why_hard": "Relatively new startup, may have minimal web presence"
+      }
+    ],
+    "fortune_500": [
+      {
+        "url": "https://walmart.com",
+        "company_name": "Walmart",
+        "fortune_rank": 1,
+        "source": "fortune_500",
+        "is_hard_negative": false
+      },
+      {
+        "url": "https://amazon.com",
+        "company_name": "Amazon",
+        "fortune_rank": 2,
+        "source": "fortune_500",
+        "is_hard_negative": false
+      },
+      {
+        "url": "https://apple.com",
+        "company_name": "Apple",
+        "fortune_rank": 3,
+        "source": "fortune_500",
+        "is_hard_negative": false
+      },
+      {
+        "url": "https://cvshealth.com",
+        "company_name": "CVS Health",
+        "fortune_rank": 4,
+        "source": "fortune_500",
+        "is_hard_negative": false
+      },
+      {
+        "url": "https://unitedhealthgroup.com",
+        "company_name": "UnitedHealth Group",
+        "fortune_rank": 5,
+        "source": "fortune_500",
+        "is_hard_negative": false
+      }
+    ],
+    "government": [
+      {
+        "url": "https://usa.gov",
+        "agency_name": "USA.gov",
+        "type": "portal",
+        "source": "government",
+        "tld": ".gov",
+        "is_hard_negative": false
+      },
+      {
+        "url": "https://irs.gov",
+        "agency_name": "IRS",
+        "type": "tax",
+        "source": "government",
+        "tld": ".gov",
+        "is_hard_negative": false
+      },
+      {
+        "url": "https://ssa.gov",
+        "agency_name": "Social Security Administration",
+        "type": "benefits",
+        "source": "government",
+        "tld": ".gov",
+        "is_hard_negative": false
+      },
+      {
+        "url": "https://cdc.gov",
+        "agency_name": "CDC",
+        "type": "health",
+        "source": "government",
+        "tld": ".gov",
+        "is_hard_negative": false
+      },
+      {
+        "url": "https://nasa.gov",
+        "agency_name": "NASA",
+        "type": "space",
+        "source": "government",
+        "tld": ".gov",
+        "is_hard_negative": false
+      }
+    ],
+    "tech_companies": [
+      {
+        "url": "https://github.com",
+        "company_name": "GitHub",
+        "category": "developer_tools",
+        "source": "tech_companies",
+        "is_hard_negative": false
+      },
+      {
+        "url": "https://microsoft.com",
+        "company_name": "Microsoft",
+        "category": "software",
+        "source": "tech_companies",
+        "is_hard_negative": false
+      },
+      {
+        "url": "https://google.com",
+        "company_name": "Google",
+        "category": "search",
+        "source": "tech_companies",
+        "is_hard_negative": false
+      },
+      {
+        "url": "https://openai.com",
+        "company_name": "OpenAI",
+        "category": "ai",
+        "source": "tech_companies",
+        "is_hard_negative": false
+      },
+      {
+        "url": "https://anthropic.com",
+        "company_name": "Anthropic",
+        "category": "ai",
+        "source": "tech_companies",
+        "is_hard_negative": false
+      }
+    ],
+    "news_sites": [
+      {
+        "url": "https://cnn.com",
+        "outlet_name": "CNN",
+        "type": "cable_news",
+        "source": "news_sites",
+        "is_hard_negative": false
+      },
+      {
+        "url": "https://bbc.com",
+        "outlet_name": "BBC",
+        "type": "international",
+        "source": "news_sites",
+        "is_hard_negative": false
+      },
+      {
+        "url": "https://reuters.com",
+        "outlet_name": "Reuters",
+        "type": "wire_service",
+        "source": "news_sites",
+        "is_hard_negative": false
+      },
+      {
+        "url": "https://nytimes.com",
+        "outlet_name": "New York Times",
+        "type": "newspaper",
+        "source": "news_sites",
+        "is_hard_negative": false
+      },
+      {
+        "url": "https://theguardian.com",
+        "outlet_name": "The Guardian",
+        "type": "newspaper",
+        "source": "news_sites",
+        "is_hard_negative": false
+      }
+    ]
+  },
+  "summary": {
+    "top_websites_count": 5,
+    "ycombinator_count": 5,
+    "fortune_500_count": 5,
+    "government_count": 5,
+    "tech_companies_count": 5,
+    "news_sites_count": 5,
+    "total_count": 30,
+    "hard_negatives_count": 5
+  }
+}
