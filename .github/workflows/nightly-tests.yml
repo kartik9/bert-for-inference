@@ -53,6 +53,16 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY || 'sk-test-mock-key' }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY || 'sk-ant-test-mock-key' }}
 
+      - name: Generate fresh test datasets
+        run: |
+          cd url-safety-analyzer/tests/dataset_generator
+          echo "Generating fresh malicious URLs from live sources..."
+          python generate_fresh_malicious.py
+          echo "Generating fresh safe URLs including YC startups..."
+          python generate_fresh_safe.py
+          echo "Dataset generation complete!"
+        continue-on-error: true  # Don't fail if dataset generation has issues
+
       - name: Run integration tests
         run: |
           cd url-safety-analyzer
