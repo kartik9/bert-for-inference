@@ -1,0 +1,565 @@
+{
+  "generated_at": "2024-12-04",
+  "description": "Fresh malicious URLs from live sources only",
+  "sources": [
+    "urlhaus",
+    "phishing_army"
+  ],
+  "filter_criteria": {
+    "numeric_threshold": 75.0,
+    "description": "URLs with >75% numeric characters filtered"
+  },
+  "statistics": {
+    "total_fetched": 60,
+    "total_kept": 59,
+    "total_filtered": 1,
+    "filter_rate": 1.6666666666666667,
+    "urlhaus_count": 30,
+    "phishing_army_count": 29
+  },
+  "urls": [
+    {
+      "url": "http://182.117.104.160:36210/bin.sh",
+      "urlhaus_id": "\"3725094\"",
+      "threat": "2025-12-04 18:06:19",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 18:06:19\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 60.71428571428571
+    },
+    {
+      "url": "http://42.56.162.5:40188/i",
+      "urlhaus_id": "\"3725093\"",
+      "threat": "2025-12-04 18:03:07",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 18:03:07\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 68.42105263157895
+    },
+    {
+      "url": "http://112.248.105.124:44881/bin.sh",
+      "urlhaus_id": "\"3725092\"",
+      "threat": "2025-12-04 17:59:13",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 17:59:13\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 60.71428571428571
+    },
+    {
+      "url": "http://182.127.176.167:35411/bin.sh",
+      "urlhaus_id": "\"3725091\"",
+      "threat": "2025-12-04 17:58:09",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 17:58:09\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 60.71428571428571
+    },
+    {
+      "url": "http://125.47.88.144:56896/bin.sh",
+      "urlhaus_id": "\"3725090\"",
+      "threat": "2025-12-04 17:46:17",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 17:46:17\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 57.692307692307686
+    },
+    {
+      "url": "http://115.63.131.39:42278/i",
+      "urlhaus_id": "\"3725089\"",
+      "threat": "2025-12-04 17:31:13",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 17:31:13\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 71.42857142857143
+    },
+    {
+      "url": "http://117.223.23.254:59057/i",
+      "urlhaus_id": "\"3725088\"",
+      "threat": "2025-12-04 17:15:08",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 17:15:08\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 72.72727272727273
+    },
+    {
+      "url": "http://182.127.44.118:58530/bin.sh",
+      "urlhaus_id": "\"3725087\"",
+      "threat": "2025-12-04 17:14:13",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 17:14:13\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 59.25925925925925
+    },
+    {
+      "url": "http://42.85.180.228:57861/i",
+      "urlhaus_id": "\"3725086\"",
+      "threat": "2025-12-04 17:12:16",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 17:12:16\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 71.42857142857143
+    },
+    {
+      "url": "http://110.36.0.205:35315/bin.sh",
+      "urlhaus_id": "\"3725085\"",
+      "threat": "2025-12-04 17:08:08",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 17:08:08\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 56.00000000000001
+    },
+    {
+      "url": "http://115.49.81.139:45505/i",
+      "urlhaus_id": "\"3725084\"",
+      "threat": "2025-12-04 16:54:15",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 16:54:15\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 71.42857142857143
+    },
+    {
+      "url": "http://125.41.4.227:37880/bin.sh",
+      "urlhaus_id": "\"3725083\"",
+      "threat": "2025-12-04 16:51:14",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 16:51:14\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 56.00000000000001
+    },
+    {
+      "url": "http://61.53.148.236:59446/i",
+      "urlhaus_id": "\"3725082\"",
+      "threat": "2025-12-04 16:46:09",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 16:46:09\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 71.42857142857143
+    },
+    {
+      "url": "http://42.85.180.228:57861/bin.sh",
+      "urlhaus_id": "\"3725081\"",
+      "threat": "2025-12-04 16:45:11",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 16:45:11\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 57.692307692307686
+    },
+    {
+      "url": "http://117.223.23.254:59057/bin.sh",
+      "urlhaus_id": "\"3725080\"",
+      "threat": "2025-12-04 16:45:10",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 16:45:10\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 59.25925925925925
+    },
+    {
+      "url": "http://42.56.162.5:40188/bin.sh",
+      "urlhaus_id": "\"3725079\"",
+      "threat": "2025-12-04 16:42:14",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 16:42:14\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 54.166666666666664
+    },
+    {
+      "url": "http://182.116.52.95:36169/bin.sh",
+      "urlhaus_id": "\"3725077\"",
+      "threat": "2025-12-04 16:41:17",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 16:41:17\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 57.692307692307686
+    },
+    {
+      "url": "http://182.116.118.89:57754/i",
+      "urlhaus_id": "\"3725078\"",
+      "threat": "2025-12-04 16:41:17",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 16:41:17\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 72.72727272727273
+    },
+    {
+      "url": "http://115.49.81.139:45505/bin.sh",
+      "urlhaus_id": "\"3725076\"",
+      "threat": "2025-12-04 16:22:09",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 16:22:09\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 57.692307692307686
+    },
+    {
+      "url": "http://221.14.207.87:53766/bin.sh",
+      "urlhaus_id": "\"3725075\"",
+      "threat": "2025-12-04 16:20:12",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 16:20:12\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 57.692307692307686
+    },
+    {
+      "url": "http://61.53.148.236:59446/bin.sh",
+      "urlhaus_id": "\"3725074\"",
+      "threat": "2025-12-04 16:19:11",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 16:19:11\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 57.692307692307686
+    },
+    {
+      "url": "http://119.179.251.44:53219/bin.sh",
+      "urlhaus_id": "\"3725073\"",
+      "threat": "2025-12-04 16:14:18",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 16:14:18\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 59.25925925925925
+    },
+    {
+      "url": "http://37.235.209.13:49301/i",
+      "urlhaus_id": "\"3725071\"",
+      "threat": "2025-12-04 17:28:11",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 16:01:06\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 71.42857142857143
+    },
+    {
+      "url": "http://182.121.252.128:43875/i",
+      "urlhaus_id": "\"3725070\"",
+      "threat": "2025-12-04 17:35:51",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 15:56:17\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 73.91304347826086
+    },
+    {
+      "url": "http://37.235.209.13:49301/bin.sh",
+      "urlhaus_id": "\"3725068\"",
+      "threat": "2025-12-04 17:16:31",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 15:49:09\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 57.692307692307686
+    },
+    {
+      "url": "http://27.194.87.209:50202/i",
+      "urlhaus_id": "\"3725069\"",
+      "threat": "2025-12-04 17:40:41",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 15:49:09\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 71.42857142857143
+    },
+    {
+      "url": "https://mem-wedding-reputation-regulated.trycloudflare.com/rec.wsh",
+      "urlhaus_id": "\"3725067\"",
+      "threat": "2025-12-04 17:45:22",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 15:44:09\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 0.0
+    },
+    {
+      "url": "http://175.148.157.93:37125/i",
+      "urlhaus_id": "\"3725065\"",
+      "threat": "2025-12-04 16:57:21",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 15:43:18\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 72.72727272727273
+    },
+    {
+      "url": "https://s3.wasabisys.com/kiessler/v4.msi",
+      "urlhaus_id": "\"3725066\"",
+      "threat": "2025-12-04 16:20:46",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 15:43:18\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 6.25
+    },
+    {
+      "url": "https://vqjhg08j-5500.euw.devtunnels.ms/jovial/64th%20Services.exe",
+      "urlhaus_id": "\"3725064\"",
+      "threat": "2025-12-04 17:04:34",
+      "tags": "malware_download",
+      "dateadded": "\"2025-12-04 15:43:12\"",
+      "url_status": "online",
+      "source": "urlhaus",
+      "category": "malware",
+      "numeric_percentage": 17.24137931034483
+    },
+    {
+      "url": "http://0-230-23.rest",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 46.15384615384615
+    },
+    {
+      "url": "http://00-coopb144.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 33.33333333333333
+    },
+    {
+      "url": "http://00-coopban523.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 29.411764705882355
+    },
+    {
+      "url": "http://00-lhvpromt.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 13.333333333333334
+    },
+    {
+      "url": "http://000-000-37645t2783296323fn2.calibrescientifics.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 44.0
+    },
+    {
+      "url": "http://00002555-coi2.cfd",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 52.94117647058824
+    },
+    {
+      "url": "http://0039keh.icu",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 36.36363636363637
+    },
+    {
+      "url": "http://007d761bc3.nxcli.io",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 36.84210526315789
+    },
+    {
+      "url": "http://007mailbox.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 21.428571428571427
+    },
+    {
+      "url": "http://007research.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 20.0
+    },
+    {
+      "url": "http://00e56.subskrypcje.homes",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 17.391304347826086
+    },
+    {
+      "url": "http://00media.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 18.181818181818183
+    },
+    {
+      "url": "http://00ts7.shop",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 30.0
+    },
+    {
+      "url": "http://015298978-xzczx.sbs",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 47.368421052631575
+    },
+    {
+      "url": "http://018539.relais-aide-fr.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 24.0
+    },
+    {
+      "url": "http://01925128.cfd",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 66.66666666666666
+    },
+    {
+      "url": "http://025c4.zaplata.hair",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 22.22222222222222
+    },
+    {
+      "url": "http://0273737.sbs",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 63.63636363636363
+    },
+    {
+      "url": "http://02988-092020soi.icu",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 57.89473684210527
+    },
+    {
+      "url": "http://02ip.ru",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 28.57142857142857
+    },
+    {
+      "url": "http://02review-at0.online",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 15.789473684210526
+    },
+    {
+      "url": "http://03284903.shop",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 61.53846153846154
+    },
+    {
+      "url": "http://036uuu.top",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 30.0
+    },
+    {
+      "url": "http://0382872.cfd",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 63.63636363636363
+    },
+    {
+      "url": "http://03866432.xyz",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 66.66666666666666
+    },
+    {
+      "url": "http://039571.shop",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 54.54545454545454
+    },
+    {
+      "url": "http://042uuu.top",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 30.0
+    },
+    {
+      "url": "http://04nethubfast.online",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 10.526315789473683
+    },
+    {
+      "url": "http://0526app.com",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 36.36363636363637
+    }
+  ],
+  "filtered_urls": [
+    {
+      "url": "http://029281251-53293828.cfd",
+      "source": "phishing_army",
+      "category": "phishing",
+      "type": "phishing",
+      "numeric_percentage": 77.27272727272727,
+      "filter_reason": "Too many numbers: 77.3% numeric"
+    }
+  ]
+}
