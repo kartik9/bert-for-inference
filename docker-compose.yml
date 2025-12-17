@@ -1,0 +1,77 @@
+# Trust & Safety Newsletter Automation - Docker Compose
+# Self-hosted infrastructure (PostgreSQL + Weaviate)
+
+version: '3.8'
+
+services:
+  # PostgreSQL database for structured data
+  postgres:
+    image: postgres:16
+    container_name: ts-newsletter-postgres
+    environment:
+      POSTGRES_DB: ts_newsletter
+      POSTGRES_USER: ts_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./ts_newsletter/database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ts_user -d ts_newsletter"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # Weaviate vector database
+  weaviate:
+    image: semitechnologies/weaviate:latest
+    container_name: ts-newsletter-weaviate
+    environment:
+      QUERY_DEFAULTS_LIMIT: 25
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
+      PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
+      DEFAULT_VECTORIZER_MODULE: 'none'  # We provide our own embeddings
+      ENABLE_MODULES: ''
+      CLUSTER_HOSTNAME: 'node1'
+    ports:
+      - "8080:8080"
+    volumes:
+      - weaviate_data:/var/lib/weaviate
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/v1/.well-known/ready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # Optional: pgAdmin for database management
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: ts-newsletter-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@localhost
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    profiles:
+      - tools  # Only start with: docker compose --profile tools up
+
+volumes:
+  postgres_data:
+    driver: local
+  weaviate_data:
+    driver: local
+  pgadmin_data:
+    driver: local
+
+networks:
+  default:
+    name: ts-newsletter-network
