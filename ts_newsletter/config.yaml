@@ -3,21 +3,36 @@
 
 # LLM Configuration
 llm:
-  provider: "openai"  # openai, anthropic
-  model: "gpt-5"  # gpt-5, gpt-5.2-instant, gpt-5.2-thinking, gpt-5.2-pro
+  provider: "azure_openai"  # openai, azure_openai, anthropic
+
+  # Azure OpenAI Configuration
+  azure_endpoint_env: "AZURE_OPENAI_ENDPOINT"  # Environment variable for endpoint
+  azure_api_key_env: "AZURE_OPENAI_API_KEY"    # Environment variable for API key
+  azure_api_version: "2024-02-15-preview"      # Azure API version
+
+  # Deployment names (Azure OpenAI uses deployment names instead of model names)
+  # Map your Azure deployment names here
+  deployment_name: "gpt-5"  # Your default deployment name
+
+  # Standard OpenAI Configuration (if using provider: "openai")
   api_key_env: "OPENAI_API_KEY"  # Environment variable name
+  model: "gpt-5"  # gpt-5, gpt-5.2-instant, gpt-5.2-thinking, gpt-5.2-pro
+
+  # Common settings
   temperature: 0.7
   max_tokens: 4000
   store_conversations: true  # Use stateful responses
 
-  # Model selection per agent (optional overrides)
+  # Deployment/Model selection per agent (optional overrides)
+  # For Azure: use your deployment names
+  # For OpenAI: use model names
   agent_models:
-    orchestrator: "gpt-5.2-thinking"  # Best reasoning for strategy
-    research: "gpt-5"  # Standard for search
-    relevance: "gpt-5"  # Fast scoring
-    analysis: "gpt-5.2-thinking"  # Deep reasoning
-    summary: "gpt-5"  # Content generation
-    quality: "gpt-5.2-thinking"  # Critical evaluation
+    orchestrator: "gpt-5-thinking"  # Best reasoning for strategy
+    research: "gpt-5"               # Standard for search
+    relevance: "gpt-5"              # Fast scoring
+    analysis: "gpt-5-thinking"      # Deep reasoning
+    summary: "gpt-5"                # Content generation
+    quality: "gpt-5-thinking"       # Critical evaluation
 
 # Search API Configuration
 search:

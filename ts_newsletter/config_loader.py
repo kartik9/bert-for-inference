@@ -15,8 +15,18 @@ from pydantic import BaseModel, Field
 class LLMConfig(BaseModel):
     """LLM configuration"""
     provider: str = "openai"
+
+    # Standard OpenAI
     model: str = "gpt-5"
-    api_key: str
+    api_key: Optional[str] = None
+
+    # Azure OpenAI
+    azure_endpoint: Optional[str] = None
+    azure_api_key: Optional[str] = None
+    azure_api_version: str = "2024-02-15-preview"
+    deployment_name: Optional[str] = None
+
+    # Common settings
     temperature: float = 0.7
     max_tokens: int = 4000
     store_conversations: bool = True
@@ -105,19 +115,38 @@ class Config:
     def _load_llm_config(self) -> LLMConfig:
         """Load LLM configuration"""
         llm_cfg = self._raw_config.get("llm", {})
+        provider = llm_cfg.get("provider", "openai")
 
-        api_key_env = llm_cfg.get("api_key_env", "OPENAI_API_KEY")
-        api_key = self._get_env_var(api_key_env)
+        # Initialize with common settings
+        config_dict = {
+            "provider": provider,
+            "temperature": llm_cfg.get("temperature", 0.7),
+            "max_tokens": llm_cfg.get("max_tokens", 4000),
+            "store_conversations": llm_cfg.get("store_conversations", True),
+            "agent_models": llm_cfg.get("agent_models", {})
+        }
 
-        return LLMConfig(
-            provider=llm_cfg.get("provider", "openai"),
-            model=llm_cfg.get("model", "gpt-5"),
-            api_key=api_key,
-            temperature=llm_cfg.get("temperature", 0.7),
-            max_tokens=llm_cfg.get("max_tokens", 4000),
-            store_conversations=llm_cfg.get("store_conversations", True),
-            agent_models=llm_cfg.get("agent_models", {})
-        )
+        if provider == "azure_openai":
+            # Load Azure OpenAI configuration
+            azure_endpoint_env = llm_cfg.get("azure_endpoint_env", "AZURE_OPENAI_ENDPOINT")
+            azure_api_key_env = llm_cfg.get("azure_api_key_env", "AZURE_OPENAI_API_KEY")
+
+            config_dict.update({
+                "azure_endpoint": self._get_env_var(azure_endpoint_env),
+                "azure_api_key": self._get_env_var(azure_api_key_env),
+                "azure_api_version": llm_cfg.get("azure_api_version", "2024-02-15-preview"),
+                "deployment_name": llm_cfg.get("deployment_name", "gpt-5"),
+                "model": llm_cfg.get("deployment_name", "gpt-5")  # Use deployment name as model
+            })
+        else:
+            # Load standard OpenAI configuration
+            api_key_env = llm_cfg.get("api_key_env", "OPENAI_API_KEY")
+            config_dict.update({
+                "api_key": self._get_env_var(api_key_env),
+                "model": llm_cfg.get("model", "gpt-5")
+            })
+
+        return LLMConfig(**config_dict)
 
     def _load_search_config(self) -> SearchConfig:
         """Load search API configuration"""
