@@ -1,0 +1,195 @@
+# Trust & Safety Newsletter Automation - Configuration
+# Self-hosted AI Agent System
+
+# LLM Configuration
+llm:
+  provider: "openai"  # openai, anthropic
+  model: "gpt-5"  # gpt-5, gpt-5.2-instant, gpt-5.2-thinking, gpt-5.2-pro
+  api_key_env: "OPENAI_API_KEY"  # Environment variable name
+  temperature: 0.7
+  max_tokens: 4000
+  store_conversations: true  # Use stateful responses
+
+  # Model selection per agent (optional overrides)
+  agent_models:
+    orchestrator: "gpt-5.2-thinking"  # Best reasoning for strategy
+    research: "gpt-5"  # Standard for search
+    relevance: "gpt-5"  # Fast scoring
+    analysis: "gpt-5.2-thinking"  # Deep reasoning
+    summary: "gpt-5"  # Content generation
+    quality: "gpt-5.2-thinking"  # Critical evaluation
+
+# Search API Configuration
+search:
+  provider: "duckduckgo"  # duckduckgo, bing
+
+  # DuckDuckGo (free, no API key needed)
+  duckduckgo:
+    max_results: 20
+    region: "us-en"
+    safesearch: "moderate"
+    time_range: "w"  # w=week, m=month, y=year
+
+  # Bing Search API (paid, requires key)
+  bing:
+    api_key_env: "BING_SEARCH_API_KEY"
+    endpoint: "https://api.bing.microsoft.com/v7.0/search"
+    max_results: 20
+    market: "en-US"
+    freshness: "Week"  # Day, Week, Month
+
+# Web scraping configuration
+scraping:
+  user_agent: "Mozilla/5.0 (compatible; TSNewsBot/1.0; +https://microsoft.com/ads/trust-safety)"
+  timeout: 30
+  max_retries: 3
+  respect_robots_txt: true
+  rate_limit_delay: 1.0  # seconds between requests
+
+# RSS Feed Sources
+rss_feeds:
+  security_blogs:
+    - name: "Krebs on Security"
+      url: "https://krebsonsecurity.com/feed/"
+      priority: "high"
+    - name: "Infoblox Threat Intelligence"
+      url: "https://blogs.infoblox.com/threat-intelligence/feed/"
+      priority: "high"
+    - name: "Unit 42 (Palo Alto)"
+      url: "https://unit42.paloaltonetworks.com/feed/"
+      priority: "high"
+    - name: "Recorded Future"
+      url: "https://www.recordedfuture.com/feed"
+      priority: "medium"
+
+  ad_tech_industry:
+    - name: "AdMonsters"
+      url: "https://www.admonsters.com/feed/"
+      priority: "medium"
+    - name: "Digiday"
+      url: "https://digiday.com/feed/"
+      priority: "medium"
+
+# Search queries for research
+search_queries:
+  core_topics:
+    - "advertising fraud"
+    - "malvertising"
+    - "ad cloaking"
+    - "click fraud"
+    - "bot traffic advertising"
+    - "deepfake advertising scams"
+    - "programmatic fraud"
+
+  platforms:
+    - "Google Ads fraud"
+    - "Meta advertising scams"
+    - "programmatic advertising security"
+
+  techniques:
+    - "domain parking fraud"
+    - "affiliate fraud advertising"
+    - "cookie stuffing"
+    - "ad injection malware"
+
+# Database Configuration
+databases:
+  # PostgreSQL for structured data
+  postgresql:
+    host: "localhost"
+    port: 5432
+    database: "ts_newsletter"
+    user: "ts_user"
+    password_env: "POSTGRES_PASSWORD"
+    pool_size: 10
+
+  # Weaviate for vector embeddings
+  weaviate:
+    host: "localhost"
+    port: 8080
+    scheme: "http"
+    embedding_model: "text-embedding-3-small"  # OpenAI embedding
+    embedding_dimensions: 1536
+
+# Newsletter Configuration
+newsletter:
+  target_articles: 8  # Target number of articles per week
+  min_articles: 5
+  max_articles: 12
+  date_range_days: 7  # Look back 7 days
+
+  # Relevance scoring thresholds
+  scoring:
+    min_relevance: 7.0  # 0-10 scale
+    min_novelty: 5.0
+    min_impact: 6.0
+    min_actionability: 5.0
+    high_priority_threshold: 8.0  # Overall score for high priority
+
+  # Newsletter style
+  style:
+    tone: "professional"
+    audience: "executive and technical"
+    max_words_per_summary: 250
+    include_emojis: true
+    include_sources: true
+
+# Workflow Configuration
+workflow:
+  schedule: "0 9 * * MON"  # Cron: Monday 9 AM
+  timezone: "America/Los_Angeles"
+
+  # Agent execution timeouts (seconds)
+  timeouts:
+    orchestrator: 300
+    research: 600
+    relevance: 300
+    analysis: 900
+    summary: 600
+    quality: 300
+
+  # Parallel execution
+  parallel_research_agents: 5  # Run 5 research agents simultaneously
+
+  # Output
+  output_dir: "./output/newsletters"
+  output_format: "markdown"  # markdown, json, html
+
+# Logging and Monitoring
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  format: "json"  # json, text
+  output: "file"  # file, stdout, both
+  file_path: "./logs/ts_newsletter.log"
+
+  # Agent reasoning traces
+  save_reasoning_traces: true
+  reasoning_log_path: "./logs/agent_reasoning"
+
+# OpenAI Embeddings (for Weaviate)
+embeddings:
+  provider: "openai"
+  model: "text-embedding-3-small"
+  api_key_env: "OPENAI_API_KEY"
+  dimensions: 1536
+  batch_size: 100
+
+# Internal integrations (optional)
+integrations:
+  # Aurora threat detection system
+  aurora_api:
+    enabled: false
+    endpoint: "https://internal-aurora.microsoft.com/api"
+    api_key_env: "AURORA_API_KEY"
+
+  # Microsoft internal incident reports
+  incident_api:
+    enabled: false
+    endpoint: "https://internal-incidents.microsoft.com/api"
+    api_key_env: "INCIDENT_API_KEY"
+
+# Development/Testing
+development:
+  mock_mode: false  # Use mock data instead of real API calls
+  cache_responses: true  # Cache LLM responses for development
+  cache_dir: "./cache"
