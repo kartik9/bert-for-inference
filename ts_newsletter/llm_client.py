@@ -7,7 +7,7 @@ import json
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Union
 
-from openai import OpenAI
+from openai import OpenAI, AzureOpenAI
 
 
 @dataclass
@@ -74,19 +74,34 @@ class LLMClient:
         model: str = "gpt-5",
         temperature: float = 0.7,
         max_tokens: int = 4000,
-        store: bool = True
+        store: bool = True,
+        azure_endpoint: Optional[str] = None,
+        azure_api_version: Optional[str] = None
     ):
         """
         Initialize LLM client
 
         Args:
-            api_key: OpenAI API key
-            model: Model name (gpt-5, gpt-5.2-instant, gpt-5.2-thinking, gpt-5.2-pro)
+            api_key: OpenAI or Azure OpenAI API key
+            model: Model name or Azure deployment name
             temperature: Sampling temperature (0-2)
             max_tokens: Maximum tokens in response
             store: Whether to store conversations (enables previous_response_id)
+            azure_endpoint: Azure OpenAI endpoint (if using Azure)
+            azure_api_version: Azure OpenAI API version (if using Azure)
         """
-        self.client = OpenAI(api_key=api_key)
+        # Initialize appropriate client based on configuration
+        if azure_endpoint:
+            # Azure OpenAI client
+            self.client = AzureOpenAI(
+                api_key=api_key,
+                api_version=azure_api_version or "2024-02-15-preview",
+                azure_endpoint=azure_endpoint
+            )
+        else:
+            # Standard OpenAI client
+            self.client = OpenAI(api_key=api_key)
+
         self.model = model
         self.temperature = temperature
         self.max_tokens = max_tokens
@@ -253,13 +268,26 @@ class LLMClientFactory:
         else:
             model = config.llm.model
 
-        return LLMClient(
-            api_key=config.llm.api_key,
-            model=model,
-            temperature=config.llm.temperature,
-            max_tokens=config.llm.max_tokens,
-            store=config.llm.store_conversations
-        )
+        # Check if using Azure OpenAI
+        if config.llm.provider == "azure_openai":
+            return LLMClient(
+                api_key=config.llm.azure_api_key,
+                model=model,  # Azure uses deployment names
+                temperature=config.llm.temperature,
+                max_tokens=config.llm.max_tokens,
+                store=config.llm.store_conversations,
+                azure_endpoint=config.llm.azure_endpoint,
+                azure_api_version=config.llm.azure_api_version
+            )
+        else:
+            # Standard OpenAI
+            return LLMClient(
+                api_key=config.llm.api_key,
+                model=model,
+                temperature=config.llm.temperature,
+                max_tokens=config.llm.max_tokens,
+                store=config.llm.store_conversations
+            )
 
 
 # Example usage:

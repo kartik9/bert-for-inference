@@ -92,7 +92,7 @@ This system uses 6 specialized AI agents to autonomously research, analyze, and 
 
 - Python 3.10+
 - Docker & Docker Compose (for databases)
-- OpenAI API key (for GPT-5)
+- Azure OpenAI endpoint and API key (or standard OpenAI API key)
 - Optional: Bing Search API key (if not using DuckDuckGo)
 
 ### Installation
@@ -110,6 +110,15 @@ cp .env.example .env
 ```
 
 Required `.env` variables:
+
+**Option A: Azure OpenAI (Recommended for enterprise):**
+```bash
+AZURE_OPENAI_ENDPOINT=https://your-endpoint.openai.azure.com/openai/v1/
+AZURE_OPENAI_API_KEY=your_azure_api_key
+POSTGRES_PASSWORD=your_secure_password
+```
+
+**Option B: Standard OpenAI:**
 ```bash
 OPENAI_API_KEY=sk-proj-xxxxxxxxxxxxxxxxxxxxx
 POSTGRES_PASSWORD=your_secure_password
@@ -132,7 +141,29 @@ docker compose ps
 python ts_newsletter/database/weaviate_schema.py
 ```
 
-4. **Configure search provider:**
+4. **Configure LLM provider:**
+
+Edit `ts_newsletter/config.yaml`:
+
+**For Azure OpenAI (default):**
+```yaml
+llm:
+  provider: "azure_openai"
+  azure_endpoint_env: "AZURE_OPENAI_ENDPOINT"
+  azure_api_key_env: "AZURE_OPENAI_API_KEY"
+  azure_api_version: "2024-02-15-preview"
+  deployment_name: "gpt-5"  # Your Azure deployment name
+```
+
+**For Standard OpenAI:**
+```yaml
+llm:
+  provider: "openai"
+  api_key_env: "OPENAI_API_KEY"
+  model: "gpt-5"
+```
+
+5. **Configure search provider:**
 
 Edit `ts_newsletter/config.yaml`:
 
@@ -186,16 +217,18 @@ Edit `ts_newsletter/config.yaml` to customize:
 **LLM Settings:**
 ```yaml
 llm:
-  model: "gpt-5"  # or gpt-5.2-instant, gpt-5.2-thinking, gpt-5.2-pro
+  provider: "azure_openai"  # or "openai" for standard OpenAI
+  deployment_name: "gpt-5"  # For Azure: your deployment name
+                            # For OpenAI: model name (gpt-5, gpt-5.2-instant, etc.)
 
-  # Use different models per agent
+  # Use different models/deployments per agent
   agent_models:
-    orchestrator: "gpt-5.2-thinking"  # Best reasoning
-    research: "gpt-5"                 # Standard
-    relevance: "gpt-5"                # Fast scoring
-    analysis: "gpt-5.2-thinking"      # Deep analysis
-    summary: "gpt-5"                  # Content gen
-    quality: "gpt-5.2-thinking"       # Critical review
+    orchestrator: "gpt-5-thinking"   # Best reasoning
+    research: "gpt-5"                # Standard
+    relevance: "gpt-5"               # Fast scoring
+    analysis: "gpt-5-thinking"       # Deep analysis
+    summary: "gpt-5"                 # Content gen
+    quality: "gpt-5-thinking"        # Critical review
 ```
 
 **Search Configuration:**
