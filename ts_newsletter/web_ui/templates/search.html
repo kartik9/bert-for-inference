@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}Search - Trust & Safety{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="mb-4">
+            <i class="bi bi-search"></i>
+            Search Newsletters
+        </h1>
+    </div>
+</div>
+
+<!-- Search Bar -->
+<div class="row mb-4">
+    <div class="col-lg-8 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                <form onsubmit="performSearch(); return false;">
+                    <div class="input-group input-group-lg">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="searchQuery"
+                            placeholder="Search articles, threats, or keywords..."
+                            autofocus
+                        >
+                        <button class="btn btn-primary" type="submit">
+                            <i class="bi bi-search"></i> Search
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Search Results -->
+<div class="row">
+    <div class="col-12">
+        <div id="search-results"></div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+async function performSearch() {
+    const query = document.getElementById('searchQuery').value.trim();
+
+    if (!query) {
+        showToast('Please enter a search query', 'warning');
+        return;
+    }
+
+    const resultsContainer = document.getElementById('search-results');
+
+    // Show loading
+    resultsContainer.innerHTML = `
+        <div class="text-center py-5">
+            <div class="spinner-border" role="status"></div>
+            <p class="mt-3">Searching newsletters...</p>
+        </div>
+    `;
+
+    try {
+        const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+        const data = await response.json();
+
+        if (data.success) {
+            displayResults(data.results, query);
+        } else {
+            showError('Search failed');
+        }
+    } catch (error) {
+        console.error('Search error:', error);
+        showError('Failed to perform search');
+    }
+}
+
+function displayResults(results, query) {
+    const container = document.getElementById('search-results');
+
+    if (results.length === 0) {
+        container.innerHTML = `
+            <div class="card">
+                <div class="card-body text-center py-5">
+                    <i class="bi bi-search" style="font-size: 3rem;"></i>
+                    <p class="mt-3">No results found for "${query}"</p>
+                </div>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = `
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    Found ${results.length} newsletter${results.length !== 1 ? 's' : ''}
+                    matching "${query}"
+                </h5>
+            </div>
+            <div class="card-body">
+                ${results.map(result => createResultCard(result, query)).join('')}
+            </div>
+        </div>
+    `;
+}
+
+function createResultCard(result, query) {
+    return `
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="/newsletter/${result.id}">
+                        Newsletter - ${formatDate(result.date)}
+                    </a>
+                </h5>
+                <p class="card-text">
+                    <span class="badge bg-primary">${result.matches} match${result.matches !== 1 ? 'es' : ''}</span>
+                </p>
+                ${result.snippets.map(snippet => `
+                    <div class="alert alert-light">
+                        <small>${highlightSearchTerms(snippet, query)}</small>
+                    </div>
+                `).join('')}
+                <a href="/newsletter/${result.id}" class="btn btn-sm btn-primary">
+                    <i class="bi bi-eye"></i> View Newsletter
+                </a>
+            </div>
+        </div>
+    `;
+}
+
+function showError(message) {
+    document.getElementById('search-results').innerHTML = `
+        <div class="card">
+            <div class="card-body text-center py-5">
+                <i class="bi bi-exclamation-triangle text-danger" style="font-size: 3rem;"></i>
+                <p class="mt-3">${message}</p>
+            </div>
+        </div>
+    `;
+}
+</script>
+{% endblock %}

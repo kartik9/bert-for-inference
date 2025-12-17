@@ -1,0 +1,243 @@
+/* Trust & Safety Newsletter - Custom Styles */
+
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #0dcaf0;
+    --dark-color: #212529;
+    --light-color: #f8f9fa;
+}
+
+/* Dark Mode Variables */
+body.dark-mode {
+    --bs-body-bg: #1a1a1a;
+    --bs-body-color: #e0e0e0;
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+body.dark-mode .card {
+    background-color: #2a2a2a;
+    border-color: #3a3a3a;
+    color: #e0e0e0;
+}
+
+body.dark-mode .card-header {
+    background-color: #333;
+    border-bottom-color: #444;
+}
+
+body.dark-mode .table {
+    color: #e0e0e0;
+}
+
+body.dark-mode .table-hover tbody tr:hover {
+    background-color: #333;
+}
+
+body.dark-mode .form-control,
+body.dark-mode .form-select {
+    background-color: #2a2a2a;
+    border-color: #3a3a3a;
+    color: #e0e0e0;
+}
+
+/* Newsletter Content Styles */
+.newsletter-content {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+.newsletter-content h1,
+.newsletter-content h2,
+.newsletter-content h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.newsletter-content h3 {
+    border-bottom: 2px solid #dee2e6;
+    padding-bottom: 0.5rem;
+}
+
+.newsletter-content ul {
+    padding-left: 1.5rem;
+}
+
+.newsletter-content code {
+    background-color: #f8f9fa;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-family: 'Courier New', monospace;
+}
+
+body.dark-mode .newsletter-content code {
+    background-color: #333;
+}
+
+/* Cards */
+.card {
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Badges */
+.badge {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* Search Highlights */
+.search-highlight {
+    background-color: #fff3cd;
+    padding: 0.1rem 0.2rem;
+    border-radius: 0.2rem;
+}
+
+body.dark-mode .search-highlight {
+    background-color: #664d03;
+}
+
+/* Loading Spinner */
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+}
+
+/* Agent Trace Viewer */
+.trace-item {
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid #dee2e6;
+    background-color: #f8f9fa;
+    border-radius: 0.25rem;
+}
+
+body.dark-mode .trace-item {
+    background-color: #2a2a2a;
+    border-left-color: #444;
+}
+
+.trace-item.thought {
+    border-left-color: var(--primary-color);
+}
+
+.trace-item.tool_call {
+    border-left-color: var(--warning-color);
+}
+
+.trace-item.observation {
+    border-left-color: var(--info-color);
+}
+
+.trace-item.decision {
+    border-left-color: var(--success-color);
+}
+
+.trace-item.error {
+    border-left-color: var(--danger-color);
+}
+
+/* Filter Panel */
+.filter-panel {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+body.dark-mode .filter-panel {
+    background-color: #2a2a2a;
+}
+
+/* Newsletter Preview Cards */
+.newsletter-preview {
+    transition: transform 0.2s ease;
+}
+
+.newsletter-preview:hover {
+    transform: translateY(-4px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .newsletter-content {
+        font-size: 0.95rem;
+    }
+
+    .card {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Smooth Transitions */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+body.dark-mode ::-webkit-scrollbar-track {
+    background: #2a2a2a;
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb {
+    background: #555;
+}
+
+/* Status Indicators */
+.status-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.status-indicator.active {
+    background-color: var(--success-color);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}

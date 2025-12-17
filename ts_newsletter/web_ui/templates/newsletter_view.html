@@ -1,0 +1,332 @@
+{% extends "base.html" %}
+
+{% block title %}Newsletter - Trust & Safety{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="/newsletters">Newsletters</a></li>
+                <li class="breadcrumb-item active" id="newsletter-date">Loading...</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<!-- Loading State -->
+<div id="loading-state" class="text-center py-5">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-3">Loading newsletter...</p>
+</div>
+
+<!-- Newsletter Content (hidden initially) -->
+<div id="newsletter-container" style="display: none;">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h1 class="mb-3" id="newsletter-title">
+                <i class="bi bi-newspaper"></i>
+                Newsletter
+            </h1>
+            <div id="newsletter-metadata"></div>
+        </div>
+        <div class="col-md-4 text-end">
+            <div class="btn-group" role="group">
+                <button class="btn btn-primary" onclick="exportNewsletter(currentNewsletterId)">
+                    <i class="bi bi-download"></i> Download
+                </button>
+                <button class="btn btn-secondary" onclick="copyNewsletterUrl()">
+                    <i class="bi bi-link-45deg"></i> Share
+                </button>
+                <button class="btn btn-info" onclick="showMetrics()">
+                    <i class="bi bi-graph-up"></i> Metrics
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Newsletter Content -->
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="card">
+                <div class="card-body">
+                    <div id="newsletter-content"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-3">
+            <!-- Metrics Card -->
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h6 class="mb-0">
+                        <i class="bi bi-bar-chart"></i>
+                        Metrics
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0" id="metrics-list">
+                        <li><i class="bi bi-hourglass-split"></i> Loading...</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Workflow Info Card -->
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h6 class="mb-0">
+                        <i class="bi bi-info-circle"></i>
+                        Workflow Info
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0" id="workflow-info">
+                        <li><i class="bi bi-hourglass-split"></i> Loading...</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Actions Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0">
+                        <i class="bi bi-lightning"></i>
+                        Actions
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-sm btn-outline-primary" onclick="viewAgentTraces()">
+                            <i class="bi bi-diagram-3"></i> View Agent Traces
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary" onclick="compareWithPrevious()">
+                            <i class="bi bi-arrows-angle-expand"></i> Compare
+                        </button>
+                        <button class="btn btn-sm btn-outline-info" onclick="exportToPDF()">
+                            <i class="bi bi-file-pdf"></i> Export PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Agent Traces Modal -->
+<div class="modal fade" id="tracesModal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="bi bi-diagram-3"></i>
+                    Agent Execution Traces
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="traces-content">
+                    <p class="text-muted">No traces available for this newsletter.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+let currentNewsletterId = null;
+let currentNewsletter = null;
+
+async function loadNewsletter() {
+    // Get newsletter ID from URL
+    const pathParts = window.location.pathname.split('/');
+    currentNewsletterId = pathParts[pathParts.length - 1];
+
+    if (!currentNewsletterId) {
+        showError('Invalid newsletter ID');
+        return;
+    }
+
+    try {
+        const response = await fetch(`/api/newsletters/${currentNewsletterId}`);
+        const data = await response.json();
+
+        if (!data.success) {
+            showError('Newsletter not found');
+            return;
+        }
+
+        currentNewsletter = data;
+        displayNewsletter(data);
+
+    } catch (error) {
+        console.error('Error loading newsletter:', error);
+        showError('Failed to load newsletter');
+    }
+}
+
+function displayNewsletter(data) {
+    // Hide loading, show content
+    document.getElementById('loading-state').style.display = 'none';
+    document.getElementById('newsletter-container').style.display = 'block';
+
+    // Update breadcrumb
+    document.getElementById('newsletter-date').textContent = formatDate(data.id);
+
+    // Update title
+    document.getElementById('newsletter-title').innerHTML = `
+        <i class="bi bi-newspaper"></i>
+        Newsletter - ${formatDate(data.id)}
+    `;
+
+    // Render markdown content
+    renderMarkdown(data.content, 'newsletter-content');
+
+    // Display metadata
+    displayMetadata(data.summary);
+
+    // Display metrics
+    displayMetrics(data.summary.metrics);
+
+    // Display workflow info
+    displayWorkflowInfo(data.summary.workflow_state, data.summary.agents_used);
+}
+
+function displayMetadata(summary) {
+    const metadata = document.getElementById('newsletter-metadata');
+
+    const status = summary.workflow_state?.status || 'unknown';
+    const qualityScore = summary.metrics?.quality_score || 0;
+
+    metadata.innerHTML = `
+        <span class="badge ${getStatusBadgeClass(status)} me-2">${status}</span>
+        <span class="badge ${getQualityBadgeClass(qualityScore)} me-2">Quality: ${qualityScore.toFixed(1)}/10</span>
+        <span class="text-muted">
+            <i class="bi bi-clock"></i> ${formatDateTime(summary.workflow_state?.elapsed_time || 'Unknown')}
+        </span>
+    `;
+}
+
+function displayMetrics(metrics) {
+    if (!metrics) return;
+
+    const metricsList = document.getElementById('metrics-list');
+
+    metricsList.innerHTML = `
+        <li class="mb-2">
+            <strong>Articles Collected:</strong><br>
+            <span class="text-muted">${metrics.articles_collected || 0}</span>
+        </li>
+        <li class="mb-2">
+            <strong>Articles Scored:</strong><br>
+            <span class="text-muted">${metrics.articles_scored || 0}</span>
+        </li>
+        <li class="mb-2">
+            <strong>Articles Analyzed:</strong><br>
+            <span class="text-muted">${metrics.articles_analyzed || 0}</span>
+        </li>
+        <li class="mb-2">
+            <strong>Summaries Generated:</strong><br>
+            <span class="text-muted">${metrics.summaries_generated || 0}</span>
+        </li>
+        <li class="mb-2">
+            <strong>Quality Score:</strong><br>
+            <span class="text-muted">${(metrics.quality_score || 0).toFixed(1)}/10</span>
+        </li>
+    `;
+}
+
+function displayWorkflowInfo(workflowState, agentsUsed) {
+    const workflowInfo = document.getElementById('workflow-info');
+
+    workflowInfo.innerHTML = `
+        <li class="mb-2">
+            <strong>Phase:</strong><br>
+            <span class="text-muted">${workflowState?.phase || 'Unknown'}</span>
+        </li>
+        <li class="mb-2">
+            <strong>Duration:</strong><br>
+            <span class="text-muted">${workflowState?.elapsed_time || 'Unknown'}</span>
+        </li>
+        <li class="mb-2">
+            <strong>Research Agents:</strong><br>
+            <span class="text-muted">${agentsUsed?.research_agents || 0}</span>
+        </li>
+    `;
+}
+
+function showError(message) {
+    document.getElementById('loading-state').innerHTML = `
+        <div class="text-center py-5">
+            <i class="bi bi-exclamation-triangle text-danger" style="font-size: 3rem;"></i>
+            <p class="mt-3">${message}</p>
+            <a href="/newsletters" class="btn btn-primary">Back to Newsletters</a>
+        </div>
+    `;
+}
+
+function copyNewsletterUrl() {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+        showToast('Link copied to clipboard!', 'success');
+    });
+}
+
+function showMetrics() {
+    // Scroll to metrics sidebar
+    document.getElementById('metrics-list').scrollIntoView({ behavior: 'smooth' });
+}
+
+function viewAgentTraces() {
+    if (!currentNewsletter.traces) {
+        showToast('No agent traces available', 'warning');
+        return;
+    }
+
+    const modal = new bootstrap.Modal(document.getElementById('tracesModal'));
+    const tracesContent = document.getElementById('traces-content');
+
+    // Display traces
+    tracesContent.innerHTML = renderTraces(currentNewsletter.traces);
+
+    modal.show();
+}
+
+function renderTraces(traces) {
+    if (!traces || !traces.orchestrator) {
+        return '<p class="text-muted">No traces available</p>';
+    }
+
+    const actions = traces.orchestrator.actions || [];
+
+    return actions.map(action => `
+        <div class="trace-item ${action.action_type}">
+            <div class="d-flex justify-content-between">
+                <strong>${action.action_type.toUpperCase()}</strong>
+                <small class="text-muted">${new Date(action.timestamp).toLocaleTimeString()}</small>
+            </div>
+            <p class="mb-1 mt-2">${action.content}</p>
+            ${action.tool_name ? `<small class="text-muted">Tool: ${action.tool_name}</small>` : ''}
+        </div>
+    `).join('');
+}
+
+function compareWithPrevious() {
+    showToast('Comparison feature coming soon!', 'info');
+}
+
+function exportToPDF() {
+    showToast('PDF export feature coming soon!', 'info');
+}
+
+// Load newsletter on page load
+document.addEventListener('DOMContentLoaded', loadNewsletter);
+</script>
+{% endblock %}

@@ -1,0 +1,338 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Trust & Safety Newsletter{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">
+            <i class="bi bi-speedometer2"></i>
+            Dashboard
+        </h1>
+    </div>
+</div>
+
+<!-- Summary Cards -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-bg-primary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="bi bi-newspaper"></i>
+                    Total Newsletters
+                </h5>
+                <h2 class="card-text" id="total-newsletters">
+                    <span class="spinner-border spinner-border-sm"></span>
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-bg-success mb-3">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="bi bi-file-text"></i>
+                    Total Articles
+                </h5>
+                <h2 class="card-text" id="total-articles">
+                    <span class="spinner-border spinner-border-sm"></span>
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-bg-info mb-3">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="bi bi-star"></i>
+                    Avg Quality Score
+                </h5>
+                <h2 class="card-text" id="avg-quality">
+                    <span class="spinner-border spinner-border-sm"></span>
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-bg-warning mb-3">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="bi bi-calendar-week"></i>
+                    This Week
+                </h5>
+                <h2 class="card-text">
+                    <span class="badge bg-success" id="this-week-status">Ready</span>
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Row -->
+<div class="row mb-4">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="bi bi-graph-up"></i>
+                    Articles & Quality Trends
+                </h5>
+            </div>
+            <div class="card-body">
+                <canvas id="trendsChart" height="80"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="bi bi-pie-chart"></i>
+                    Threat Types
+                </h5>
+            </div>
+            <div class="card-body">
+                <canvas id="threatTypesChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Newsletters -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="bi bi-clock-history"></i>
+                    Recent Newsletters
+                </h5>
+                <a href="/newsletters" class="btn btn-sm btn-primary">
+                    View All
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="recent-newsletters-table">
+                        <thead>
+                            <tr>
+                                <th>Week Ending</th>
+                                <th>Articles</th>
+                                <th>Quality Score</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="5" class="text-center">
+                                    <span class="spinner-border spinner-border-sm"></span>
+                                    Loading...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="bi bi-lightning"></i>
+                    Quick Actions
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <button class="btn btn-primary w-100" onclick="window.location.href='/generate'">
+                            <i class="bi bi-play-circle"></i>
+                            Generate Newsletter
+                        </button>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <button class="btn btn-secondary w-100" onclick="window.location.href='/search'">
+                            <i class="bi bi-search"></i>
+                            Search Articles
+                        </button>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <button class="btn btn-info w-100" onclick="window.location.href='/analytics'">
+                            <i class="bi bi-graph-up"></i>
+                            View Analytics
+                        </button>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <button class="btn btn-success w-100" onclick="exportLatest()">
+                            <i class="bi bi-download"></i>
+                            Export Latest
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Load dashboard data
+async function loadDashboard() {
+    try {
+        // Load summary
+        const summaryResponse = await fetch('/api/analytics/summary');
+        const summary = await summaryResponse.json();
+
+        if (summary.success) {
+            document.getElementById('total-newsletters').textContent = summary.total_newsletters;
+            document.getElementById('total-articles').textContent = summary.total_articles;
+            document.getElementById('avg-quality').textContent = summary.avg_quality_score + '/10';
+        }
+
+        // Load trends
+        const trendsResponse = await fetch('/api/analytics/trends');
+        const trends = await trendsResponse.json();
+
+        if (trends.success) {
+            createTrendsChart(trends.trends);
+        }
+
+        // Load recent newsletters
+        const newslettersResponse = await fetch('/api/newsletters');
+        const newsletters = await newslettersResponse.json();
+
+        if (newsletters.success) {
+            displayRecentNewsletters(newsletters.newsletters.slice(0, 5));
+        }
+
+    } catch (error) {
+        console.error('Error loading dashboard:', error);
+    }
+}
+
+function createTrendsChart(data) {
+    const ctx = document.getElementById('trendsChart').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: data.map(d => d.date),
+            datasets: [
+                {
+                    label: 'Articles',
+                    data: data.map(d => d.articles),
+                    borderColor: 'rgb(75, 192, 192)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    yAxisID: 'y'
+                },
+                {
+                    label: 'Quality Score',
+                    data: data.map(d => d.quality_score),
+                    borderColor: 'rgb(255, 99, 132)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    yAxisID: 'y1'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            scales: {
+                y: {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    title: {
+                        display: true,
+                        text: 'Articles'
+                    }
+                },
+                y1: {
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    title: {
+                        display: true,
+                        text: 'Quality Score'
+                    },
+                    grid: {
+                        drawOnChartArea: false,
+                    },
+                    min: 0,
+                    max: 10
+                }
+            }
+        }
+    });
+}
+
+function displayRecentNewsletters(newsletters) {
+    const tbody = document.querySelector('#recent-newsletters-table tbody');
+
+    if (newsletters.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center">No newsletters found</td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = newsletters.map(nl => `
+        <tr>
+            <td>${nl.date}</td>
+            <td>${nl.metrics.articles_collected || 0}</td>
+            <td>
+                <span class="badge bg-${getQualityBadge(nl.metrics.quality_score)}">
+                    ${(nl.metrics.quality_score || 0).toFixed(1)}/10
+                </span>
+            </td>
+            <td>
+                <span class="badge bg-${getStatusBadge(nl.status)}">
+                    ${nl.status}
+                </span>
+            </td>
+            <td>
+                <a href="/newsletter/${nl.id}" class="btn btn-sm btn-primary">
+                    <i class="bi bi-eye"></i> View
+                </a>
+                <a href="/api/newsletters/${nl.id}/download" class="btn btn-sm btn-secondary">
+                    <i class="bi bi-download"></i>
+                </a>
+            </td>
+        </tr>
+    `).join('');
+}
+
+function getQualityBadge(score) {
+    if (score >= 8) return 'success';
+    if (score >= 6) return 'warning';
+    return 'danger';
+}
+
+function getStatusBadge(status) {
+    if (status === 'completed') return 'success';
+    if (status === 'in_progress') return 'primary';
+    return 'secondary';
+}
+
+function exportLatest() {
+    // TODO: Export latest newsletter
+    alert('Export functionality coming soon!');
+}
+
+// Load dashboard on page load
+document.addEventListener('DOMContentLoaded', loadDashboard);
+</script>
+{% endblock %}

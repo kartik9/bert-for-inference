@@ -1,0 +1,8 @@
+# Trust & Safety Newsletter - Web UI Requirements
+
+# Flask Web Framework
+Flask==3.0.0
+flask-cors==4.0.0
+
+# Additional dependencies are in main requirements.txt
+# This file only contains web UI specific packages

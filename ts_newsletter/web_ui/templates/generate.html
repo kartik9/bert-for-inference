@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+
+{% block title %}Generate Newsletter - Trust & Safety{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="mb-4">
+            <i class="bi bi-play-circle"></i>
+            Generate Newsletter
+        </h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <!-- Manual Generation Card -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Manual Generation</h5>
+            </div>
+            <div class="card-body">
+                <p>Manually trigger newsletter generation for the current week.</p>
+
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle"></i>
+                    <strong>Note:</strong> Generation typically takes 5-15 minutes depending on the number of articles found and research depth.
+                </div>
+
+                <button class="btn btn-primary btn-lg" onclick="startGeneration()" id="generateBtn">
+                    <i class="bi bi-play-circle"></i>
+                    Start Generation
+                </button>
+            </div>
+        </div>
+
+        <!-- Status Card (hidden initially) -->
+        <div class="card" id="statusCard" style="display: none;">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <span class="status-indicator active"></span>
+                    Generation Status
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <h6>Current Phase: <span id="currentPhase">Starting...</span></h6>
+                    <div class="progress">
+                        <div
+                            class="progress-bar progress-bar-striped progress-bar-animated"
+                            id="progressBar"
+                            role="progressbar"
+                            style="width: 0%"
+                        ></div>
+                    </div>
+                </div>
+
+                <div id="statusMessages"></div>
+
+                <div class="mt-3">
+                    <small class="text-muted">Job ID: <code id="jobId"></code></small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Card (hidden initially) -->
+        <div class="card mt-4" id="resultCard" style="display: none;">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                    <i class="bi bi-check-circle"></i>
+                    Generation Complete!
+                </h5>
+            </div>
+            <div class="card-body">
+                <p>Newsletter has been successfully generated.</p>
+
+                <div class="d-grid gap-2">
+                    <a href="" id="viewNewsletterLink" class="btn btn-primary">
+                        <i class="bi bi-eye"></i> View Newsletter
+                    </a>
+                    <a href="" id="downloadNewsletterLink" class="btn btn-secondary">
+                        <i class="bi bi-download"></i> Download Newsletter
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+let generationJobId = null;
+let statusInterval = null;
+
+async function startGeneration() {
+    const generateBtn = document.getElementById('generateBtn');
+    generateBtn.disabled = true;
+    generateBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Starting...';
+
+    try {
+        const response = await fetch('/api/generate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            generationJobId = data.job_id;
+            document.getElementById('jobId').textContent = data.job_id;
+
+            // Show status card
+            document.getElementById('statusCard').style.display = 'block';
+
+            // Start polling for status
+            statusInterval = setInterval(checkStatus, 5000);
+            checkStatus(); // Check immediately
+
+            showToast('Newsletter generation started', 'success');
+        } else {
+            showToast('Failed to start generation', 'danger');
+            generateBtn.disabled = false;
+            generateBtn.innerHTML = '<i class="bi bi-play-circle"></i> Start Generation';
+        }
+    } catch (error) {
+        console.error('Generation error:', error);
+        showToast('Failed to start generation', 'danger');
+        generateBtn.disabled = false;
+        generateBtn.innerHTML = '<i class="bi bi-play-circle"></i> Start Generation';
+    }
+}
+
+async function checkStatus() {
+    if (!generationJobId) return;
+
+    try {
+        const response = await fetch(`/api/generate/status/${generationJobId}`);
+        const data = await response.json();
+
+        if (data.success) {
+            updateStatusDisplay(data);
+
+            if (data.status === 'completed') {
+                clearInterval(statusInterval);
+                showCompletionResult(data);
+            } else if (data.status === 'failed') {
+                clearInterval(statusInterval);
+                showError(data.error || 'Generation failed');
+            }
+        }
+    } catch (error) {
+        console.error('Status check error:', error);
+    }
+}
+
+function updateStatusDisplay(data) {
+    document.getElementById('currentPhase').textContent = data.current_phase || 'Processing';
+    document.getElementById('progressBar').style.width = (data.progress || 0) + '%';
+
+    // Add status message
+    const messagesDiv = document.getElementById('statusMessages');
+    const timestamp = new Date().toLocaleTimeString();
+    messagesDiv.innerHTML = `
+        <div class="alert alert-info alert-dismissible fade show">
+            <strong>${timestamp}:</strong> ${data.current_phase || 'Processing'}
+            ${data.eta_seconds ? `<br><small>ETA: ${data.eta_seconds}s</small>` : ''}
+        </div>
+    ` + messagesDiv.innerHTML;
+}
+
+function showCompletionResult(data) {
+    document.getElementById('statusCard').style.display = 'none';
+    document.getElementById('resultCard').style.display = 'block';
+
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('viewNewsletterLink').href = `/newsletter/${today}`;
+    document.getElementById('downloadNewsletterLink').href = `/api/newsletters/${today}/download`;
+
+    showToast('Newsletter generation completed!', 'success');
+}
+
+function showError(message) {
+    const statusCard = document.getElementById('statusCard');
+    statusCard.querySelector('.card-header').innerHTML = `
+        <h5 class="mb-0">
+            <i class="bi bi-exclamation-triangle text-danger"></i>
+            Generation Failed
+        </h5>
+    `;
+    statusCard.querySelector('.card-body').innerHTML = `
+        <div class="alert alert-danger">
+            ${message}
+        </div>
+        <button class="btn btn-primary" onclick="location.reload()">
+            Try Again
+        </button>
+    `;
+
+    showToast('Generation failed', 'danger');
+}
+</script>
+{% endblock %}
