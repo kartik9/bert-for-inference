@@ -29,18 +29,49 @@ async def test_gpt_assessment(gpt_identifier: str, api_key: str = None):
     """Test GPT assessment"""
     base_url = "http://localhost:8000"
 
-    # Get API key from environment if not provided
-    if not api_key:
-        api_key = os.getenv("OPENAI_API_KEY")
+    # Check what testing method is configured
+    use_web = os.getenv("USE_WEB_TESTING", "false").lower() == "true"
+    use_azure = os.getenv("USE_AZURE_OPENAI", "false").lower() == "true"
 
-    if not api_key:
-        print("❌ Error: OpenAI API key not found.")
-        print("   Set OPENAI_API_KEY in .env or pass as argument")
-        return
+    # Determine what to use and provide helpful messages
+    if use_web:
+        print(f"🎭 Using WEB-BASED TESTING (testing REAL GPT Store agent)")
+        chatgpt_email = os.getenv("CHATGPT_EMAIL")
+        if chatgpt_email:
+            print(f"   ChatGPT Account: {chatgpt_email}")
+        else:
+            print("   ⚠️  No ChatGPT email set - will require manual login")
+    elif use_azure:
+        print(f"☁️  Using AZURE OpenAI")
+        azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
+        azure_deployment = os.getenv("AZURE_OPENAI_DEPLOYMENT")
+        if not api_key:
+            api_key = os.getenv("AZURE_OPENAI_API_KEY")
+        if api_key:
+            print(f"   Endpoint: {azure_endpoint}")
+            print(f"   Deployment: {azure_deployment}")
+            print(f"   API Key: {api_key[:10]}...{api_key[-4:]}")
+        else:
+            print("❌ Error: Azure OpenAI API key not found.")
+            print("   Set AZURE_OPENAI_API_KEY in .env")
+            return
+    else:
+        # Standard OpenAI
+        print(f"🤖 Using STANDARD OpenAI API")
+        if not api_key:
+            api_key = os.getenv("OPENAI_API_KEY")
+        if api_key:
+            print(f"   API Key: {api_key[:10]}...{api_key[-4:]}")
+        else:
+            print("❌ Error: OpenAI API key not found.")
+            print("   Set OPENAI_API_KEY in .env or pass as argument")
+            print()
+            print("💡 Tip: For testing real GPT Store agents, use web-based testing:")
+            print("   Set USE_WEB_TESTING=true in .env")
+            return
 
     async with httpx.AsyncClient(timeout=120.0) as client:
-        print(f"🔍 Testing GPT: {gpt_identifier}")
-        print(f"   API Key: {api_key[:10]}...{api_key[-4:]}")
+        print(f"\n🔍 Testing GPT: {gpt_identifier}")
         print()
 
         # Create assessment
