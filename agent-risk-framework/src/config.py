@@ -24,6 +24,12 @@ class Settings(BaseSettings):
     azure_openai_api_version: str = "2024-02-15-preview"  # Default API version
     use_azure_openai: bool = False  # Set to True to use Azure OpenAI instead of standard OpenAI
 
+    # ChatGPT Web-based Testing (for real GPT Store agents)
+    chatgpt_email: Optional[str] = None
+    chatgpt_password: Optional[str] = None
+    use_web_testing: bool = False  # Set to True to test actual GPT Store agents via browser
+    web_testing_headless: bool = True  # Run browser in headless mode
+
     # Database
     database_url: str = "sqlite:///./agent_assessments.db"
 

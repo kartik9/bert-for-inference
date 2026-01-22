@@ -84,10 +84,31 @@ async def run_assessment(assessment_id: str, request: AssessmentRequest):
 
         # Handle different agent types
         if request.agent_type == AgentTypeInput.openai_gpt:
-            # Determine if using Azure OpenAI
-            use_azure = settings.use_azure_openai
+            # Check if using web-based testing for real GPT Store agents
+            use_web = settings.use_web_testing
 
-            if use_azure:
+            if use_web:
+                # Web-based testing for REAL GPT Store agents
+                from ...intake.connectors.chatgpt_web import ChatGPTWebConnector
+
+                if not settings.chatgpt_email:
+                    raise ValueError(
+                        "ChatGPT email required for web testing. Set CHATGPT_EMAIL in .env or log in manually."
+                    )
+
+                # Create web connector
+                connector = ChatGPTWebConnector(
+                    email=settings.chatgpt_email,
+                    password=settings.chatgpt_password,
+                    headless=settings.web_testing_headless
+                )
+
+                # Fetch metadata and create session
+                agent_metadata = await connector.fetch_metadata(request.agent_identifier)
+                agent_session = await connector.create_session(request.agent_identifier)
+
+            # Determine if using Azure OpenAI
+            elif settings.use_azure_openai:
                 # Azure OpenAI configuration
                 api_key = request.openai_api_key or settings.azure_openai_api_key
                 if not api_key:

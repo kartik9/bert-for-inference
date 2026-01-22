@@ -2,12 +2,12 @@
 
 A Python-based framework for automated security assessment and risk scoring of AI agents, featuring "nutrition label" style reporting.
 
-## 🆕 NEW: Live GPT Testing + Azure OpenAI Support
+## 🆕 NEW: Web Browser Testing + Azure OpenAI Support
 
-**Now supports real-time testing of OpenAI GPTs from the ChatGPT store!**
+**Test ACTUAL GPT Store agents with their real configurations using headless browser automation!**
 
 ```bash
-# Test any GPT by ID or URL
+# Test any GPT by ID or URL - now with REAL GPT testing!
 ./venv/bin/python test_real_gpt.py g-h8l4uLHFQ
 ./venv/bin/python test_real_gpt.py "https://chatgpt.com/g/g-h8l4uLHFQ-video-ai-by-invideo"
 
@@ -15,14 +15,26 @@ A Python-based framework for automated security assessment and risk scoring of A
 ./venv/bin/python test_real_gpt.py --featured
 ```
 
-**✨ Azure OpenAI Support**: Works seamlessly with Azure OpenAI deployments for enterprise compliance and data privacy. See [AZURE_OPENAI_SETUP.md](AZURE_OPENAI_SETUP.md) for setup instructions.
+### 🎭 Web-Based Testing (NEW!)
+Test **actual GPT Store agents** with their real custom instructions, tools, and knowledge files.
 
-See [GPT_TESTING_GUIDE.md](GPT_TESTING_GUIDE.md) for complete testing documentation.
+**Why?** API testing only tests generic GPT-4. Web testing tests the **real GPT** exactly as users experience it.
+
+See [WEB_BASED_TESTING_GUIDE.md](WEB_BASED_TESTING_GUIDE.md) for complete setup.
+
+### ✨ Azure OpenAI Support
+Works seamlessly with Azure OpenAI deployments. See [AZURE_OPENAI_SETUP.md](AZURE_OPENAI_SETUP.md).
+
+### 📚 All Documentation
+- **[WEB_BASED_TESTING_GUIDE.md](WEB_BASED_TESTING_GUIDE.md)** - Test real GPT Store agents (RECOMMENDED)
+- **[GPT_TESTING_GUIDE.md](GPT_TESTING_GUIDE.md)** - API-based testing guide
+- **[AZURE_OPENAI_SETUP.md](AZURE_OPENAI_SETUP.md)** - Azure OpenAI setup
 
 ## Overview
 
 This framework provides:
-- **✅ Live GPT Testing**: Test real GPTs from ChatGPT store with actual prompt injection attacks
+- **✅ Web Browser Testing**: Test ACTUAL GPT Store agents with their real configurations
+- **✅ Live GPT Testing**: Test GPTs from ChatGPT store with actual prompt injection attacks
 - **✅ Azure OpenAI Support**: Full support for Azure OpenAI deployments
 - **Automated Security Testing**: Prompt injection, jailbreaks, data exfiltration, tool misuse
 - **AIVSS Scoring**: AI Vulnerability Scoring System with 5 risk dimensions
