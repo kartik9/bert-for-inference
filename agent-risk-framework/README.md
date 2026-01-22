@@ -2,7 +2,7 @@
 
 A Python-based framework for automated security assessment and risk scoring of AI agents, featuring "nutrition label" style reporting.
 
-## 🆕 NEW: Live GPT Testing
+## 🆕 NEW: Live GPT Testing + Azure OpenAI Support
 
 **Now supports real-time testing of OpenAI GPTs from the ChatGPT store!**
 
@@ -15,12 +15,15 @@ A Python-based framework for automated security assessment and risk scoring of A
 ./venv/bin/python test_real_gpt.py --featured
 ```
 
-See [GPT_TESTING_GUIDE.md](GPT_TESTING_GUIDE.md) for complete documentation.
+**✨ Azure OpenAI Support**: Works seamlessly with Azure OpenAI deployments for enterprise compliance and data privacy. See [AZURE_OPENAI_SETUP.md](AZURE_OPENAI_SETUP.md) for setup instructions.
+
+See [GPT_TESTING_GUIDE.md](GPT_TESTING_GUIDE.md) for complete testing documentation.
 
 ## Overview
 
 This framework provides:
 - **✅ Live GPT Testing**: Test real GPTs from ChatGPT store with actual prompt injection attacks
+- **✅ Azure OpenAI Support**: Full support for Azure OpenAI deployments
 - **Automated Security Testing**: Prompt injection, jailbreaks, data exfiltration, tool misuse
 - **AIVSS Scoring**: AI Vulnerability Scoring System with 5 risk dimensions
 - **Nutrition Labels**: Visual HTML and structured JSON risk reports

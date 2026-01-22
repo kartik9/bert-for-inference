@@ -13,9 +13,16 @@ class Settings(BaseSettings):
     env: str = "development"
     log_level: str = "INFO"
 
-    # API Keys
+    # API Keys - Standard OpenAI
     openai_api_key: Optional[str] = None
     anthropic_api_key: Optional[str] = None
+
+    # Azure OpenAI Configuration
+    azure_openai_endpoint: Optional[str] = None
+    azure_openai_api_key: Optional[str] = None
+    azure_openai_deployment: Optional[str] = None
+    azure_openai_api_version: str = "2024-02-15-preview"  # Default API version
+    use_azure_openai: bool = False  # Set to True to use Azure OpenAI instead of standard OpenAI
 
     # Database
     database_url: str = "sqlite:///./agent_assessments.db"

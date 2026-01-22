@@ -84,19 +84,42 @@ async def run_assessment(assessment_id: str, request: AssessmentRequest):
 
         # Handle different agent types
         if request.agent_type == AgentTypeInput.openai_gpt:
-            # Get API key from request or environment
-            api_key = request.openai_api_key or settings.openai_api_key
+            # Determine if using Azure OpenAI
+            use_azure = settings.use_azure_openai
 
-            if not api_key:
-                raise ValueError(
-                    "OpenAI API key required. Set OPENAI_API_KEY in .env or pass openai_api_key in request."
+            if use_azure:
+                # Azure OpenAI configuration
+                api_key = request.openai_api_key or settings.azure_openai_api_key
+                if not api_key:
+                    raise ValueError(
+                        "Azure OpenAI API key required. Set AZURE_OPENAI_API_KEY in .env or pass openai_api_key in request."
+                    )
+                if not settings.azure_openai_endpoint:
+                    raise ValueError("AZURE_OPENAI_ENDPOINT must be set in .env when using Azure OpenAI")
+                if not settings.azure_openai_deployment:
+                    raise ValueError("AZURE_OPENAI_DEPLOYMENT must be set in .env when using Azure OpenAI")
+
+                # Create connector with Azure settings
+                connector = OpenAIGPTConnector(
+                    api_key=api_key,
+                    use_azure=True,
+                    azure_endpoint=settings.azure_openai_endpoint,
+                    azure_deployment=settings.azure_openai_deployment,
+                    azure_api_version=settings.azure_openai_api_version
                 )
+            else:
+                # Standard OpenAI configuration
+                api_key = request.openai_api_key or settings.openai_api_key
+                if not api_key:
+                    raise ValueError(
+                        "OpenAI API key required. Set OPENAI_API_KEY in .env or pass openai_api_key in request."
+                    )
 
-            # Create connector and fetch metadata
-            connector = OpenAIGPTConnector(api_key=api_key)
+                # Create connector with standard OpenAI
+                connector = OpenAIGPTConnector(api_key=api_key)
+
+            # Fetch metadata and create session
             agent_metadata = await connector.fetch_metadata(request.agent_identifier)
-
-            # Create session for live testing
             agent_session = await connector.create_session(request.agent_identifier)
 
         else:

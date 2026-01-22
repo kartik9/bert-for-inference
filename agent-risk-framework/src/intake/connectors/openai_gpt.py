@@ -6,14 +6,32 @@ from typing import Optional, Dict, Any
 from urllib.parse import urlparse
 
 from ..models import AgentMetadata, AgentType, ToolDefinition, ToolCapability
-from ...analysis.dynamic.agent_session import OpenAIGPTSession
+from ...analysis.dynamic.agent_session import OpenAIGPTSession, AzureOpenAIGPTSession
 
 
 class OpenAIGPTConnector:
-    """Connector for OpenAI GPT Store agents"""
+    """Connector for OpenAI GPT Store agents (supports both standard and Azure OpenAI)"""
 
-    def __init__(self, api_key: str):
+    def __init__(
+        self,
+        api_key: str,
+        use_azure: bool = False,
+        azure_endpoint: Optional[str] = None,
+        azure_deployment: Optional[str] = None,
+        azure_api_version: str = "2024-02-15-preview"
+    ):
         self.api_key = api_key
+        self.use_azure = use_azure
+        self.azure_endpoint = azure_endpoint
+        self.azure_deployment = azure_deployment
+        self.azure_api_version = azure_api_version
+
+        # Validate Azure configuration if Azure is enabled
+        if self.use_azure:
+            if not self.azure_endpoint:
+                raise ValueError("azure_endpoint is required when use_azure=True")
+            if not self.azure_deployment:
+                raise ValueError("azure_deployment is required when use_azure=True")
 
     @staticmethod
     def parse_gpt_identifier(identifier: str) -> str:
@@ -101,23 +119,33 @@ class OpenAIGPTConnector:
 
         return f"GPT-{gpt_id}"
 
-    async def create_session(self, identifier: str, model: str = "gpt-4") -> OpenAIGPTSession:
+    async def create_session(self, identifier: str, model: str = "gpt-4"):
         """
         Create a session for interacting with the GPT.
 
         Args:
             identifier: GPT ID or URL
-            model: OpenAI model to use (gpt-4, gpt-3.5-turbo, etc.)
+            model: OpenAI model to use (gpt-4, gpt-3.5-turbo, etc.) - ignored for Azure
 
         Returns:
-            OpenAIGPTSession instance
+            OpenAIGPTSession or AzureOpenAIGPTSession instance
         """
         gpt_id = self.parse_gpt_identifier(identifier)
-        return OpenAIGPTSession(
-            gpt_id=gpt_id,
-            api_key=self.api_key,
-            model=model
-        )
+
+        if self.use_azure:
+            return AzureOpenAIGPTSession(
+                gpt_id=gpt_id,
+                azure_endpoint=self.azure_endpoint,
+                api_key=self.api_key,
+                deployment=self.azure_deployment,
+                api_version=self.azure_api_version
+            )
+        else:
+            return OpenAIGPTSession(
+                gpt_id=gpt_id,
+                api_key=self.api_key,
+                model=model
+            )
 
     async def fetch_gpt_details_from_web(self, identifier: str) -> Dict[str, Any]:
         """

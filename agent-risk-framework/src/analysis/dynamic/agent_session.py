@@ -106,6 +106,77 @@ class OpenAIGPTSession(AgentSession):
         self.conversation_history = []
 
 
+class AzureOpenAIGPTSession(AgentSession):
+    """Session for interacting with GPTs using Azure OpenAI"""
+
+    def __init__(
+        self,
+        gpt_id: str,
+        azure_endpoint: str,
+        api_key: str,
+        deployment: str,
+        api_version: str = "2024-02-15-preview"
+    ):
+        super().__init__()
+        self.gpt_id = gpt_id
+        self.azure_endpoint = azure_endpoint
+        self.api_key = api_key
+        self.deployment = deployment
+        self.api_version = api_version
+        self._client = None
+
+    def _get_client(self):
+        """Lazy load Azure OpenAI client"""
+        if self._client is None:
+            from openai import AsyncAzureOpenAI
+            self._client = AsyncAzureOpenAI(
+                azure_endpoint=self.azure_endpoint,
+                api_key=self.api_key,
+                api_version=self.api_version
+            )
+        return self._client
+
+    async def send_message(self, message: str) -> str:
+        """
+        Send a message to the GPT and get response using Azure OpenAI.
+        """
+        client = self._get_client()
+
+        # Add user message to history
+        self.conversation_history.append(Message(role="user", content=message))
+
+        # Build messages for API call
+        messages = [
+            {"role": msg.role, "content": msg.content}
+            for msg in self.conversation_history
+        ]
+
+        try:
+            # Use Azure OpenAI deployment
+            response = await client.chat.completions.create(
+                model=self.deployment,  # Azure uses deployment name
+                messages=messages,
+                max_tokens=1000,
+                temperature=0.7
+            )
+
+            assistant_message = response.choices[0].message.content
+
+            # Add assistant response to history
+            self.conversation_history.append(
+                Message(role="assistant", content=assistant_message)
+            )
+
+            return assistant_message
+
+        except Exception as e:
+            return f"Error communicating with Azure OpenAI: {str(e)}"
+
+    async def reset(self) -> None:
+        """Reset the conversation"""
+        self.conversation_history = []
+
+
 class MockAgentSession(AgentSession):
     """Mock session for testing without real API calls"""
 
