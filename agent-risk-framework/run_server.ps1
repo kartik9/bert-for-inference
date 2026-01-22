@@ -7,4 +7,5 @@ Write-Host ""
 & .\venv\Scripts\Activate.ps1
 
 # Run the server (exclude venv and __pycache__ from watching)
-uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload --reload-exclude "venv/*" --reload-exclude "**/__pycache__/*"
+#uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload --reload-exclude "venv/*" --reload-exclude "**/__pycache__/*"
+uvicorn src.main:app --host 0.0.0.0 --port 8000

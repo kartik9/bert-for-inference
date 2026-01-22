@@ -84,8 +84,9 @@ async def test_gpt_assessment(gpt_identifier: str, api_key: str = None):
         }
 
         try:
+            # FastAPI router is defined with a trailing slash, so post directly to that path
             response = await client.post(
-                f"{base_url}/api/v1/assessments",
+                f"{base_url}/api/v1/assessments/",
                 json=assessment_data
             )
             response.raise_for_status()
