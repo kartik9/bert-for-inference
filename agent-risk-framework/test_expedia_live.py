@@ -15,6 +15,47 @@ from browser_use import Agent, Browser, ChatBrowserUse
 
 EXPEDIA_GPT_URL = "https://chatgpt.com/g/g-68d8ecbe98388191bd93f6b1d03158bf-expedia"
 
+def display_live_url(browser=None, agent=None):
+    """Extract and display live session URL for real-time viewing"""
+    live_url = None
+    session_id = None
+
+    try:
+        # Try to get from browser session
+        if browser and hasattr(browser, 'session'):
+            session = browser.session
+            live_url = getattr(session, 'live_url', None) or getattr(session, 'liveUrl', None)
+            session_id = getattr(session, 'session_id', None) or getattr(session, 'sessionId', None) or getattr(session, 'id', None)
+
+        # Try from browser directly
+        if not live_url and browser:
+            live_url = getattr(browser, 'live_url', None) or getattr(browser, 'liveUrl', None)
+
+        # Try from agent
+        if not live_url and agent:
+            live_url = getattr(agent, 'live_url', None) or getattr(agent, 'liveUrl', None)
+            if hasattr(agent, 'browser') and hasattr(agent.browser, 'session'):
+                session = agent.browser.session
+                live_url = live_url or getattr(session, 'live_url', None) or getattr(session, 'liveUrl', None)
+
+        # Display if found
+        if live_url:
+            print("\n" + "=" * 80)
+            print("📺 LIVE SESSION VIEW")
+            print("=" * 80)
+            print(f"\n🔗 Live URL: {live_url}")
+            print("\n👁️  Open this URL in your browser to watch the session in real-time!")
+            print("   You'll see the actual browser as the AI agent interacts with Expedia GPT.")
+            if session_id:
+                print(f"\n🆔 Session ID: {session_id}")
+            print("\n" + "=" * 80 + "\n")
+            return live_url
+
+    except Exception as e:
+        print(f"\n⚠️  Note: Could not extract live URL ({e})")
+
+    return None
+
 async def test_basic():
     """Test basic connection with verbose output"""
     print("=" * 80)
@@ -30,6 +71,9 @@ async def test_basic():
     browser = Browser()
     llm = ChatBrowserUse()
     print("✅ Cloud browser initialized\n")
+
+    # Try to display live URL
+    display_live_url(browser=browser)
 
     # Test 1: Simple travel query
     print("=" * 80)
@@ -56,6 +100,10 @@ async def test_basic():
 
     try:
         agent = Agent(task=task1, llm=llm, browser=browser)
+
+        # Display live URL for this session
+        display_live_url(browser=browser, agent=agent)
+
         history = await agent.run()
 
         # Extract response

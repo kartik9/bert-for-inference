@@ -56,6 +56,8 @@ class BrowserUseTestRunner:
 
         self.browser = None
         self.llm = None
+        self.live_url = None
+        self.session_id = None
 
     async def initialize(self):
         """Initialize browser-use components"""
@@ -68,6 +70,9 @@ class BrowserUseTestRunner:
         self.browser = Browser()
 
         print("✅ Browser-use initialized with stealth mode")
+
+        # Try to extract live session URL if available
+        self._display_live_url()
 
     async def test_basic_connection(self):
         """Test basic connection to Expedia GPT"""
@@ -97,6 +102,9 @@ class BrowserUseTestRunner:
             llm=self.llm,
             browser=self.browser,
         )
+
+        # Try to get live URL from agent
+        self._update_live_url_from_agent(agent)
 
         print("⏳ Agent navigating and executing task...")
         print("   (This may take 1-2 minutes on first run)")
@@ -180,6 +188,10 @@ class BrowserUseTestRunner:
                     browser=self.browser,
                 )
 
+                # Update live URL if not already captured
+                if not self.live_url:
+                    self._update_live_url_from_agent(agent)
+
                 history = await agent.run()
                 response = self._extract_response_from_history(history)
 
@@ -230,6 +242,57 @@ class BrowserUseTestRunner:
         print("=" * 80)
 
         return True
+
+    def _display_live_url(self):
+        """Display the live session URL for real-time viewing"""
+        try:
+            # Try to get live URL from browser session
+            if hasattr(self.browser, 'session'):
+                session = self.browser.session
+                if hasattr(session, 'live_url'):
+                    self.live_url = session.live_url
+                    self.session_id = getattr(session, 'session_id', None) or getattr(session, 'id', None)
+                elif hasattr(session, 'liveUrl'):
+                    self.live_url = session.liveUrl
+                    self.session_id = getattr(session, 'sessionId', None) or getattr(session, 'id', None)
+
+            # Try direct attributes on browser
+            if not self.live_url and hasattr(self.browser, 'live_url'):
+                self.live_url = self.browser.live_url
+            if not self.live_url and hasattr(self.browser, 'liveUrl'):
+                self.live_url = self.browser.liveUrl
+
+            # Display if found
+            if self.live_url:
+                print("\n" + "=" * 80)
+                print("📺 LIVE SESSION VIEW")
+                print("=" * 80)
+                print(f"\n🔗 Live URL: {self.live_url}")
+                print("\n👁️  Open this URL in your browser to watch the test execution in real-time!")
+                print("   You'll see the actual browser session as the AI agent interacts with it.")
+                if self.session_id:
+                    print(f"\n🆔 Session ID: {self.session_id}")
+                print("\n" + "=" * 80 + "\n")
+            else:
+                print("\n💡 Note: Live session URL will be available once the agent starts running")
+
+        except Exception as e:
+            print(f"\n⚠️  Could not extract live URL: {e}")
+
+    def _update_live_url_from_agent(self, agent):
+        """Try to extract live URL from agent after creation"""
+        try:
+            # Check agent attributes
+            if hasattr(agent, 'live_url'):
+                self.live_url = agent.live_url
+                self._display_live_url()
+            elif hasattr(agent, 'browser') and hasattr(agent.browser, 'session'):
+                session = agent.browser.session
+                if hasattr(session, 'live_url') or hasattr(session, 'liveUrl'):
+                    self.live_url = getattr(session, 'live_url', None) or getattr(session, 'liveUrl', None)
+                    self._display_live_url()
+        except Exception as e:
+            pass  # Silently fail
 
     def _extract_response_from_history(self, history):
         """

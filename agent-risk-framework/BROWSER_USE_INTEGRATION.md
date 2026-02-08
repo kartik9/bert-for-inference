@@ -97,6 +97,85 @@ python test_expedia_browser_use.py
 | **Manual Login** | ✅ Required | ❌ Automatic |
 | **Session Persistence** | ✅ Cookie-based | ✅ Cloud-managed |
 | **Performance** | Local browser | Cloud infrastructure |
+| **Live Session View** | ❌ Not available | ✅ Real-time browser viewing |
+
+## 🔴 Live Session Viewing
+
+One of the most powerful features of browser-use cloud is **real-time session viewing**. You can watch the AI agent interact with websites as it happens!
+
+### How It Works
+
+When you create a browser-use agent with the cloud service, browser-use generates a **live session URL**. Opening this URL in your browser lets you:
+
+- 👁️ **Watch in real-time** as the agent navigates websites
+- 🖱️ **See mouse movements** and clicks made by the AI
+- 📝 **Monitor form inputs** and text entry
+- 🐛 **Debug issues** by seeing exactly what the agent sees
+- 🎥 **Record sessions** for documentation or debugging
+
+### Accessing the Live URL
+
+The test scripts automatically extract and display the live session URL:
+
+```python
+from browser_use import Agent, Browser, ChatBrowserUse
+
+async def test_with_live_view():
+    # Initialize browser-use cloud
+    browser = Browser()
+    llm = ChatBrowserUse()
+
+    # Create agent
+    agent = Agent(
+        task="Navigate to example.com",
+        llm=llm,
+        browser=browser
+    )
+
+    # The live URL is available from the browser session
+    if hasattr(browser, 'session') and hasattr(browser.session, 'live_url'):
+        live_url = browser.session.live_url
+        print(f"🔗 Watch live: {live_url}")
+
+    # Run the agent
+    await agent.run()
+```
+
+### What You'll See
+
+When running our test scripts (`test_expedia_live.py`, `test_browser_use_cnn.py`, `test_expedia_browser_use.py`), you'll see output like:
+
+```
+================================================================================
+📺 LIVE SESSION VIEW
+================================================================================
+
+🔗 Live URL: https://cloud.browser-use.com/session/abc123xyz
+
+👁️  Open this URL in your browser to watch the session in real-time!
+   You'll see the actual browser as the AI agent interacts with Expedia GPT.
+
+🆔 Session ID: abc123xyz
+
+================================================================================
+```
+
+### Benefits for Testing
+
+Live session viewing is especially valuable for:
+
+1. **Security Testing**: Watch how the agent handles prompt injection attempts
+2. **Debugging**: See exactly where navigation or interaction fails
+3. **Validation**: Confirm the agent is interacting with the correct elements
+4. **Documentation**: Record videos of successful test runs
+5. **Monitoring**: Keep an eye on long-running tests
+
+### Privacy & Security
+
+- 🔒 Live URLs are **private** and require authentication
+- ⏰ Sessions expire after completion or timeout
+- 🚫 No sensitive data is logged by default
+- 🔑 Only users with your API key can access sessions
 
 ## Usage Examples
 
