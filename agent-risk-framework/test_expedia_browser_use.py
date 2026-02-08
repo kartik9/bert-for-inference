@@ -246,33 +246,29 @@ class BrowserUseTestRunner:
     def _display_live_url(self):
         """Display the live session URL for real-time viewing"""
         try:
-            # Try to get live URL from browser session
-            if hasattr(self.browser, 'session'):
-                session = self.browser.session
-                if hasattr(session, 'live_url'):
-                    self.live_url = session.live_url
-                    self.session_id = getattr(session, 'session_id', None) or getattr(session, 'id', None)
-                elif hasattr(session, 'liveUrl'):
-                    self.live_url = session.liveUrl
-                    self.session_id = getattr(session, 'sessionId', None) or getattr(session, 'id', None)
+            from urllib.parse import quote
 
-            # Try direct attributes on browser
-            if not self.live_url and hasattr(self.browser, 'live_url'):
-                self.live_url = self.browser.live_url
-            if not self.live_url and hasattr(self.browser, 'liveUrl'):
-                self.live_url = self.browser.liveUrl
+            # Primary method: compute from cdp_url (this is what browser-use does internally)
+            if hasattr(self.browser, 'cdp_url') and self.browser.cdp_url:
+                self.live_url = f'https://live.browser-use.com?wss={quote(self.browser.cdp_url, safe="")}'
+
+            # Fallback: check session attributes
+            if not self.live_url and hasattr(self.browser, 'session'):
+                session = self.browser.session
+                cdp_url = getattr(session, 'cdp_url', None)
+                if cdp_url:
+                    self.live_url = f'https://live.browser-use.com?wss={quote(cdp_url, safe="")}'
+                else:
+                    self.live_url = getattr(session, 'live_url', None) or getattr(session, 'liveUrl', None)
 
             # Display if found
             if self.live_url:
                 print("\n" + "=" * 80)
-                print("📺 LIVE SESSION VIEW")
+                print("📺 LIVE SESSION VIEW - OPEN NOW TO WATCH!")
                 print("=" * 80)
-                print(f"\n🔗 Live URL: {self.live_url}")
+                print(f"\n🔗 {self.live_url}")
                 print("\n👁️  Open this URL in your browser to watch the test execution in real-time!")
-                print("   You'll see the actual browser session as the AI agent interacts with it.")
-                if self.session_id:
-                    print(f"\n🆔 Session ID: {self.session_id}")
-                print("\n" + "=" * 80 + "\n")
+                print("=" * 80 + "\n")
             else:
                 print("\n💡 Note: Live session URL will be available once the agent starts running")
 
@@ -281,18 +277,8 @@ class BrowserUseTestRunner:
 
     def _update_live_url_from_agent(self, agent):
         """Try to extract live URL from agent after creation"""
-        try:
-            # Check agent attributes
-            if hasattr(agent, 'live_url'):
-                self.live_url = agent.live_url
-                self._display_live_url()
-            elif hasattr(agent, 'browser') and hasattr(agent.browser, 'session'):
-                session = agent.browser.session
-                if hasattr(session, 'live_url') or hasattr(session, 'liveUrl'):
-                    self.live_url = getattr(session, 'live_url', None) or getattr(session, 'liveUrl', None)
-                    self._display_live_url()
-        except Exception as e:
-            pass  # Silently fail
+        if not self.live_url:
+            self._display_live_url()
 
     def _extract_response_from_history(self, history):
         """

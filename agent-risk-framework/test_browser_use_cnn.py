@@ -15,39 +15,25 @@ from browser_use import Agent, Browser, ChatBrowserUse
 
 def display_live_url(browser=None, agent=None):
     """Extract and display live session URL for real-time viewing"""
-    live_url = None
-    session_id = None
-
     try:
-        # Try to get from browser session
-        if browser and hasattr(browser, 'session'):
-            session = browser.session
-            live_url = getattr(session, 'live_url', None) or getattr(session, 'liveUrl', None)
-            session_id = getattr(session, 'session_id', None) or getattr(session, 'sessionId', None) or getattr(session, 'id', None)
+        from urllib.parse import quote
 
-        # Try from browser directly
-        if not live_url and browser:
-            live_url = getattr(browser, 'live_url', None) or getattr(browser, 'liveUrl', None)
+        live_url = None
+        # Primary method: compute from cdp_url (how browser-use does it internally)
+        b = browser or (agent.browser if agent and hasattr(agent, 'browser') else None)
+        if b and hasattr(b, 'cdp_url') and b.cdp_url:
+            live_url = f'https://live.browser-use.com?wss={quote(b.cdp_url, safe="")}'
 
-        # Try from agent
-        if not live_url and agent:
-            live_url = getattr(agent, 'live_url', None) or getattr(agent, 'liveUrl', None)
-            if hasattr(agent, 'browser') and hasattr(agent.browser, 'session'):
-                session = agent.browser.session
-                live_url = live_url or getattr(session, 'live_url', None) or getattr(session, 'liveUrl', None)
-
-        # Display if found
         if live_url:
             print("\n" + "=" * 80)
-            print("📺 LIVE SESSION VIEW")
+            print("📺 LIVE SESSION VIEW - OPEN NOW TO WATCH!")
             print("=" * 80)
-            print(f"\n🔗 Live URL: {live_url}")
+            print(f"\n🔗 {live_url}")
             print("\n👁️  Open this URL in your browser to watch the session in real-time!")
-            print("   You'll see the actual browser as the AI agent interacts with the page.")
-            if session_id:
-                print(f"\n🆔 Session ID: {session_id}")
-            print("\n" + "=" * 80 + "\n")
+            print("=" * 80 + "\n")
             return live_url
+        else:
+            print("\n💡 Live URL will be available once the session starts...")
 
     except Exception as e:
         print(f"\n⚠️  Note: Could not extract live URL ({e})")
